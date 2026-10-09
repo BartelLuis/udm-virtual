@@ -57,13 +57,13 @@ def build_payload(squashfs, output, firmware_sha256):
     factory = json.loads((output / 'virtual.default').read_text())
     (output / 'validation.default').write_text(json.dumps(test_policy(factory), indent=2) + '\n')
     for name in ('hal_guest.py', 'hal_eeprom.py', 'boot.sh', 'patch_controller.py', 'controller_guest.py',
-                 'controller_flat.py', 'late_boot.py',
+                 'controller_flat.py', 'late_boot.py', 'dns_guest.py',
                  'java-tcg.sh', 'freeradius_dh.py', 'freeradius_cert.py',
                  'freeradius-cert.service', 'freeradius-cert.conf'):
         (output / name).write_bytes((BASE / name).read_bytes().replace(b'\r\n', b'\n'))
     names = ('hal_guest.py', 'hal_eeprom.py', 'boot.sh', 'ubios-udapi-server.virtual',
              'virtual-board.json', 'virtual.default', 'virtual.fallback', 'validation.default',
-             'patch_controller.py', 'controller_guest.py', 'controller_flat.py', 'late_boot.py', 'controller.json', 'internal-dependencies.virtual.jar',
+             'patch_controller.py', 'controller_guest.py', 'controller_flat.py', 'late_boot.py', 'dns_guest.py', 'controller.json', 'internal-dependencies.virtual.jar',
              'java-tcg.sh', 'unifi-tcg.conf', 'freeradius_dh.py', 'freeradius_cert.py',
              'freeradius-cert.service', 'freeradius-cert.conf')
     entries = {'udm-virtual/' + name: (0o755 if name in ('boot.sh', 'ubios-udapi-server.virtual', 'java-tcg.sh') else 0o644,

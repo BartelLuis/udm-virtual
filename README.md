@@ -26,11 +26,60 @@ nur zum erneuten Erzeugen des Pakets nötig; auf dem Proxmox-Knoten wird die
 Firmwaredatei dafür nicht gebraucht. Das ursprüngliche Firmware-Updatefile
 (`*.bin`) ist im Release-Paket nicht enthalten.
 
-## Aktueller Prüfstand
+## DNS-Korrektur R5.2
+
+R5.2 verhindert zwei zusätzliche DNS-Dienste, die systemd beim ersten Start
+des virtuellen Abbilds durch seine Voreinstellungen aktiviert. Der allgemeine
+`dnsmasq.service` kollidiert mit dem bereits von UniFi gestarteten dnsmasq.
+Zusätzlich ersetzt `systemd-resolved` die Resolver-Datei durch seinen Stub,
+obwohl ihm keine vorgeschalteten DNS-Server zugewiesen sind. Dadurch kann die
+VM selbst keine Namen auflösen, während der DNS-Dienst für LAN-Clients läuft.
+
+Das virtuelle Bootprofil maskiert diese beiden zusätzlichen Dienste. Eine
+fehlende Resolver-Datei oder einen Link auf die Standarddateien von
+systemd-resolved ersetzt es atomar durch `nameserver 127.0.0.1`. Eigene
+Resolver-Dateien und andere Links bleiben erhalten. UniFi verwaltet weiterhin
+seinen dnsmasq und dessen DNS-Server in `/etc/resolv.dnsmasq`.
+
+Die entsprechende Korrektur wurde in einer laufenden R5.1-VM unter Proxmox
+bestätigt: Die direkte DNS-Abfrage funktionierte bereits; nach der Änderung
+funktionierte auch `getent ahostsv4 google.com`. Die automatische Einrichtung
+ist separat mit temporären Gast-Dateibäumen geprüft. Ein vollständiger
+Kaltstart mit dem neuen R5.2-Initramfs ist noch nicht geprüft; die nachfolgenden
+Boot- und Firewall-Nachweise beziehen sich weiterhin auf R5.
+[DNS-Prüfbericht](verification/dns-resolver/report.json).
+
+### Bereits laufende R5-/R5.1-VM korrigieren
+
+Den folgenden Block **in der UniFi-VM** ausführen. Er prüft zuerst den
+nativen DNS-Dienst und sichert die bisherige Resolver-Datei. Ein Neuimport
+oder Austausch der Zustandsplatte ist dafür nicht nötig.
+
+```sh
+nslookup google.com 127.0.0.1 && (
+  set -e
+  cp -a --backup=numbered /etc/resolv.conf /etc/resolv.conf.before-udm-dns-fix
+  systemctl mask dnsmasq.service systemd-resolved.service
+  systemctl daemon-reload
+  systemctl stop systemd-resolved.service
+  f=$(mktemp /etc/resolv.conf.udm.XXXXXX)
+  printf 'nameserver 127.0.0.1\n' > "$f"
+  chmod 644 "$f"
+  mv -Tf "$f" /etc/resolv.conf
+  systemctl reset-failed dnsmasq.service
+  getent ahostsv4 google.com
+)
+```
+
+Das maskierte `dnsmasq.service` ist anschließend beabsichtigt inaktiv.
+Der von UniFi gestartete Prozess bleibt bestehen; er lässt sich mit
+`ss -lntup '( sport = :53 )'` prüfen. Die Änderung liegt im persistenten Overlay.
+
+## Prüfstand und bisherige Laufzeittests
 
 Prüfstand vom 9. Oktober 2026, unter Debian/WSL und auf einem separaten Debian-13-Server:
 
-Die verlinkten Boot- und Paketprüfberichte prüfen den aktuellen Build R5 mit
+Die verlinkten Boot- und Paketprüfberichte prüfen den bisherigen Build R5 mit
 folgendem SHA256 der `initramfs.gz`:
 
 ```text
@@ -63,7 +112,7 @@ mit der von UniFi selbst erzeugten Firewall-Konfiguration getestet.
 | Interaktive Browser-Konfiguration, VLANs und IPv6 | Noch offen |
 | Kaltstart bis zum abgeschlossenen nativen IPv4-Pakettest | R5 bestanden, rund 716,3 Sekunden; 8 GiB Gast-RAM, sechs emulierte Kerne |
 | Import auf einem echten Proxmox-Knoten | R5.1 auf Proxmox 9.2.21 bestanden: automatische VMID, 14 getrennte Ports, beide Platten nach Import blockweise identisch |
-| Gaststart unter Proxmox und Durchsatz | Noch offen; die bisherigen Laufzeittests verwenden eigenständiges QEMU |
+| Laufende VM unter Proxmox | R5.1: LAN-DHCP direkt beobachtet; Internet-Ping und DNS-Korrektur durch Gast-Konsolenausgaben des Benutzers bestätigt. R5.2-Kaltstart und Durchsatz noch offen |
 
 Die [Importer-Prüfung](verification/proxmox-vmid/report.json) ergänzt die
 [reale Proxmox-Prüfung](verification/proxmox-vmid/live-import-report.json).
@@ -71,12 +120,12 @@ R5.1 behebt den falschen Vergleich einer JSON-Zeichenkette wie `"100"` mit der
 VMID, wählt freie IDs automatisch und berücksichtigt den Proxmox-Maschinentyp
 `virt+pve0`. Im leeren Cluster wurde VM 100 importiert; anschließend wählte die
 schreibgeschützte Auswahlprüfung für die belegte Wunsch-ID 100 korrekt ID 101.
-Es wurde keine zweite VM erstellt. Kernel, Initramfs und beide gelieferten
-Plattenabbilder bleiben gegenüber R5 unverändert.
+Es wurde keine zweite VM erstellt. Bei R5.1 blieben Kernel, Initramfs und beide
+gelieferten Plattenabbilder gegenüber R5 unverändert; R5.2 ändert das Initramfs.
 
 Der [native R5-Gateway-Prüfbericht](verification/native-gateway-r5/report.json)
 fasst den Erststart auf Debian 13 mit QEMU 10.0.13 und AMD Ryzen 5 3600 zusammen.
-Der Forschungsgast verwendet dieselben 20 Anpassungsdateien wie das Release;
+Der Forschungsgast verwendet dieselben 20 Anpassungsdateien wie das damalige R5-Release;
 nur `/init` ergänzt eine lokale Diagnosekonsole und eine schreibgeschützte
 Diagnosefreigabe. Sein Zustandsabbild begann als frisches Overlay des exakten
 Release-Abbilds. Die originale Setup-API wurde erst nach der unveränderten
@@ -148,8 +197,8 @@ Die Ergebnisse des alten Laborprofils unter `build/`, insbesondere
 `build/validation.json`, dokumentieren einen früheren Stand. Sie sind kein
 Prüfbericht für das virtuelle Profil. Die verlinkten Berichte unter
 `verification/` gelten für die jeweils darin dokumentierten Artefakt-Hashes;
-Interaktive Konfigurationsabläufe im Browser und der Gaststart unter Proxmox
-sind weiterhin nicht getestet; der Import ist mit R5.1 separat nachgewiesen.
+Interaktive Konfigurationsabläufe im Browser und der R5.2-Kaltstart sind
+weiterhin nicht getestet; der Import ist mit R5.1 separat nachgewiesen.
 
 ## Virtuelles Paket bei Bedarf neu bauen
 

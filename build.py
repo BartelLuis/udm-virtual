@@ -91,6 +91,7 @@ def build(firmware, output, state_size, profile='lab'):
             'Only the hash-verified physical PHY diagnostic late-boot hook is skipped; other original late-boot hooks remain',
             'Reconcile the full controller device cache after every authenticated AES-GCM inform; original authentication and provisioning remain in effect',
             'Migrate only the exact previously supported controller overlay from its hash-verified original on the read-only firmware mount',
+            'Mask first-boot preset DNS duplicates and use native UDAPI dnsmasq for an absent or systemd-managed guest resolver; preserve custom resolver files',
         ])
     (output / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(f"Built {output} ({manifest['status']}); runtime validation is a separate step.")

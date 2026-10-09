@@ -1,31 +1,14 @@
 {
-  "date_utc": "2026-10-09T18:47:14.515648+00:00",
-  "status": "experimental; original owner setup and basic native IPv4 verified with QEMU; Proxmox 9.2.21 import verified with R5.1",
-  "artifact_hashes": {
-    "Image": {
-      "sha256": "3953777d3682f6b08918bfd4e7b7a0a819d033b8c2117fd8ab95971ab5ce0814",
-      "size_bytes": 37210624
-    },
-    "initramfs.gz": {
-      "size_bytes": 42503633,
-      "sha256": "ccff18466c8bbd099c692d77587a4ee789728ce223a0d653f86c4e752035937f"
-    },
-    "rootfs.qcow2": {
-      "sha256": "ebb9cf82d81cf0feb13392d0afb44d2a6c233827685879c90fc49fee57223ab2",
-      "size_bytes": 1034289152
-    },
-    "state.qcow2": {
-      "sha256": "14ac5dd319d45387e70e36b05cded788617279175275f9f4f1da241bdcc0e9a5",
-      "size_bytes": 7798784
-    }
-  },
+  "date_utc": "2026-10-09T20:01:09.576994+00:00",
+  "status": "experimental R5.2 DNS adaptation; equivalent live repair confirmed on Proxmox; full R5 gateway tests are historical and a R5.2 coldboot is unverified",
   "boot_selftest": {
     "passed": true,
     "report": "boot-selftest/report.json",
     "all_fourteen_pci_nics_reversed": true,
     "mac_based_port_normalization_verified": true,
     "guest_seconds_to_poweroff": 100.174372,
-    "total_elapsed_seconds": 108.508995
+    "total_elapsed_seconds": 108.508995,
+    "artifact_scope": "Historical R5 initramfs before R5.2 DNS changes; not rerun for R5.2."
   },
   "network_coldboot": {
     "passed": true,
@@ -40,7 +23,8 @@
       "return_forwarding": true,
       "unsolicited_wan_blocked": true
     },
-    "unifi_ui_provisioning_tested": false
+    "unifi_ui_provisioning_tested": false,
+    "artifact_scope": "Historical R5 initramfs before R5.2 DNS changes; not rerun for R5.2."
   },
   "late_phy_guard": {
     "passed": true,
@@ -78,7 +62,8 @@
       "scope": "historical R3/R4 research guest",
       "release_initramfs_sha256": "5fbfb040f99fbebb12d3171dc00728df9331800b771ba9033215b3fccf0951eb"
     },
-    "original_freeradius_running_in_native_r5_before_and_after_restart": true
+    "original_freeradius_running_in_native_r5_before_and_after_restart": true,
+    "artifact_scope": "Historical R5 initramfs before R5.2 DNS changes; not rerun for R5.2."
   },
   "rootfs_block_comparison": {
     "passed": true,
@@ -108,10 +93,10 @@
     "VLANs",
     "IPv6",
     "WAN2 failover",
-    "Internet access",
     "throughput and long-term stability",
-    "guest boot and runtime under Proxmox",
-    "HA/migration/restore and recovery after abrupt power loss"
+    "HA/migration/restore and recovery after abrupt power loss",
+    "Fresh boot or reboot of R5.2 initramfs",
+    "Complete Internet forwarding tests on Proxmox beyond the recorded ICMP, DHCP and DNS observations"
   ],
   "earlier_failures_fixed": [
     "Non-Ethernet tunnel addresses in port-order guard.",
@@ -128,7 +113,7 @@
     "scope": "Research guest with identical R5 product adaptation payload; no Network READY or settings-behavior claim",
     "release_initramfs_sha256": "ccff18466c8bbd099c692d77587a4ee789728ce223a0d653f86c4e752035937f"
   },
-  "current_adaptation_native_validation": "Original authenticated GCM listener reconciles the full device cache; native readiness, original owner setup and provisioning passed in R5 without forcing application state.",
+  "current_adaptation_native_validation": "The unchanged controller adaptation passed R5 native setup and IPv4 tests; R5.2 DNS changes have separate filesystem tests and equivalent live repair evidence.",
   "native_gateway_r5": {
     "passed": true,
     "first_boot_report": "native-gateway-r5/report.json",
@@ -165,5 +150,48 @@
     "real_import_verified": true,
     "vm_left_stopped": true,
     "guest_boot_on_proxmox_verified": false
+  },
+  "historical_r5_artifact_hashes": {
+    "Image": {
+      "sha256": "3953777d3682f6b08918bfd4e7b7a0a819d033b8c2117fd8ab95971ab5ce0814",
+      "size_bytes": 37210624
+    },
+    "initramfs.gz": {
+      "size_bytes": 42503633,
+      "sha256": "ccff18466c8bbd099c692d77587a4ee789728ce223a0d653f86c4e752035937f"
+    },
+    "rootfs.qcow2": {
+      "sha256": "ebb9cf82d81cf0feb13392d0afb44d2a6c233827685879c90fc49fee57223ab2",
+      "size_bytes": 1034289152
+    },
+    "state.qcow2": {
+      "sha256": "14ac5dd319d45387e70e36b05cded788617279175275f9f4f1da241bdcc0e9a5",
+      "size_bytes": 7798784
+    }
+  },
+  "artifact_hashes": {
+    "Image": {
+      "sha256": "3953777d3682f6b08918bfd4e7b7a0a819d033b8c2117fd8ab95971ab5ce0814",
+      "size_bytes": 37210624
+    },
+    "initramfs.gz": {
+      "size_bytes": 42467592,
+      "sha256": "1562878c73b41c6f66a4451accd4e8b22a91248b065d9829ae00d830e669a588"
+    },
+    "rootfs.qcow2": {
+      "sha256": "ebb9cf82d81cf0feb13392d0afb44d2a6c233827685879c90fc49fee57223ab2",
+      "size_bytes": 1034289152
+    },
+    "state.qcow2": {
+      "sha256": "14ac5dd319d45387e70e36b05cded788617279175275f9f4f1da241bdcc0e9a5",
+      "size_bytes": 7798784
+    }
+  },
+  "dns_resolver_r5_2": {
+    "report": "dns-resolver/report.json",
+    "filesystem_tests_passed": 9,
+    "initramfs_tests_passed": 7,
+    "equivalent_live_repair_confirmed": true,
+    "new_coldboot_verified": false
   }
 }

@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "date_utc": "2026-10-09T20:01:09.576994+00:00",
+  "scope": "R5.2 DNS first-boot adaptation; equivalent repair confirmed in user-operated running R5.1 Proxmox VM. No R5.2 guest boot was run.",
+  "original_firmware_evidence": {
+    "original_machine_id_hook": "usr/share/initramfs-tools/scripts/ubnt-bottom/configure-machine-id",
+    "virtual_init_bypasses_original_machine_id_hook": true,
+    "historical_product_boot": "verification/network-coldboot/serial.log",
+    "historical_boot_detected_first_boot_and_applied_presets": true,
+    "first_boot_preset": "lib/systemd/system-preset/90-systemd.preset",
+    "generic_dnsmasq_previously_failed_alongside_passing_lan_packet_tests": true,
+    "resolved_poststart_forces_stub_symlink": "lib/systemd/system/systemd-resolved.service.d/stub-resolv.conf",
+    "original_resolv_conf_absent": true,
+    "native_upstreams_file": "/etc/resolv.dnsmasq"
+  },
+  "live_evidence": {
+    "platform": "Proxmox VE 9.2.21",
+    "evidence_source": "User-supplied guest console output; LAN DHCP response independently observed from Proxmox host.",
+    "native_dnsmasq_listener": [
+      "127.0.0.1:53",
+      "192.168.1.1:53"
+    ],
+    "native_dnsmasq_cgroup": "/dnsmasq-main",
+    "generic_dnsmasq_service_failed_address_in_use": true,
+    "resolved_stub_listening_127_0_0_53_without_configured_dns_servers": true,
+    "guest_resolv_conf_pointed_to_unconfigured_stub": true,
+    "native_upstreams_were_configured": true,
+    "internet_icmp_before_fix": {
+      "target": "1.1.1.1",
+      "sent": 2,
+      "received": 2
+    },
+    "native_dns_query_before_fix": {
+      "command": "nslookup google.com 127.0.0.1",
+      "A_and_AAAA_answers": true
+    },
+    "independent_lan_dhcp_discover_received_offer": true,
+    "repair": {
+      "generic_dnsmasq_service_masked": true,
+      "systemd_resolved_service_masked_and_stop_command_succeeded": true,
+      "resolver_atomically_replaced_with_regular_file": "nameserver 127.0.0.1\n",
+      "native_dnsmasq_not_stopped": true
+    },
+    "getent_ahostsv4_google_com_after_fix": {
+      "passed": true,
+      "distinct_ipv4_addresses": 6
+    },
+    "post_fix_reboot_tested": false
+  },
+  "filesystem_tests": {
+    "command": "python3 -m unittest discover -s tests -p test_dns_guest.py -v",
+    "platform": "Debian under WSL; temporary filesystem trees only",
+    "passed": 9,
+    "failures": 0,
+    "skipped": 0,
+    "seconds": 0.124,
+    "log": "tests.log",
+    "helper_sha256": "dfd7154635b4dfe29d72632a2a7c4a4d11a2b55087d851179dea1e399f04dc28",
+    "test_sha256": "9a1f2353e7b3bc028a3c844985201165c13cd03b86cbc123f3ff6ad5d07c3d2b"
+  },
+  "initramfs_regression_tests": {
+    "passed": 7,
+    "failures": 0,
+    "seconds": 0.169,
+    "platform": "Windows Python"
+  },
+  "artifact_change": {
+    "previous_initramfs_sha256": "ccff18466c8bbd099c692d77587a4ee789728ce223a0d653f86c4e752035937f",
+    "new_initramfs": {
+      "size_bytes": 42467592,
+      "sha256": "1562878c73b41c6f66a4451accd4e8b22a91248b065d9829ae00d830e669a588"
+    },
+    "entries_before": 566,
+    "entries_after": 567,
+    "changed_entries": [
+      "udm-virtual/boot.sh"
+    ],
+    "added_entries": [
+      "udm-virtual/dns_guest.py"
+    ],
+    "all_other_entries_including_metadata_identical": true,
+    "boot_source_sha256": "64cc54a4c40ec6078be1776aeae791e3274bd04959274bd8d21ac89d8b2da290",
+    "dns_helper_sha256": "dfd7154635b4dfe29d72632a2a7c4a4d11a2b55087d851179dea1e399f04dc28"
+  },
+  "limitations": [
+    "No R5.2 fresh-state coldboot or reboot executed.",
+    "Previous full IPv4 gateway reports retain their exact R5 artifact scope.",
+    "Current live repair evidence is from console output supplied by the user, not an automated guest execution."
+  ]
+}

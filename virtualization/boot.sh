@@ -36,6 +36,10 @@ for unit in marvell-cpss cpss-app cm lagd led-gpio-init rpsd lighttpd; do
 done
 install -d -m 0755 /etc/systemd/system/udapi-server.service.d
 ln -sfn /dev/null /etc/systemd/system/udapi-server.service.d/cpss.conf
+# A pristine virtual overlay triggers systemd's first-boot presets, unlike the
+# hardware initramfs. Keep its extra generic DNS services from competing with
+# UDAPI's dnsmasq or replacing the guest resolver with an unconfigured stub.
+/usr/bin/python3 "$payload/dns_guest.py"
 # Preserve the original RequiredBy/Requires dependency. The original helper's
 # existence-only check accepts empty files left behind by its 20-second timeout.
 install -d -m 0755 /etc/systemd/system/freeradius-dh-key.service.d

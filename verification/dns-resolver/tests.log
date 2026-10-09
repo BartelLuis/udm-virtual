@@ -1,0 +1,14 @@
+test_custom_dns_unit_symlinks_including_dangling_links_are_refused_before_mutation (test_dns_guest.GuestDnsTests.test_custom_dns_unit_symlinks_including_dangling_links_are_refused_before_mutation) ... ok
+test_custom_existing_and_dangling_resolver_symlinks_are_preserved (test_dns_guest.GuestDnsTests.test_custom_existing_and_dangling_resolver_symlinks_are_preserved) ... ok
+test_custom_regular_dns_units_are_refused_before_any_mutation (test_dns_guest.GuestDnsTests.test_custom_regular_dns_units_are_refused_before_any_mutation) ... ok
+test_custom_regular_resolver_and_native_dns_files_and_units_are_preserved (test_dns_guest.GuestDnsTests.test_custom_regular_resolver_and_native_dns_files_and_units_are_preserved) ... ok
+test_failed_atomic_resolver_install_preserves_old_stub_and_removes_temporary_file (test_dns_guest.GuestDnsTests.test_failed_atomic_resolver_install_preserves_old_stub_and_removes_temporary_file) ... ok
+test_missing_resolver_creates_native_file_and_only_two_masks (test_dns_guest.GuestDnsTests.test_missing_resolver_creates_native_file_and_only_two_masks) ... ok
+test_second_run_is_idempotent_without_replacing_existing_files (test_dns_guest.GuestDnsTests.test_second_run_is_idempotent_without_replacing_existing_files) ... ok
+test_standard_absolute_relative_and_broken_stubs_are_replaced_without_writing_target (test_dns_guest.GuestDnsTests.test_standard_absolute_relative_and_broken_stubs_are_replaced_without_writing_target) ... ok
+test_vendor_unit_aliases_are_replaced_but_vendor_files_untouched (test_dns_guest.GuestDnsTests.test_vendor_unit_aliases_are_replaced_but_vendor_files_untouched) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.124s
+
+OK
