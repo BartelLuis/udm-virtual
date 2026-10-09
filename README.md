@@ -11,7 +11,8 @@ mit R5 unter QEMU nachgewiesen.** Network erreicht `READY`, die originale
 Setup-API richtet ein lokales Besitzerkonto ein, und die daraus erzeugten
 UniFi-Regeln bestehen NAT-, TCP-, UDP-, DNS- und WAN-Sperrtests. Die originale
 Webseite ist vom LAN per HTTPS erreichbar; interaktive Konfigurationsabläufe
-im Browser und der Import auf einem echten Proxmox-Knoten sind noch ungeprüft.
+im Browser sind noch ungeprüft. Mit dem Importer R5.1 ist auch der vollständige
+Import auf Proxmox 9.2.21 nachgewiesen; die VM wurde dabei ausgeschaltet angelegt.
 Nach sauberem Herunterfahren und erneutem Start bleiben Einrichtung und
 Konfiguration erhalten; Anmeldung und sämtliche genannten IPv4-Tests bestehen erneut.
 Auf einem Intel Xeon läuft ARM64 durch QEMU-TCG-Emulation ohne KVM-Beschleunigung.
@@ -61,7 +62,17 @@ mit der von UniFi selbst erzeugten Firewall-Konfiguration getestet.
 | Sauberes Herunterfahren und erneuter Start | Besitzeranmeldung, konfigurierte Network-Anwendung und sämtliche nativen IPv4-Tests erneut bestanden |
 | Interaktive Browser-Konfiguration, VLANs und IPv6 | Noch offen |
 | Kaltstart bis zum abgeschlossenen nativen IPv4-Pakettest | R5 bestanden, rund 716,3 Sekunden; 8 GiB Gast-RAM, sechs emulierte Kerne |
-| Import auf einem echten Proxmox-Knoten, Durchsatz | Noch offen |
+| Import auf einem echten Proxmox-Knoten | R5.1 auf Proxmox 9.2.21 bestanden: automatische VMID, 14 getrennte Ports, beide Platten nach Import blockweise identisch |
+| Gaststart unter Proxmox und Durchsatz | Noch offen; die bisherigen Laufzeittests verwenden eigenständiges QEMU |
+
+Die [Importer-Prüfung](verification/proxmox-vmid/report.json) ergänzt die
+[reale Proxmox-Prüfung](verification/proxmox-vmid/live-import-report.json).
+R5.1 behebt den falschen Vergleich einer JSON-Zeichenkette wie `"100"` mit der
+VMID, wählt freie IDs automatisch und berücksichtigt den Proxmox-Maschinentyp
+`virt+pve0`. Im leeren Cluster wurde VM 100 importiert; anschließend wählte die
+schreibgeschützte Auswahlprüfung für die belegte Wunsch-ID 100 korrekt ID 101.
+Es wurde keine zweite VM erstellt. Kernel, Initramfs und beide gelieferten
+Plattenabbilder bleiben gegenüber R5 unverändert.
 
 Der [native R5-Gateway-Prüfbericht](verification/native-gateway-r5/report.json)
 fasst den Erststart auf Debian 13 mit QEMU 10.0.13 und AMD Ryzen 5 3600 zusammen.
@@ -137,8 +148,8 @@ Die Ergebnisse des alten Laborprofils unter `build/`, insbesondere
 `build/validation.json`, dokumentieren einen früheren Stand. Sie sind kein
 Prüfbericht für das virtuelle Profil. Die verlinkten Berichte unter
 `verification/` gelten für die jeweils darin dokumentierten Artefakt-Hashes;
-interaktive Konfigurationsabläufe im Browser und der Betrieb auf einem echten
-Proxmox-Knoten sind weiterhin nicht getestet.
+Interaktive Konfigurationsabläufe im Browser und der Gaststart unter Proxmox
+sind weiterhin nicht getestet; der Import ist mit R5.1 separat nachgewiesen.
 
 ## Virtuelles Paket bei Bedarf neu bauen
 
@@ -215,24 +226,35 @@ build-virtual/manifest.json
 proxmox-import.sh
 ```
 
-VMID und Storage im Beispiel an den eigenen Knoten anpassen. Der folgende
-Aufruf bereitet alle 14 Ports ohne Bridge-Zuordnung vor:
+Den Storage im Beispiel an den eigenen Knoten anpassen. Die VMID wird
+automatisch über Proxmox clusterweit gewählt; dabei zählen auch Container
+und Gäste auf anderen Knoten als belegt. Der folgende Aufruf bereitet alle
+14 Ports ohne Bridge-Zuordnung vor:
 
 ```bash
 bash proxmox-import.sh \
-  --vmid 991 --storage local-lvm --assets ./build-virtual --dry-run
+  --storage local-lvm --assets ./build-virtual --dry-run
 ```
 
-Ohne `--apply` prüft der Importer die Dateien und gibt nur den Befehlsplan aus.
+Ohne `--apply` prüft der Importer die Dateien und gibt einen ausführbaren
+`--apply`-Aufruf aus. Dabei wird noch keine Cluster-Abfrage ausgeführt oder
+VMID reserviert. Die Auswahl erfolgt erst bei der Ausführung auf dem Zielhost.
 Mit `--apply`, als Root auf dem Proxmox-Knoten, prüft er zusätzlich den Host und
 erstellt eine **ausgeschaltete** VM:
 
 ```bash
 bash proxmox-import.sh \
-  --vmid 991 --storage local-lvm --assets ./build-virtual --apply
-
-qm config 991
+  --storage local-lvm --assets ./build-virtual --apply
 ```
+
+Die tatsächlich gewählte VMID steht am Ende der Ausgabe, zusammen mit den
+passenden `qm config`, `qm start` und `qm terminal`-Befehlen. Mit `--vmid 991`
+lässt sich weiterhin eine Wunsch-ID angeben: Ist sie belegt, nimmt der Importer
+automatisch die nächste von Proxmox gemeldete freie ID. `--vmid auto` entspricht
+dem Standard. API-Fehler werden als solche gemeldet; eine ungültige Antwort
+wird nicht als belegte ID behandelt. Eine Abfrage reserviert die ID noch nicht:
+Bei einem gleichzeitigen Import schützt `qm create` vorhandene Gäste; bei einer
+Kollision den Import erneut ausführen.
 
 Es werden immer alle 14 Karten angelegt. `--port N=BRIDGE` weist einzelne Karten
 zu; ohne jede `--port`-Angabe bleiben alle Karten ohne Bridge. Die Zuordnung
@@ -267,7 +289,7 @@ verbindet `--connect` beim Import alle zugewiesenen Karten; nicht zugewiesene
 Karten bleiben getrennt. Für den ersten Start separate Test-Bridges verwenden,
 da der originale Dienst im LAN einen DHCP-Server startet.
 
-Danach ausdrücklich starten:
+Danach ausdrücklich starten; `991` durch die vom Importer ausgegebene VMID ersetzen:
 
 ```bash
 qm start 991

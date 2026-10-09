@@ -1,0 +1,31 @@
+{
+  "change": "Automatic cluster-wide VMID selection and typed JSON parsing",
+  "environment": "Proxmox 9.2.21 host / Debian / Python 3.13, root; simulated Proxmox commands for the test suite",
+  "local_unifi_vm_started": false,
+  "real_proxmox_import_tested": true,
+  "tests": {
+    "total": 28,
+    "passed": 28,
+    "skipped": 0,
+    "failures": 0,
+    "elapsed_seconds": 12.994
+  },
+  "bash_syntax_check_passed": true,
+  "files": {
+    "proxmox-import.sh": "c248beaa11b2a0a7c91c05ff543e7481b576ef388768b4b75198569786944f42",
+    "tests/test_proxmox.py": "aea1c9a3e8323af0ae1526d19b6c77a441ee767f89a578a7fce385edb205354d"
+  },
+  "coverage": [
+    "quoted and numeric JSON IDs",
+    "omitted/auto VMID",
+    "occupied QEMU/LXC IDs across cluster",
+    "execution-time dry-run selection",
+    "selected ID propagated to MACs, paths and disk imports",
+    "API and invalid JSON errors before mutation",
+    "existing destinations preserved",
+    "concurrent create failure stops without disk import",
+    "Proxmox virt+pve0 and versioned ARM machine aliases"
+  ],
+  "live_import_report": "live-import-report.json",
+  "test_log": "tests.log"
+}

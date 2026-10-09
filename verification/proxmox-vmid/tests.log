@@ -1,0 +1,33 @@
+test_ambiguous_import_never_attaches_guessed_disk (test_proxmox.ProxmoxTests.test_ambiguous_import_never_attaches_guessed_disk) ... ok
+test_api_failures_abort_before_mutation_instead_of_allocating_another_id (test_proxmox.ProxmoxTests.test_api_failures_abort_before_mutation_instead_of_allocating_another_id) ... ok
+test_apply_imports_actual_allocated_volumes_and_never_starts (test_proxmox.ProxmoxTests.test_apply_imports_actual_allocated_volumes_and_never_starts) ... ok
+test_auto_dry_run_defers_host_queries (test_proxmox.ProxmoxTests.test_auto_dry_run_defers_host_queries) ... ok
+test_create_race_does_not_retry_or_import_disks_into_another_vm (test_proxmox.ProxmoxTests.test_create_race_does_not_retry_or_import_disks_into_another_vm) ... ok
+test_dry_run_is_default_and_changes_nothing (test_proxmox.ProxmoxTests.test_dry_run_is_default_and_changes_nothing) ... ok
+test_empty_cluster_accepts_preferred_100_returned_as_json_string (test_proxmox.ProxmoxTests.test_empty_cluster_accepts_preferred_100_returned_as_json_string) ... ok
+test_existing_selected_destination_is_preserved (test_proxmox.ProxmoxTests.test_existing_selected_destination_is_preserved) ... ok
+test_explicit_auto_selects_json_string_and_regenerates_fourteen_macs (test_proxmox.ProxmoxTests.test_explicit_auto_selects_json_string_and_regenerates_fourteen_macs) ... ok
+test_host_preflight_failures_create_no_vm (test_proxmox.ProxmoxTests.test_host_preflight_failures_create_no_vm) ... ok
+test_integrity_failure_precedes_host_commands (test_proxmox.ProxmoxTests.test_integrity_failure_precedes_host_commands) ... ok
+test_invalid_bridge_and_count_rejected (test_proxmox.ProxmoxTests.test_invalid_bridge_and_count_rejected) ... ok
+test_invalid_nextid_json_never_reaches_mutation (test_proxmox.ProxmoxTests.test_invalid_nextid_json_never_reaches_mutation) ... ok
+test_malformed_cluster_inventory_does_not_assume_preferred_id_is_free (test_proxmox.ProxmoxTests.test_malformed_cluster_inventory_does_not_assume_preferred_id_is_free) ... ok
+test_non_arm_and_resembling_machine_aliases_fail_before_disk_import (test_proxmox.ProxmoxTests.test_non_arm_and_resembling_machine_aliases_fail_before_disk_import) ... ok
+test_occupied_lxc_id_falls_back_without_touching_its_snippets (test_proxmox.ProxmoxTests.test_occupied_lxc_id_falls_back_without_touching_its_snippets) ... ok
+test_old_cpu_support_fails_before_disk_import (test_proxmox.ProxmoxTests.test_old_cpu_support_fails_before_disk_import) ... ok
+test_omitted_vmid_selects_next_id_from_json_number (test_proxmox.ProxmoxTests.test_omitted_vmid_selects_next_id_from_json_number) ... ok
+test_preferred_id_assertion_rejects_a_different_returned_id (test_proxmox.ProxmoxTests.test_preferred_id_assertion_rejects_a_different_returned_id) ... ok
+test_printed_plan_is_runnable_with_paths_containing_spaces (test_proxmox.ProxmoxTests.test_printed_plan_is_runnable_with_paths_containing_spaces) ... ok
+test_printed_plan_resolves_new_cluster_collision_at_execution (test_proxmox.ProxmoxTests.test_printed_plan_resolves_new_cluster_collision_at_execution) ... ok
+test_proxmox_virt_machine_alias_allows_disk_import (test_proxmox.ProxmoxTests.test_proxmox_virt_machine_alias_allows_disk_import) ... ok
+test_snippets_injection_rejected (test_proxmox.ProxmoxTests.test_snippets_injection_rejected) ... ok
+test_system_mode_and_connect_are_explicit (test_proxmox.ProxmoxTests.test_system_mode_and_connect_are_explicit) ... ok
+test_versioned_proxmox_virt_machine_alias_allows_disk_import (test_proxmox.ProxmoxTests.test_versioned_proxmox_virt_machine_alias_allows_disk_import) ... ok
+test_virtual_port_mapping_only_connects_selected_bridges (test_proxmox.ProxmoxTests.test_virtual_port_mapping_only_connects_selected_bridges) ... ok
+test_virtual_port_mapping_rejects_duplicates_and_option_injection (test_proxmox.ProxmoxTests.test_virtual_port_mapping_rejects_duplicates_and_option_injection) ... ok
+test_virtual_profile_creates_fourteen_disconnected_assignable_ports (test_proxmox.ProxmoxTests.test_virtual_profile_creates_fourteen_disconnected_assignable_ports) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 12.994s
+
+OK

@@ -1,6 +1,6 @@
 {
-  "date_utc": "2026-10-09T17:23:25.110905+00:00",
-  "status": "experimental; original owner setup and basic native IPv4 firewall verified before and after one clean restart; real Proxmox import unverified",
+  "date_utc": "2026-10-09T18:47:14.515648+00:00",
+  "status": "experimental; original owner setup and basic native IPv4 verified with QEMU; Proxmox 9.2.21 import verified with R5.1",
   "artifact_hashes": {
     "Image": {
       "sha256": "3953777d3682f6b08918bfd4e7b7a0a819d033b8c2117fd8ab95971ab5ce0814",
@@ -99,7 +99,8 @@
       "passed": 141,
       "skipped": 68,
       "failures": 0
-    }
+    },
+    "scope": "Full R5 suite before the importer hotfix; R5.1 importer checks are reported separately."
   },
   "not_validated": [
     "interactive browser setup and configuration changes",
@@ -109,7 +110,7 @@
     "WAN2 failover",
     "Internet access",
     "throughput and long-term stability",
-    "real Proxmox import",
+    "guest boot and runtime under Proxmox",
     "HA/migration/restore and recovery after abrupt power loss"
   ],
   "earlier_failures_fixed": [
@@ -156,5 +157,13 @@
     "pristine_release_state_used_for_initial_overlay": true,
     "research_initramfs_difference": "Only /init adds a local diagnostic console and read-only diagnostic share; all 20 product adaptation entries are identical.",
     "scope": "Isolated default LAN/WAN IPv4 on eth0/eth8; original setup API and generated UniFi policy. One clean restart. No Internet uplink or interactive browser configuration."
+  },
+  "proxmox_importer": {
+    "report": "proxmox-vmid/report.json",
+    "live_report": "proxmox-vmid/live-import-report.json",
+    "tests_passed": 28,
+    "real_import_verified": true,
+    "vm_left_stopped": true,
+    "guest_boot_on_proxmox_verified": false
   }
 }

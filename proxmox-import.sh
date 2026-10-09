@@ -9,12 +9,14 @@ export LC_ALL=C
 
 usage() {
     cat <<'HELP'
-Usage: bash proxmox-import.sh --vmid ID --storage STORAGE --assets DIR [OPTIONS]
+Usage: bash proxmox-import.sh --storage STORAGE --assets DIR [OPTIONS]
 
 Virtual gateway: --port 8=WAN_BRIDGE --port 0=LAN_BRIDGE [--port N=BRIDGE ...]
 Boot laboratory: --bridge BRIDGE --bridge BRIDGE [--bridge BRIDGE ...]
 
-Default: validate local assets and print a command plan; no Proxmox changes.
+Default: validate local assets and print an apply command; no Proxmox changes.
+  --vmid ID|auto          Preferred VMID, default auto; occupied IDs fall back
+                          to the next free cluster ID (including containers)
   --apply                 Create the stopped VM after checking this host
   --dry-run               Explicitly select the default command-plan mode
   --boot-mode shell|system Default: system for virtual builds, shell for lab builds
@@ -41,7 +43,8 @@ HELP
 
 die() { printf 'Error: %s\n' "$*" >&2; exit 2; }
 need_value() { (( $# >= 2 )) && [[ -n $2 ]] || die "Missing value for $1"; }
-vmid= storage= assets= snippets=/var/lib/vz/snippets
+original_args=("$@")
+vmid=auto storage= assets= snippets=/var/lib/vz/snippets
 memory=8192 cores=4 boot_mode= apply=0 connect=0
 bridges=()
 port_assignments=()
@@ -64,7 +67,7 @@ while (( $# )); do
     esac
 done
 
-[[ $vmid =~ ^[1-9][0-9]{2,8}$ ]] || die 'VMID must be 100..999999999.'
+[[ $vmid == auto || $vmid =~ ^[1-9][0-9]{2,8}$ ]] || die 'VMID must be auto or 100..999999999.'
 [[ $storage =~ ^[A-Za-z][A-Za-z0-9_-]*$ ]] || die 'Specify a valid Proxmox storage ID.'
 [[ $memory =~ ^[1-9][0-9]{3,6}$ ]] && (( memory >= 1024 && memory <= 1048576 )) || die 'Memory must be 1024..1048576 MiB.'
 [[ $cores =~ ^[1-9][0-9]?$ ]] && (( cores <= 16 )) || die 'Cores must be 1..16.'
@@ -78,9 +81,6 @@ assets=$(cd -- "$assets" && pwd -P)
 # This path becomes part of Proxmox's parsed QEMU args; keep its alphabet strict.
 [[ $snippets =~ ^/[A-Za-z0-9_./-]+$ && $snippets != *'/../'* && $snippets != */.. ]] || die 'Snippets directory must be an absolute path without spaces or parent traversal.'
 snippets=${snippets%/}
-target="$snippets/udm-beast-$vmid"
-[[ ! -e $target && ! -L $target ]] || die "Kernel destination already exists: $target"
-
 profile=$(python3 - "$assets" <<'PY'
 import hashlib, json, pathlib, re, sys
 root = pathlib.Path(sys.argv[1])
@@ -140,6 +140,64 @@ else
     (( ${#bridges[@]} >= 2 && ${#bridges[@]} <= 14 )) || die 'Specify 2..14 --bridge options in NIC order.'
 fi
 
+print_command() { printf '%q ' "$@"; printf '\n'; }
+if (( ! apply )); then
+    printf '# Local assets verified; this command performs the Proxmox host checks.\n'
+    printf '# The free VMID is selected when the command runs, not reserved by this plan.\n'
+    printf '# Creates a stopped VM; kernel/initramfs require separate backup.\n'
+    printf 'set -euo pipefail\n'
+    print_command cd -- "$PWD"
+    script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+    print_command bash "$script_dir/$(basename -- "${BASH_SOURCE[0]}")" "${original_args[@]}" --apply
+    exit 0
+fi
+
+# Proxmox returns a JSON scalar, which may be a number or a quoted numeric
+# string. Never compare its raw JSON representation against the requested ID.
+select_vmid() {
+    python3 - "$1" <<'PY'
+import json, re, subprocess, sys
+
+def api(path, *arguments):
+    result = subprocess.run(['pvesh', 'get', path, *arguments, '--output-format', 'json'],
+                            text=True, capture_output=True)
+    if result.returncode:
+        raise ValueError('Proxmox API ' + path + ' failed: ' + result.stderr.strip())
+    try:
+        return json.loads(result.stdout)
+    except ValueError:
+        raise ValueError('Proxmox API ' + path + ' returned invalid JSON') from None
+
+def parse_id(value):
+    if type(value) not in (str, int) or not re.fullmatch(r'[1-9][0-9]{2,8}', str(value)):
+        raise ValueError('Proxmox returned an invalid VMID; expected 100..999999999')
+    return int(value)
+
+try:
+    preferred = None if sys.argv[1] == 'auto' else parse_id(sys.argv[1])
+    occupied = set()
+    if preferred is not None:
+        resources = api('/cluster/resources', '--type', 'vm')
+        if not isinstance(resources, list):
+            raise ValueError('Proxmox cluster resources must be a JSON array')
+        for resource in resources:
+            if not isinstance(resource, dict) or resource.get('type') not in ('qemu', 'lxc', 'openvz'):
+                raise ValueError('Proxmox returned an unexpected VM resource')
+            occupied.add(parse_id(resource.get('vmid')))
+    arguments = ('--vmid', str(preferred)) if preferred is not None and preferred not in occupied else ()
+    selected = parse_id(api('/cluster/nextid', *arguments))
+    if selected in occupied or (arguments and selected != preferred):
+        raise ValueError('Proxmox returned an inconsistent free VMID; retry the import')
+    if preferred is not None and preferred in occupied:
+        print(f'Preferred VMID {preferred} is occupied; using free cluster VMID {selected}.', file=sys.stderr)
+    else:
+        print(f'Using free cluster VMID {selected}.', file=sys.stderr)
+    print(selected)
+except (OSError, ValueError) as error:
+    sys.exit('VMID selection failed: ' + str(error))
+PY
+}
+
 mode=$boot_mode
 [[ $mode != system ]] || mode=systemd
 # These board-only initcalls issue SMC calls to absent Marvell firmware on virt.
@@ -148,31 +206,9 @@ blacklist=mrvl_swup_init,uart_redirect_init,mub_gen_init,portm_boot_cfg_init
 cmdline="console=ttyAMA0 earlycon root=/dev/vda state=/dev/vdb udm.mode=$mode udm.nics=${#bridges[@]} net.ifnames=0 panic=-1 initcall_blacklist=$blacklist module_blacklist=phy_diag"
 # PVE's machine schema does not expose gic-version. This additional -machine
 # option sets that property on the virt machine selected by --machine above.
-qemu_args="-machine gic-version=3 -kernel $target/Image -initrd $target/initramfs.gz -append '$cmdline'"
-create=(qm create "$vmid" --name "udm-beast-$profile-$vmid" --arch aarch64
-        --machine virt --cpu max --kvm 0 --bios seabios --ostype l26
-        --memory "$memory" --cores "$cores" --sockets 1 --balloon 0
-        --serial0 socket --vga serial0 --tablet 0 --hotplug 0 --onboot 0
-        --vmgenid 0 --args "$qemu_args"
-        --description 'Experimental original UniFi ARM64 guest; full UI provisioning remains unverified. Local kernel/initramfs are outside VM backups.')
-link_down=$((1-connect))
-for index in "${!bridges[@]}"; do
-    printf -v mac '02:%02x:%02x:%02x:%02x:%02x' "$((vmid >> 24 & 255))" "$((vmid >> 16 & 255))" "$((vmid >> 8 & 255))" "$((vmid & 255))" "$index"
-    if [[ -n ${bridges[index]} ]]; then
-        create+=("--net$index" "virtio=$mac,bridge=${bridges[index]},link_down=$link_down")
-    else
-        create+=("--net$index" "virtio=$mac,link_down=1")
-    fi
-done
-
-print_command() { printf '%q ' "$@"; printf '\n'; }
 run() {
-    if (( apply )); then
-        print_command "$@" >&2
-        "$@"
-    else
-        print_command "$@"
-    fi
+    print_command "$@" >&2
+    "$@"
 }
 
 # Discover the volume from qm's actual unused-disk configuration. Never guess
@@ -204,7 +240,7 @@ check_launch() {
     local launch
     launch=$(qm showcmd "$1")
     python3 -c '
-import shlex, sys
+import re, shlex, sys
 args = shlex.split(sys.argv[1])
 def values(option):
     return [args[i + 1] for i, arg in enumerate(args[:-1]) if arg == option]
@@ -214,7 +250,7 @@ cpu = values("-cpu")
 if len(cpu) != 1 or cpu[0].split(",")[0] != "max":
     sys.exit("This qemu-server does not honor ARM64 --cpu max; use a version with ARM CPU-model support (merged February 2026)")
 machine = values("-machine")
-if not machine or not any(part == "virt" or part == "type=virt" or part.startswith("virt-") or part.startswith("type=virt-") for value in machine for part in value.split(",")):
+if not machine or not any(re.fullmatch(r"(?:type=)?virt(?:-[0-9]+\.[0-9]+)?(?:\+pve[0-9]+)?", part) for value in machine for part in value.split(",")):
     sys.exit("qm did not select an ARM virt machine")
 if "gic-version=3" not in [part for value in machine for part in value.split(",")]:
     sys.exit("qm did not preserve the tested GICv3 machine configuration")
@@ -227,14 +263,11 @@ if values("-kernel") != [sys.argv[2] + "/Image"] or values("-initrd") != [sys.ar
 ' "$launch" "$2"
 }
 
-if (( apply )); then
+preflight_host() {
     (( EUID == 0 )) || die '--apply must run as root on the Proxmox node.'
     for command in qm pvesm pvesh ip qemu-img qemu-system-aarch64 install; do
         command -v "$command" >/dev/null || die "Missing $command; install/configure the required Proxmox ARM64 emulator support first. This script does not install packages."
     done
-    # nextid also rejects VMIDs already occupied by a container or another node.
-    free_id=$(pvesh get /cluster/nextid --vmid "$vmid" --output-format json)
-    [[ $free_id == "$vmid" ]] || die "VMID $vmid is not free in this cluster."
     status=$(pvesm status --storage "$storage" --content images --enabled 1)
     python3 -c '
 import sys
@@ -267,15 +300,31 @@ if (info.get("format") != "qcow2" or info.get("backing-filename") or
     sys.exit("Disk must be standalone unencrypted QCOW2 without an external data/backing file")
 ' "$info"
     done
-    trap 'rc=$?; printf "Import stopped (exit %s). Inspect VM %s and %s for partial resources; nothing was automatically deleted or started.\n" "$rc" "$vmid" "$target" >&2; exit "$rc"' ERR
-else
-    printf '# Experimental original UniFi ARM64 guest; full UI provisioning is unverified.\n'
-    printf '# Local assets verified. --apply additionally checks the Proxmox host.\n'
-    printf '# No VM start is included. Kernel/initramfs require separate backup.\n'
-    printf 'set -euo pipefail\n'
-    declare -f import_disk
-    declare -f check_launch
-fi
+}
+preflight_host
+
+# Resolve before building any paths, arguments or MACs from the ID. The API
+# query does not reserve an ID; qm create still arbitrates concurrent imports.
+vmid=$(select_vmid "$vmid")
+target="$snippets/udm-beast-$vmid"
+[[ ! -e $target && ! -L $target ]] || die "Kernel destination already exists: $target"
+qemu_args="-machine gic-version=3 -kernel $target/Image -initrd $target/initramfs.gz -append '$cmdline'"
+create=(qm create "$vmid" --name "udm-beast-$profile-$vmid" --arch aarch64
+        --machine virt --cpu max --kvm 0 --bios seabios --ostype l26
+        --memory "$memory" --cores "$cores" --sockets 1 --balloon 0
+        --serial0 socket --vga serial0 --tablet 0 --hotplug 0 --onboot 0
+        --vmgenid 0 --args "$qemu_args"
+        --description 'Experimental original UniFi ARM64 guest; full UI provisioning remains unverified. Local kernel/initramfs are outside VM backups.')
+link_down=$((1-connect))
+for index in "${!bridges[@]}"; do
+    printf -v mac '02:%02x:%02x:%02x:%02x:%02x' "$((vmid >> 24 & 255))" "$((vmid >> 16 & 255))" "$((vmid >> 8 & 255))" "$((vmid & 255))" "$index"
+    if [[ -n ${bridges[index]} ]]; then
+        create+=("--net$index" "virtio=$mac,bridge=${bridges[index]},link_down=$link_down")
+    else
+        create+=("--net$index" "virtio=$mac,link_down=1")
+    fi
+done
+trap 'rc=$?; printf "Import stopped (exit %s). Inspect VM %s and %s for partial resources; nothing was automatically deleted or started.\n" "$rc" "$vmid" "$target" >&2; exit "$rc"' ERR
 
 run mkdir -p -- "$snippets"
 run mkdir -- "$target"
@@ -286,11 +335,7 @@ run check_launch "$vmid" "$target"
 run import_disk "$vmid" "$assets/rootfs.qcow2" "$storage" virtio0 'ro=1,cache=none'
 run import_disk "$vmid" "$assets/state.qcow2" "$storage" virtio1 'cache=none,discard=on'
 run qm set "$vmid" --boot order=virtio0
-if (( apply )); then
-    printf '\nCreated stopped VM %s. Assigned NIC links: %s. Boot mode: %s.\n' "$vmid" "$([[ $connect == 1 ]] && printf connected || printf disconnected)" "$boot_mode"
-    printf 'Unassigned NICs remain disconnected. Keep generated MAC addresses and all virtual-profile NICs.\n'
-    printf 'To inspect/start explicitly: qm config %s; qm start %s; qm terminal %s\n' "$vmid" "$vmid" "$vmid"
-    printf 'Retain %s separately from VM backups and copy it before migration.\n' "$target"
-else
-    printf '# To execute with host preflight checks, rerun this script with --apply.\n'
-fi
+printf '\nCreated stopped VM %s. Assigned NIC links: %s. Boot mode: %s.\n' "$vmid" "$([[ $connect == 1 ]] && printf connected || printf disconnected)" "$boot_mode"
+printf 'Unassigned NICs remain disconnected. Keep generated MAC addresses and all virtual-profile NICs.\n'
+printf 'To inspect/start explicitly: qm config %s; qm start %s; qm terminal %s\n' "$vmid" "$vmid" "$vmid"
+printf 'Retain %s separately from VM backups and copy it before migration.\n' "$target"

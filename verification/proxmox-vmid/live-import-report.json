@@ -1,0 +1,22 @@
+{
+  "observed_at_utc": "2026-10-09T18:45:48.970876+00:00",
+  "proxmox_version": "pve-manager/9.2.21/4f6e0ac86f9e8c7f (running kernel: 7.0.14-23-pve)",
+  "importer_sha256": "c248beaa11b2a0a7c91c05ff543e7481b576ef388768b4b75198569786944f42",
+  "automatic_import_completed": true,
+  "selected_vmid": 100,
+  "vm_stopped": true,
+  "ports": 14,
+  "all_ports_unbridged_and_link_down": true,
+  "boot_order": "order=virtio0",
+  "rootfs_readonly": true,
+  "imported_disks_block_compare": {
+    "rootfs.qcow2": "identical",
+    "state.qcow2": "identical"
+  },
+  "occupied_preferred_id_readonly_selection": {
+    "requested": 100,
+    "selected": 101,
+    "second_vm_created": false
+  },
+  "scope": "Real import and read-only occupied-ID selection; VM was not started and no host bridges were changed."
+}
