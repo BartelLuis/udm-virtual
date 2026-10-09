@@ -1,0 +1,9 @@
+{
+  "status": "historical cache-divergence observations and isolated candidate JVM verification only",
+  "historical_release_initramfs_sha256": "5fbfb040f99fbebb12d3171dc00728df9331800b771ba9033215b3fccf0951eb",
+  "candidate_class_sha256": "eaec94b020bfae34ebd714e19fcb557b6fb0abffc07fe36cdaf98383fdb70126",
+  "candidate_included_in_release_initramfs_sha256": "ccff18466c8bbd099c692d77587a4ee789728ce223a0d653f86c4e752035937f",
+  "candidate_jvm_verification_passed": true,
+  "target_initialization_or_inform_handling_tested": false,
+  "integrated_R5_native_setup_or_provisioning_verified": false
+}

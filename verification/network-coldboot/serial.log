@@ -1,0 +1,1088 @@
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x000f0510]
+[    0.000000] Linux version 6.6.46-ui-cn10k (bdd@builder) (gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2) #1 SMP PREEMPT Wed Sep  9 00:32:28 CST 2026
+[    0.000000] random: crng init done
+[    0.000000] Machine model: linux,dummy-virt
+[    0.000000] efi: UEFI not found.
+[    0.000000] earlycon: pl11 at MMIO 0x0000000009000000 (options '')
+[    0.000000] printk: bootconsole [pl11] enabled
+[    0.000000] NUMA: No NUMA configuration found
+[    0.000000] NUMA: Faking a node at [mem 0x0000000040000000-0x00000000ffffffff]
+[    0.000000] NUMA: NODE_DATA [mem 0xfff42ec0-0xfff451bf]
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x0000000040000000-0x00000000ffffffff]
+[    0.000000]   DMA32    empty
+[    0.000000]   Normal   empty
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000040000000-0x00000000ffffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000040000000-0x00000000ffffffff]
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] psci: Trusted OS migration not required
+[    0.000000] psci: SMC Calling Convention v1.0
+[    0.000000] percpu: Embedded 10 pages/cpu s587112 r8192 d60056 u655360
+[    0.000000] Detected PIPT I-cache on CPU0
+[    0.000000] CPU features: detected: Address authentication (IMP DEF algorithm)
+[    0.000000] CPU features: detected: GIC system register CPU interface
+[    0.000000] CPU features: detected: Hardware dirty bit management
+[    0.000000] CPU features: detected: Spectre-v4
+[    0.000000] alternatives: applying boot alternatives
+[    0.000000] Kernel command line: console=ttyAMA0 earlycon root=/dev/vda state=/dev/vdb udm.mode=systemd udm.nics=14 net.ifnames=0 panic=-1 initcall_blacklist=mrvl_swup_init,uart_redirect_init,mub_gen_init,portm_boot_cfg_init module_blacklist=phy_diag udm.validation=firewall
+[    0.000000] Unknown kernel command line parameters "state=/dev/vdb", will be passed to user space.
+[    0.000000] Dentry cache hash table entries: 524288 (order: 6, 4194304 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 262144 (order: 5, 2097152 bytes, linear)
+[    0.000000] Fallback order for Node 0: 0 
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 49104
+[    0.000000] Policy zone: DMA
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] stackdepot: allocating hash table via alloc_large_system_hash
+[    0.000000] stackdepot hash table entries: 262144 (order: 5, 2097152 bytes, linear)
+[    0.000000] software IO TLB: area num 4.
+[    0.000000] software IO TLB: mapped [mem 0x00000000fb170000-0x00000000ff170000] (64MB)
+[    0.000000] Memory: 2982016K/3145728K available (20160K kernel code, 2994K rwdata, 6912K rodata, 5760K init, 3718K bss, 163712K reserved, 0K cma-reserved)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+[    0.000000] trace event string verifier disabled
+[    0.000000] rcu: Preemptible hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU event tracing is enabled.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=96 to nr_cpu_ids=4.
+[    0.000000] 	Trampoline variant of Tasks RCU enabled.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=4
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    0.000000] GICv3: 256 SPIs implemented
+[    0.000000] GICv3: 0 Extended SPIs implemented
+[    0.000000] Root IRQ handler: gic_handle_irq
+[    0.000000] GICv3: GICv3 features: 16 PPIs
+[    0.000000] GICv3: CPU0: found redistributor 0 region 0:0x00000000080a0000
+[    0.000000] ITS [mem 0x08080000-0x0809ffff]
+[    0.000000] ITS@0x0000000008080000: allocated 8192 Devices @60540000 (indirect, esz 8, psz 64K, shr 1)
+[    0.000000] ITS@0x0000000008080000: allocated 8192 Interrupt Collections @60550000 (flat, esz 8, psz 64K, shr 1)
+[    0.000000] GICv3: using LPI property table @0x0000000060560000
+[    0.000000] GICv3: CPU0: using allocated LPI pending table @0x0000000060570000
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] arch_timer: cp15 timer(s) running at 1000.00MHz (virt).
+[    0.000000] clocksource: arch_sys_counter: mask: 0x1fffffffffffffff max_cycles: 0x1cd42e4dffb, max_idle_ns: 881590591483 ns
+[    0.000152] sched_clock: 61 bits at 1000MHz, resolution 1ns, wraps every 4398046511103ns
+[    0.135602] Console: colour dummy device 80x25
+[    0.229552] Calibrating delay loop (skipped), value calculated using timer frequency.. 2000.00 BogoMIPS (lpj=4000000)
+[    0.422982] pid_max: default: 32768 minimum: 301
+[    0.519514] LSM: initializing lsm=capability,integrity
+[    0.610584] Mount-cache hash table entries: 8192 (order: 0, 65536 bytes, linear)
+[    0.706064] Mountpoint-cache hash table entries: 8192 (order: 0, 65536 bytes, linear)
+[    0.922290] cacheinfo: Unable to detect cache hierarchy for CPU 0
+[    1.042653] RCU Tasks: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1.
+[    1.144733] RCU Tasks Trace: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1.
+[    1.251006] rcu: Hierarchical SRCU implementation.
+[    1.375318] rcu: 	Max phase no-delay instances is 1000.
+[    1.467062] Platform MSI: its@8080000 domain created
+[    1.532463] PCI/MSI: /intc@8000000/its@8080000 domain created
+[    1.629389] EFI services will not be available.
+[    1.720458] smp: Bringing up secondary CPUs ...
+[    1.789485] Detected PIPT I-cache on CPU1
+[    1.801762] GICv3: CPU1: found redistributor 1 region 0:0x00000000080c0000
+[    1.804455] GICv3: CPU1: using allocated LPI pending table @0x0000000060580000
+[    1.809715] CPU1: Booted secondary processor 0x0000000001 [0x000f0510]
+[    1.824513] Detected PIPT I-cache on CPU2
+[    1.825113] GICv3: CPU2: found redistributor 2 region 0:0x00000000080e0000
+[    1.825814] GICv3: CPU2: using allocated LPI pending table @0x0000000060590000
+[    1.826593] CPU2: Booted secondary processor 0x0000000002 [0x000f0510]
+[    1.834443] Detected PIPT I-cache on CPU3
+[    1.834968] GICv3: CPU3: found redistributor 3 region 0:0x0000000008100000
+[    1.835719] GICv3: CPU3: using allocated LPI pending table @0x00000000605a0000
+[    1.836708] CPU3: Booted secondary processor 0x0000000003 [0x000f0510]
+[    1.837969] smp: Brought up 1 node, 4 CPUs
+[    2.868089] SMP: Total of 4 processors activated.
+[    2.982425] CPU features: detected: Branch Target Identification
+[    3.048709] CPU features: detected: 32-bit EL0 Support
+[    3.135716] CPU features: detected: ARMv8.4 Translation Table Level
+[    3.222285] CPU features: detected: Instruction cache invalidation not required for I/D coherence
+[    3.336090] CPU features: detected: Data cache clean to the PoU not required for I/D coherence
+[    3.438129] CPU features: detected: Common not Private translations
+[    3.509190] CPU features: detected: CRC32 instructions
+[    3.562386] CPU features: detected: Data cache clean to Point of Deep Persistence
+[    3.642984] CPU features: detected: Data cache clean to Point of Persistence
+[    3.725223] CPU features: detected: Data independent timing control (DIT)
+[    3.818089] CPU features: detected: E0PD
+[    3.868015] CPU features: detected: Enhanced Counter Virtualization
+[    3.951548] CPU features: detected: Enhanced Counter Virtualization (CNTPOFF)
+[    4.036743] CPU features: detected: Enhanced Privileged Access Never
+[    4.111651] CPU features: detected: Enhanced Virtualization Traps
+[    4.186698] CPU features: detected: Fine Grained Traps
+[    4.254498] CPU features: detected: Generic authentication (IMP DEF algorithm)
+[    4.345511] CPU features: detected: RCpc load-acquire (LDAPR)
+[    4.429171] CPU features: detected: LSE atomic instructions
+[    4.513363] CPU features: detected: Memory Copy and Memory Set instructions
+[    4.619682] CPU features: detected: Privileged Access Never
+[    4.688768] CPU features: detected: RAS Extension Support
+[    4.757523] CPU features: detected: Random Number Generator
+[    4.826463] CPU features: detected: Speculation barrier (SB)
+[    4.898973] CPU features: detected: Stage-2 Force Write-Back
+[    4.973827] CPU features: detected: Trap EL0 IMPLEMENTATION DEFINED functionality
+[    5.069538] CPU features: detected: TLB range maintenance instructions
+[    5.154207] CPU features: detected: WFx with timeout
+[    5.220295] CPU features: detected: Scalable Matrix Extension
+[    5.287046] CPU features: detected: FA64
+[    5.330070] CPU features: detected: Speculative Store Bypassing Safe (SSBS)
+[    5.408885] CPU features: detected: Scalable Vector Extension
+[    5.506232] SVE: maximum available vector length 256 bytes per vector
+[    5.589494] SVE: default vector length 64 bytes per vector
+[    5.657296] SME: minimum available vector length 16 bytes per vector
+[    5.733600] SME: maximum available vector length 256 bytes per vector
+[    5.828882] SME: default vector length 32 bytes per vector
+[    5.899058] CPU: All CPU(s) started at EL1
+[    5.959448] alternatives: applying system-wide alternatives
+[    6.211781] devtmpfs: initialized
+[    6.333656] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    6.452901] futex hash table entries: 1024 (order: 0, 65536 bytes, linear)
+[    6.539313] pinctrl core: initialized pinctrl subsystem
+[    6.625194] DMI not present or invalid.
+[    6.703986] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    6.794234] DMA: preallocated 512 KiB GFP_KERNEL pool for atomic allocations
+[    6.879903] DMA: preallocated 512 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+[    6.989853] DMA: preallocated 512 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
+[    7.095424] audit: initializing netlink subsys (disabled)
+[    7.222941] audit: type=2000 audit(0.852:1): state=initialized audit_enabled=0 res=1
+[    7.334641] thermal_sys: Registered thermal governor 'step_wise'
+[    7.339703] cpuidle: using governor ladder
+[    7.466156] cpuidle: using governor menu
+[    7.518584] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+[    7.604740] ASID allocator initialised with 65536 entries
+[    7.677651] Serial: AMBA PL011 UART driver
+[    7.842457] 9000000.pl011: ttyAMA0 at MMIO 0x9000000 (irq = 13, base_baud = 0) is a PL011 rev1
+[    7.952608] printk: console [ttyAMA0] enabled
+[    7.952608] printk: console [ttyAMA0] enabled
+[    8.059048] printk: bootconsole [pl11] disabled
+[    8.059048] printk: bootconsole [pl11] disabled
+[    8.231136] Modules: 1419 pages in range for non-PLT usage
+[    8.231278] Modules: 32139 pages in range for PLT usage
+[    8.329153] HugeTLB: registered 16.0 GiB page size, pre-allocated 0 pages
+[    8.615953] HugeTLB: 0 KiB vmemmap can be freed for a 16.0 GiB page
+[    8.708620] HugeTLB: registered 512 MiB page size, pre-allocated 0 pages
+[    8.786524] HugeTLB: 0 KiB vmemmap can be freed for a 512 MiB page
+[    8.861188] HugeTLB: registered 2.00 MiB page size, pre-allocated 0 pages
+[    8.942576] HugeTLB: 0 KiB vmemmap can be freed for a 2.00 MiB page
+[    9.152952] raid6: neonx8   gen()  1294 MB/s
+[    9.297064] raid6: neonx4   gen()  1705 MB/s
+[    9.426623] raid6: neonx2   gen()  1054 MB/s
+[    9.554305] raid6: neonx1   gen()   650 MB/s
+[    9.678316] raid6: int64x8  gen()   978 MB/s
+[    9.804561] raid6: int64x4  gen()  1083 MB/s
+[    9.932934] raid6: int64x2  gen()  1031 MB/s
+[   10.072180] raid6: int64x1  gen()   808 MB/s
+[   10.122196] raid6: using algorithm neonx4 gen() 1705 MB/s
+[   10.272143] raid6: .... xor() 222 MB/s, rmw enabled
+[   10.336451] raid6: using neon recovery algorithm
+[   10.401350] ACPI: Interpreter disabled.
+[   10.452990] iommu: Default domain type: Translated
+[   10.513342] iommu: DMA domain TLB invalidation policy: strict mode
+[   10.598142] SCSI subsystem initialized
+[   10.655908] usbcore: registered new interface driver usbfs
+[   10.722472] usbcore: registered new interface driver hub
+[   10.788667] usbcore: registered new device driver usb
+[   10.856636] pps_core: LinuxPPS API ver. 1 registered
+[   10.915024] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[   11.022122] PTP clock support registered
+[   11.077204] EDAC MC: Ver: 3.0.0
+[   11.127456] scmi_core: SCMI protocol bus registered
+[   11.226242] Bluetooth: Core ver 2.22
+[   11.350737] NET: Registered PF_BLUETOOTH protocol family
+[   11.487487] Bluetooth: HCI device and connection manager initialized
+[   11.559696] Bluetooth: HCI socket layer initialized
+[   11.623252] Bluetooth: L2CAP socket layer initialized
+[   11.685634] Bluetooth: SCO socket layer initialized
+[   11.753336] vgaarb: loaded
+[   11.794917] clocksource: Switched to clocksource arch_sys_counter
+[   11.911998] VFS: Disk quotas dquot_6.6.0
+[   11.964788] VFS: Dquot-cache hash table entries: 8192 (order 0, 65536 bytes)
+[   12.052915] hrtimer: interrupt took 35420372 ns
+[   12.117597] pnp: PnP ACPI: disabled
+[   12.339512] NET: Registered PF_INET protocol family
+[   12.407963] IP idents hash table entries: 65536 (order: 3, 524288 bytes, linear)
+[   12.537725] tcp_listen_portaddr_hash hash table entries: 4096 (order: 0, 65536 bytes, linear)
+[   12.675291] Table-perturb hash table entries: 65536 (order: 2, 262144 bytes, linear)
+[   12.774013] TCP established hash table entries: 32768 (order: 2, 262144 bytes, linear)
+[   12.875700] TCP bind hash table entries: 32768 (order: 4, 1048576 bytes, linear)
+[   12.974308] TCP: Hash tables configured (established 32768 bind 32768)
+[   13.057213] UDP hash table entries: 2048 (order: 0, 65536 bytes, linear)
+[   13.156475] UDP-Lite hash table entries: 2048 (order: 0, 65536 bytes, linear)
+[   13.260029] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   13.339245] RPC: Registered named UNIX socket transport module.
+[   13.411491] RPC: Registered udp transport module.
+[   13.467407] RPC: Registered tcp transport module.
+[   13.536199] RPC: Registered tcp-with-tls transport module.
+[   13.605197] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[   13.692789] PCI: CLS 0 bytes, default 64
+[   13.749274] Trying to unpack rootfs image as initramfs...
+[   13.854787] Initialise system trusted keyrings
+[   13.935455] workingset: timestamp_bits=42 max_order=16 bucket_order=0
+[   14.052066] zbud: loaded
+[   14.111863] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[   14.229293] NFS: Registering the id_resolver key type
+[   14.306826] Key type id_resolver registered
+[   14.374088] Key type id_legacy registered
+[   14.432994] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+[   14.518689] nfs4flexfilelayout_init: NFSv4 Flexfile Layout Driver Registering...
+[   14.625428] jffs2: version 2.2. (NAND) © 2001-2006 Red Hat, Inc.
+[   14.708310] 9p: Installing v9fs 9p2000 file system support
+[   14.998862] NET: Registered PF_ALG protocol family
+[   15.062841] xor: measuring software checksum speed
+[   15.126932]    8regs           :  2614 MB/sec
+[   15.192954]    32regs          :  2444 MB/sec
+[   15.272646]    arm64_neon      :   827 MB/sec
+[   15.325080] xor: using function: 8regs (2614 MB/sec)
+[   15.387400] async_tx: api initialized (async)
+[   15.447547] Key type asymmetric registered
+[   15.509544] Asymmetric key parser 'x509' registered
+[   15.603763] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 246)
+[   15.728005] io scheduler mq-deadline registered
+[   15.803040] io scheduler kyber registered
+[   15.933112] pl061_gpio 9030000.pl061: PL061 GPIO chip registered
+[   16.076848] pci-host-generic 4010000000.pcie: host bridge /pcie@10000000 ranges:
+[   16.288328] pci-host-generic 4010000000.pcie:       IO 0x003eff0000..0x003effffff -> 0x0000000000
+[   16.425587] pci-host-generic 4010000000.pcie:      MEM 0x0010000000..0x003efeffff -> 0x0010000000
+[   16.558820] pci-host-generic 4010000000.pcie:      MEM 0x8000000000..0xffffffffff -> 0x8000000000
+[   16.693384] pci-host-generic 4010000000.pcie: Memory resource size exceeds max for 32 bits
+[   16.872815] pci-host-generic 4010000000.pcie: ECAM at [mem 0x4010000000-0x401fffffff] for [bus 00-ff]
+[   17.014825] pci-host-generic 4010000000.pcie: PCI host bridge to bus 0000:00
+[   17.151857] pci_bus 0000:00: root bus resource [bus 00-ff]
+[   17.251480] pci_bus 0000:00: root bus resource [io  0x0000-0xffff]
+[   17.354758] pci_bus 0000:00: root bus resource [mem 0x10000000-0x3efeffff]
+[   17.452939] pci_bus 0000:00: root bus resource [mem 0x8000000000-0xffffffffff]
+[   17.554814] pci 0000:00:00.0: [1b36:0008] type 00 class 0x060000
+[   17.657533] pci 0000:00:01.0: [1af4:1001] type 00 class 0x010000
+[   17.743549] pci 0000:00:01.0: reg 0x10: [io  0x0000-0x007f]
+[   17.826497] pci 0000:00:01.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   17.916328] pci 0000:00:01.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   18.084870] pci 0000:00:02.0: [1af4:1001] type 00 class 0x010000
+[   18.179396] pci 0000:00:02.0: reg 0x10: [io  0x0000-0x007f]
+[   18.278952] pci 0000:00:02.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   18.371739] pci 0000:00:02.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   18.484198] pci 0000:00:03.0: [1af4:1002] type 00 class 0x00ff00
+[   18.570337] pci 0000:00:03.0: reg 0x10: [io  0x0000-0x003f]
+[   18.650614] pci 0000:00:03.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   18.739364] pci 0000:00:03.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   18.843979] pci 0000:00:04.0: [1af4:1000] type 00 class 0x020000
+[   18.930637] pci 0000:00:04.0: reg 0x10: [io  0x0000-0x001f]
+[   19.008615] pci 0000:00:04.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   19.097304] pci 0000:00:04.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   19.212153] pci 0000:00:04.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   19.335404] pci 0000:00:05.0: [1af4:1000] type 00 class 0x020000
+[   19.444764] pci 0000:00:05.0: reg 0x10: [io  0x0000-0x001f]
+[   19.542584] pci 0000:00:05.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   19.643030] pci 0000:00:05.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   19.747695] pci 0000:00:05.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   19.847519] pci 0000:00:06.0: [1af4:1000] type 00 class 0x020000
+[   19.943498] pci 0000:00:06.0: reg 0x10: [io  0x0000-0x001f]
+[   20.020763] pci 0000:00:06.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   20.120053] pci 0000:00:06.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   20.237174] pci 0000:00:06.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   20.349013] pci 0000:00:07.0: [1af4:1000] type 00 class 0x020000
+[   20.439482] pci 0000:00:07.0: reg 0x10: [io  0x0000-0x001f]
+[   20.514690] pci 0000:00:07.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   20.610977] pci 0000:00:07.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   20.722478] pci 0000:00:07.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   20.819520] pci 0000:00:08.0: [1af4:1000] type 00 class 0x020000
+[   20.903415] pci 0000:00:08.0: reg 0x10: [io  0x0000-0x001f]
+[   20.984781] pci 0000:00:08.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   21.080194] pci 0000:00:08.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   21.183298] pci 0000:00:08.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   21.295895] pci 0000:00:09.0: [1af4:1000] type 00 class 0x020000
+[   21.380832] pci 0000:00:09.0: reg 0x10: [io  0x0000-0x001f]
+[   21.470118] pci 0000:00:09.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   21.548823] pci 0000:00:09.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   21.632776] pci 0000:00:09.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   21.717057] pci 0000:00:0a.0: [1af4:1000] type 00 class 0x020000
+[   21.790780] pci 0000:00:0a.0: reg 0x10: [io  0x0000-0x001f]
+[   21.855953] pci 0000:00:0a.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   21.930256] pci 0000:00:0a.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   22.015424] pci 0000:00:0a.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   22.096619] pci 0000:00:0b.0: [1af4:1000] type 00 class 0x020000
+[   22.215586] pci 0000:00:0b.0: reg 0x10: [io  0x0000-0x001f]
+[   22.285391] pci 0000:00:0b.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   22.367724] pci 0000:00:0b.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   22.458649] pci 0000:00:0b.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   22.601590] pci 0000:00:0c.0: [1af4:1000] type 00 class 0x020000
+[   22.676037] pci 0000:00:0c.0: reg 0x10: [io  0x0000-0x001f]
+[   22.742514] pci 0000:00:0c.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   22.839268] pci 0000:00:0c.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   22.932767] pci 0000:00:0c.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   23.023689] pci 0000:00:0d.0: [1af4:1000] type 00 class 0x020000
+[   23.101559] pci 0000:00:0d.0: reg 0x10: [io  0x0000-0x001f]
+[   23.172200] pci 0000:00:0d.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   23.262237] pci 0000:00:0d.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   23.358359] pci 0000:00:0d.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   23.459582] pci 0000:00:0e.0: [1af4:1000] type 00 class 0x020000
+[   23.586856] pci 0000:00:0e.0: reg 0x10: [io  0x0000-0x001f]
+[   23.693256] pci 0000:00:0e.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   23.782476] pci 0000:00:0e.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   23.876325] pci 0000:00:0e.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   23.960492] pci 0000:00:0f.0: [1af4:1000] type 00 class 0x020000
+[   24.041148] pci 0000:00:0f.0: reg 0x10: [io  0x0000-0x001f]
+[   24.110233] pci 0000:00:0f.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   24.189282] pci 0000:00:0f.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   24.296732] pci 0000:00:0f.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   24.383606] pci 0000:00:10.0: [1af4:1000] type 00 class 0x020000
+[   24.458780] pci 0000:00:10.0: reg 0x10: [io  0x0000-0x001f]
+[   24.529508] pci 0000:00:10.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   24.608755] pci 0000:00:10.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   24.698702] pci 0000:00:10.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   24.798156] pci 0000:00:11.0: [1af4:1000] type 00 class 0x020000
+[   24.910353] pci 0000:00:11.0: reg 0x10: [io  0x0000-0x001f]
+[   24.994561] pci 0000:00:11.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   25.117453] pci 0000:00:11.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   25.249469] pci 0000:00:11.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   25.361670] pci 0000:00:04.0: BAR 6: assigned [mem 0x10000000-0x1003ffff pref]
+[   25.469998] pci 0000:00:05.0: BAR 6: assigned [mem 0x10040000-0x1007ffff pref]
+[   25.575306] pci 0000:00:06.0: BAR 6: assigned [mem 0x10080000-0x100bffff pref]
+[   25.677876] pci 0000:00:07.0: BAR 6: assigned [mem 0x100c0000-0x100fffff pref]
+[   25.771290] pci 0000:00:08.0: BAR 6: assigned [mem 0x10100000-0x1013ffff pref]
+[   25.876794] pci 0000:00:09.0: BAR 6: assigned [mem 0x10140000-0x1017ffff pref]
+[   25.963201] pci 0000:00:0a.0: BAR 6: assigned [mem 0x10180000-0x101bffff pref]
+[   26.054071] pci 0000:00:0b.0: BAR 6: assigned [mem 0x101c0000-0x101fffff pref]
+[   26.147466] pci 0000:00:0c.0: BAR 6: assigned [mem 0x10200000-0x1023ffff pref]
+[   26.268167] pci 0000:00:0d.0: BAR 6: assigned [mem 0x10240000-0x1027ffff pref]
+[   26.363889] pci 0000:00:0e.0: BAR 6: assigned [mem 0x10280000-0x102bffff pref]
+[   26.454673] pci 0000:00:0f.0: BAR 6: assigned [mem 0x102c0000-0x102fffff pref]
+[   26.550105] pci 0000:00:10.0: BAR 6: assigned [mem 0x10300000-0x1033ffff pref]
+[   26.634822] pci 0000:00:11.0: BAR 6: assigned [mem 0x10340000-0x1037ffff pref]
+[   26.726175] pci 0000:00:01.0: BAR 4: assigned [mem 0x8000000000-0x8000003fff 64bit pref]
+[   26.831217] pci 0000:00:02.0: BAR 4: assigned [mem 0x8000004000-0x8000007fff 64bit pref]
+[   26.953400] pci 0000:00:03.0: BAR 4: assigned [mem 0x8000008000-0x800000bfff 64bit pref]
+[   27.076166] pci 0000:00:04.0: BAR 4: assigned [mem 0x800000c000-0x800000ffff 64bit pref]
+[   27.178639] pci 0000:00:05.0: BAR 4: assigned [mem 0x8000010000-0x8000013fff 64bit pref]
+[   27.312175] pci 0000:00:06.0: BAR 4: assigned [mem 0x8000014000-0x8000017fff 64bit pref]
+[   27.417555] pci 0000:00:07.0: BAR 4: assigned [mem 0x8000018000-0x800001bfff 64bit pref]
+[   27.515745] pci 0000:00:08.0: BAR 4: assigned [mem 0x800001c000-0x800001ffff 64bit pref]
+[   27.654282] pci 0000:00:09.0: BAR 4: assigned [mem 0x8000020000-0x8000023fff 64bit pref]
+[   27.765956] pci 0000:00:0a.0: BAR 4: assigned [mem 0x8000024000-0x8000027fff 64bit pref]
+[   27.882287] pci 0000:00:0b.0: BAR 4: assigned [mem 0x8000028000-0x800002bfff 64bit pref]
+[   27.996504] pci 0000:00:0c.0: BAR 4: assigned [mem 0x800002c000-0x800002ffff 64bit pref]
+[   28.102378] pci 0000:00:0d.0: BAR 4: assigned [mem 0x8000030000-0x8000033fff 64bit pref]
+[   28.222970] pci 0000:00:0e.0: BAR 4: assigned [mem 0x8000034000-0x8000037fff 64bit pref]
+[   28.354990] pci 0000:00:0f.0: BAR 4: assigned [mem 0x8000038000-0x800003bfff 64bit pref]
+[   28.475444] pci 0000:00:10.0: BAR 4: assigned [mem 0x800003c000-0x800003ffff 64bit pref]
+[   28.580922] pci 0000:00:11.0: BAR 4: assigned [mem 0x8000040000-0x8000043fff 64bit pref]
+[   28.686158] pci 0000:00:01.0: BAR 1: assigned [mem 0x10380000-0x10380fff]
+[   28.769064] pci 0000:00:02.0: BAR 1: assigned [mem 0x10381000-0x10381fff]
+[   28.851384] pci 0000:00:03.0: BAR 1: assigned [mem 0x10382000-0x10382fff]
+[   28.936100] pci 0000:00:04.0: BAR 1: assigned [mem 0x10383000-0x10383fff]
+[   29.035351] pci 0000:00:05.0: BAR 1: assigned [mem 0x10384000-0x10384fff]
+[   29.138599] pci 0000:00:06.0: BAR 1: assigned [mem 0x10385000-0x10385fff]
+[   29.250098] pci 0000:00:07.0: BAR 1: assigned [mem 0x10386000-0x10386fff]
+[   29.366538] pci 0000:00:08.0: BAR 1: assigned [mem 0x10387000-0x10387fff]
+[   29.490298] pci 0000:00:09.0: BAR 1: assigned [mem 0x10388000-0x10388fff]
+[   29.604637] pci 0000:00:0a.0: BAR 1: assigned [mem 0x10389000-0x10389fff]
+[   29.697432] pci 0000:00:0b.0: BAR 1: assigned [mem 0x1038a000-0x1038afff]
+[   29.876608] pci 0000:00:0c.0: BAR 1: assigned [mem 0x1038b000-0x1038bfff]
+[   29.964838] pci 0000:00:0d.0: BAR 1: assigned [mem 0x1038c000-0x1038cfff]
+[   30.055645] pci 0000:00:0e.0: BAR 1: assigned [mem 0x1038d000-0x1038dfff]
+[   30.155768] pci 0000:00:0f.0: BAR 1: assigned [mem 0x1038e000-0x1038efff]
+[   30.253203] pci 0000:00:10.0: BAR 1: assigned [mem 0x1038f000-0x1038ffff]
+[   30.362317] pci 0000:00:11.0: BAR 1: assigned [mem 0x10390000-0x10390fff]
+[   30.454319] pci 0000:00:01.0: BAR 0: assigned [io  0x1000-0x107f]
+[   30.531924] pci 0000:00:02.0: BAR 0: assigned [io  0x1080-0x10ff]
+[   30.606591] pci 0000:00:03.0: BAR 0: assigned [io  0x1100-0x113f]
+[   30.680336] pci 0000:00:04.0: BAR 0: assigned [io  0x1140-0x115f]
+[   30.759502] pci 0000:00:05.0: BAR 0: assigned [io  0x1160-0x117f]
+[   30.846578] pci 0000:00:06.0: BAR 0: assigned [io  0x1180-0x119f]
+[   30.931655] pci 0000:00:07.0: BAR 0: assigned [io  0x11a0-0x11bf]
+[   31.010172] pci 0000:00:08.0: BAR 0: assigned [io  0x11c0-0x11df]
+[   31.089599] pci 0000:00:09.0: BAR 0: assigned [io  0x11e0-0x11ff]
+[   31.220491] pci 0000:00:0a.0: BAR 0: assigned [io  0x1200-0x121f]
+[   31.316540] pci 0000:00:0b.0: BAR 0: assigned [io  0x1220-0x123f]
+[   31.393027] pci 0000:00:0c.0: BAR 0: assigned [io  0x1240-0x125f]
+[   31.476697] pci 0000:00:0d.0: BAR 0: assigned [io  0x1260-0x127f]
+[   31.554316] pci 0000:00:0e.0: BAR 0: assigned [io  0x1280-0x129f]
+[   31.638563] pci 0000:00:0f.0: BAR 0: assigned [io  0x12a0-0x12bf]
+[   31.730468] pci 0000:00:10.0: BAR 0: assigned [io  0x12c0-0x12df]
+[   31.822083] pci 0000:00:11.0: BAR 0: assigned [io  0x12e0-0x12ff]
+[   31.943340] octeontx2-dpi: Marvell OcteonTX2 DPI-DMA Driver
+[   32.016970] octeontx2-sdp
+[   32.057248] octtx_info: No board info available!
+[   32.058948] Freeing initrd memory: 41472K
+[   32.228358] virtio-pci 0000:00:01.0: enabling device (0000 -> 0003)
+[   32.357566] virtio-pci 0000:00:02.0: enabling device (0000 -> 0003)
+[   32.450946] virtio-pci 0000:00:03.0: enabling device (0000 -> 0003)
+[   32.539781] virtio-pci 0000:00:04.0: enabling device (0000 -> 0003)
+[   32.629135] virtio-pci 0000:00:05.0: enabling device (0000 -> 0003)
+[   32.717361] virtio-pci 0000:00:06.0: enabling device (0000 -> 0003)
+[   32.803636] virtio-pci 0000:00:07.0: enabling device (0000 -> 0003)
+[   32.887405] virtio-pci 0000:00:08.0: enabling device (0000 -> 0003)
+[   32.966473] virtio-pci 0000:00:09.0: enabling device (0000 -> 0003)
+[   33.048164] virtio-pci 0000:00:0a.0: enabling device (0000 -> 0003)
+[   33.131574] virtio-pci 0000:00:0b.0: enabling device (0000 -> 0003)
+[   33.221177] virtio-pci 0000:00:0c.0: enabling device (0000 -> 0003)
+[   33.312158] virtio-pci 0000:00:0d.0: enabling device (0000 -> 0003)
+[   33.396316] virtio-pci 0000:00:0e.0: enabling device (0000 -> 0003)
+[   33.489431] virtio-pci 0000:00:0f.0: enabling device (0000 -> 0003)
+[   33.576010] virtio-pci 0000:00:10.0: enabling device (0000 -> 0003)
+[   33.660351] virtio-pci 0000:00:11.0: enabling device (0000 -> 0003)
+[   33.801242] Free page reporting enabled
+[   33.924824] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[   34.308404] brd: module loaded
+[   34.464035] loop: module loaded
+[   34.812268] virtio_blk virtio0: 4/0/0 default/read/poll queues
+[   34.912748] virtio_blk virtio0: [vda] 2019264 512-byte logical blocks (1.03 GB/986 MiB)
+[   35.033060] virtio_blk virtio1: 4/0/0 default/read/poll queues
+[   35.128204] virtio_blk virtio1: [vdb] 67108864 512-byte logical blocks (34.4 GB/32.0 GiB)
+[   35.299726] Couldn't find BPHY device a089
+[   35.376475] megaraid cmm: 2.20.2.7 (Release Date: Sun Jul 16 00:01:03 EST 2006)
+[   35.508563] megaraid: 2.20.5.1 (Release Date: Thu Nov 16 15:32:35 EST 2006)
+[   35.627258] megasas: 07.725.01.00-rc1
+[   35.674902] mpt3sas version 43.100.00.00 loaded
+[   35.771639] mtd device must be supplied (device name is empty)
+[   35.932886] MACsec IEEE 802.1AE
+[   36.077277] tun: Universal TUN/TAP device driver, 1.6
+[   36.507923] sky2: driver version 1.30
+[   36.567536] rvu_af: Marvell OcteonTX2 RVU Admin Function Driver
+[   36.669358] rvu_nicpf: Marvell RVU NIC Physical Function Driver
+[   36.759524] rvu_nicvf: Marvell RVU NIC Virtual Function Driver
+[   36.830933] octeontx2-bphy-netdev: Marvell OcteonTX2 BPHY Ethernet Driver
+[   36.912129] usbcore: registered new interface driver rtl8150
+[   36.982333] usbcore: registered new device driver r8152-cfgselector
+[   37.056807] usbcore: registered new interface driver r8152
+[   37.122105] usbcore: registered new interface driver asix
+[   37.234688] usbcore: registered new interface driver ax88179_178a
+[   37.348071] usbcore: registered new interface driver dm9601
+[   37.426988] usbcore: registered new interface driver CoreChips
+[   37.500551] usbcore: registered new interface driver smsc75xx
+[   37.570378] usbcore: registered new interface driver smsc95xx
+[   37.644449] usbcore: registered new interface driver net1080
+[   37.712764] usbcore: registered new interface driver plusb
+[   37.799023] usbcore: registered new interface driver MOSCHIP usb-ethernet driver
+[   37.915450] VFIO - User Level meta-driver version: 0.3
+[   38.000494] usbcore: registered new interface driver cdc_acm
+[   38.084758] cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+[   38.203331] usbcore: registered new interface driver usb-storage
+[   38.333145] rtc-pl031 9010000.pl031: registered as rtc0
+[   38.399716] rtc-pl031 9010000.pl031: setting system clock to 2026-10-09T15:35:38 UTC (1791560138)
+[   38.580666] i2c_dev: i2c /dev entries driver
+[   38.663717] device-mapper: ioctl: 4.48.0-ioctl (2023-03-01) initialised: dm-devel@redhat.com
+[   38.786592] Bluetooth: HCI UART driver ver 2.3
+[   38.860623] Bluetooth: HCI UART protocol H4 registered
+[   38.927986] Bluetooth: HCI UART protocol BCSP registered
+[   38.996814] Bluetooth: HCI UART protocol LL registered
+[   39.064449] Bluetooth: HCI UART protocol Broadcom registered
+[   39.141175] usbcore: registered new interface driver btusb
+[   39.216943] sdhci: Secure Digital Host Controller Interface driver
+[   39.302695] sdhci: Copyright(c) Pierre Ossman
+[   39.359513] Synopsys Designware Multimedia Card Interface Driver
+[   39.439756] sdhci-pltfm: SDHCI platform and OF driver helper
+[   39.526170] usbcore: registered new interface driver usbhid
+[   39.594903] usbhid: USB HID core driver
+[   39.666531] hw perfevents: enabled with armv8_pmuv3 PMU driver, 7 counters available
+[   39.766566] watchdog: Delayed init of the lockup detector failed: -19
+[   39.850247] watchdog: Hard watchdog permanently disabled
+[   39.978256]  cs_system_cfg: CoreSight Configuration manager initialised
+[   40.073387] GACT probability NOT on
+[   40.117004] Mirror/redirect action on
+[   40.172141] u32 classifier
+[   40.210797]     input device check on
+[   40.255244]     Actions configured
+[   40.315307] IPVS: Registered protocols ()
+[   40.361217] IPVS: Connection hash table configured (size=4096, memory=32Kbytes)
+[   40.479054] IPVS: ipvs loaded.
+[   40.521420] gre: GRE over IPv4 demultiplexor driver
+[   40.580716] IPv4 over IPsec tunneling driver
+[   40.655826] Initializing XFRM netlink socket
+[   40.718133] NET: Registered PF_INET6 protocol family
+[   41.385281] Segment Routing with IPv6
+[   41.460376] In-situ OAM (IOAM) with IPv6
+[   41.569215] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[   41.720765] ip6_gre: GRE over IPv6 tunneling driver
+[   41.833699] NET: Registered PF_PACKET protocol family
+[   41.932490] NET: Registered PF_KEY protocol family
+[   42.028858] bridge: filtering via arp/ip/ip6tables is no longer available by default. Update your scripts to load br_netfilter if you need this.
+[   42.282976] Bluetooth: RFCOMM TTY layer initialized
+[   42.359427] Bluetooth: RFCOMM socket layer initialized
+[   42.436880] Bluetooth: RFCOMM ver 1.11
+[   42.500584] Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+[   42.584692] Bluetooth: BNEP filters: protocol multicast
+[   42.665057] Bluetooth: BNEP socket layer initialized
+[   42.720889] Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+[   42.784479] Bluetooth: HIDP socket layer initialized
+[   42.838513] 8021q: 802.1Q VLAN Support v1.8
+[   42.887648] 9pnet: Installing 9P2000 support
+[   42.944791] Key type dns_resolver registered
+[   43.000124] mpls_gso: MPLS GSO support
+[   43.285949] registered taskstats version 1
+[   43.343064] Loading compiled-in X.509 certificates
+[   43.448094] zswap: loaded using pool zstd/zbud
+[   43.769497] kmemleak: Kernel memory leak detector initialized (mem pool available: 15485)
+[   43.797486] kmemleak: Automatic memory scanning thread started
+[   44.073220] Btrfs loaded, zoned=no, fsverity=no
+[   44.185381] input: gpio-keys as /devices/platform/gpio-keys/input/input0
+[   44.321841] cfg80211: Loading compiled-in X.509 certificates for regulatory database
+[   44.576255] Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+[   44.656641] Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+[   44.767906] clk: Disabling unused clocks
+[   44.827273] platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
+[   44.947369] cfg80211: failed to load regulatory.db
+[   45.008664] uart-pl011 9000000.pl011: no DMA platform data
+[   45.257151] Freeing unused kernel memory: 5760K
+[   45.379813] Run /init as init process
+UDM_LAB_INIT_BEGIN mode=systemd
+Experimental ARM guest: this boot does not establish a working UniFi firewall.
+[   46.333905] EXT4-fs (vdb): mounted filesystem 7a48b9da-17ec-4bc6-a4d4-7a19e928521f r/w with ordered data mode. Quota mode: none.
+[   57.410148] ubnt_common: loading out-of-tree module taints kernel.
+[   57.532256] ubnt_common: module license 'Proprietary' taints kernel.
+[   57.680782] Disabling lock debugging due to kernel taint
+[   57.741381] ubnt_common: module license taints kernel.
+[   57.973057] ubnthal: Ubiquiti UniFi Dream Machine Beast
+[   58.070955] Unable to find 'ubnthal,write-protect' dts node.
+board.sysid=0xea4c
+board.name=UniFi Dream Machine Beast
+board.shortname=UDMEA4C
+board.storename=UDMEA4C
+board.subtype=
+board.reboot=30
+board.upgrade=310
+board.cpu.id=410fd490-00000000
+board.uuid=8fbe11ad-3445-51b9-998d-920da3cd7301
+board.bom=113-00000-01
+board.hwrev=0x0001
+board.serialno=0255444d0000
+board.qrid=000000
+UDM_VIRTUAL_HAL_NATIVE_READY
+UDM_VIRTUAL_LATE_BOOT_READY: physical PHY diagnostic disabled
+UDM_VIRTUAL_CONTROLLER_READY: installed
+UDM_VIRTUAL_VALIDATION_POLICY
+UDM_VIRTUAL_ADAPTATION_READY
+UDM_LAB_SYSTEMD_START: original hardware-dependent services may fail.
+[   90.331328] systemd[1]: systemd 247.3-7+deb11u8 running in system mode. (+PAM +AUDIT +SELINUX +IMA +APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +GCRYPT +GNUTLS +ACL +XZ +LZ4 +ZSTD +SECCOMP +BLKID +ELFUTILS +KMOD +IDN2 -IDN +PCRE2 default-hierarchy=unified)
+[   90.518395] systemd[1]: Detected virtualization qemu.
+[   90.558447] systemd[1]: Detected architecture arm64.
+[   90.602425] systemd[1]: Detected first boot.
+
+Welcome to [1mDebian GNU/Linux 11 (bullseye)[0m!
+
+[   90.799302] systemd[1]: Set hostname to <UDM-Beast>.
+[   90.908439] systemd[1]: Initializing machine ID from random generator.
+[  110.629514] systemd[1]: Populated /etc with preset unit settings.
+[  113.009277] systemd[1]: Configuration file /lib/systemd/system/marvell-cpss.service.d/led-gpio-init.conf is marked executable. Please remove executable permission bits. Proceeding anyway.
+[  113.790339] systemd[1]: Queued start job for default target System Finish Bootup.
+[  113.857995] systemd[1]: os.slice: unit configures an IP firewall, but the local system does not support BPF/cgroup firewalling.
+[  113.947408] systemd[1]: (This warning is only shown for the first unit using IP firewalling.)
+[  114.092859] systemd[1]: Created slice OS Slice. Memory, CPU and IO restricted.
+[[0;32m  OK  [0m] Created slice [0;1;39mOS Slice. Memory, CPU and IO restricted[0m.
+[  114.289235] systemd[1]: Created slice Unifi-OS Slice. Memory, CPU and IO restricted.
+[[0;32m  OK  [0m] Created slice [0;1;39mUnifi-OS Sli…Memory, CPU and IO restricted[0m.
+[  114.439806] systemd[1]: Created slice App slice.
+[[0;32m  OK  [0m] Created slice [0;1;39mApp slice[0m.
+[  114.543945] systemd[1]: Created slice unifi-drive slice.
+[[0;32m  OK  [0m] Created slice [0;1;39munifi-drive slice[0m.
+[  114.696624] systemd[1]: Created slice uid-agent slice.
+[[0;32m  OK  [0m] Created slice [0;1;39muid-agent slice[0m.
+[  114.816557] systemd[1]: Created slice unifi-network slice.
+[[0;32m  OK  [0m] Created slice [0;1;39munifi-network slice[0m.
+[  114.997023] systemd[1]: Created slice system-bluetooth\x2dcontroller.slice.
+[[0;32m  OK  [0m] Created slice [0;1;39msystem-bluetooth\x2dcontroller.slice[0m.
+[  115.173204] systemd[1]: Created slice system-getty.slice.
+[[0;32m  OK  [0m] Created slice [0;1;39msystem-getty.slice[0m.
+[  115.324418] systemd[1]: Created slice system-modprobe.slice.
+[[0;32m  OK  [0m] Created slice [0;1;39msystem-modprobe.slice[0m.
+[  115.472436] systemd[1]: Created slice system-serial\x2dgetty.slice.
+[[0;32m  OK  [0m] Created slice [0;1;39msystem-serial\x2dgetty.slice[0m.
+[  115.812641] systemd[1]: Created slice User and Session Slice.
+[[0;32m  OK  [0m] Created slice [0;1;39mUser and Session Slice[0m.
+[  115.921428] systemd[1]: Started Dispatch Password Requests to Console Directory Watch.
+[[0;32m  OK  [0m] Started [0;1;39mDispatch Password …ts to Console Directory Watch[0m.
+[  116.081631] systemd[1]: Started Forward Password Requests to Wall Directory Watch.
+[[0;32m  OK  [0m] Started [0;1;39mForward Password R…uests to Wall Directory Watch[0m.
+[  116.281132] systemd[1]: Condition check resulted in Arbitrary Executable File Formats File System Automount Point being skipped.
+[  116.402698] systemd[1]: Reached target Local Encrypted Volumes.
+[[0;32m  OK  [0m] Reached target [0;1;39mLocal Encrypted Volumes[0m.
+[  116.520930] systemd[1]: Reached target Paths.
+[[0;32m  OK  [0m] Reached target [0;1;39mPaths[0m.
+[  116.610338] systemd[1]: Reached target Remote Encrypted Volumes.
+[[0;32m  OK  [0m] Reached target [0;1;39mRemote Encrypted Volumes[0m.
+[  116.742167] systemd[1]: Reached target Remote File Systems.
+[[0;32m  OK  [0m] Reached target [0;1;39mRemote File Systems[0m.
+[  116.849286] systemd[1]: Reached target Slices.
+[[0;32m  OK  [0m] Reached target [0;1;39mSlices[0m.
+[  116.936018] systemd[1]: Reached target TLS tunnels for network services - per-config-file target.
+[[0;32m  OK  [0m] Reached target [0;1;39mTLS tunnels…ices - per-config-file target[0m.
+[  117.082298] systemd[1]: Reached target Swap.
+[[0;32m  OK  [0m] Reached target [0;1;39mSwap[0m.
+[  117.230771] systemd[1]: Listening on initctl Compatibility Named Pipe.
+[[0;32m  OK  [0m] Listening on [0;1;39minitctl Compatibility Named Pipe[0m.
+[  117.369298] systemd[1]: Listening on Journal Audit Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39mJournal Audit Socket[0m.
+[  117.488040] systemd[1]: Listening on Journal Socket (/dev/log).
+[[0;32m  OK  [0m] Listening on [0;1;39mJournal Socket (/dev/log)[0m.
+[  117.652089] systemd[1]: Listening on Journal Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39mJournal Socket[0m.
+[  117.823629] systemd[1]: Listening on Network Service Netlink Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39mNetwork Service Netlink Socket[0m.
+[  118.009292] systemd[1]: Listening on udev Control Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39mudev Control Socket[0m.
+[  118.130179] systemd[1]: Listening on udev Kernel Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39mudev Kernel Socket[0m.
+[  118.347484] systemd[1]: Mounting Huge Pages File System...
+         Mounting [0;1;39mHuge Pages File System[0m...
+[  118.585218] systemd[1]: Mounting POSIX Message Queue File System...
+         Mounting [0;1;39mPOSIX Message Queue File System[0m...
+[  118.845123] systemd[1]: Mounting Kernel Debug File System...
+         Mounting [0;1;39mKernel Debug File System[0m...
+[  119.125323] systemd[1]: Mounting Kernel Trace File System...
+         Mounting [0;1;39mKernel Trace File System[0m...
+[  119.393852] systemd[1]: Starting Create list of static device nodes for the current kernel...
+         Starting [0;1;39mCreate list of st…odes for the current kernel[0m...
+[  119.689171] systemd[1]: Starting Load Kernel Module configfs...
+         Starting [0;1;39mLoad Kernel Module configfs[0m...
+[  119.933800] systemd[1]: Starting Load Kernel Module drm...
+         Starting [0;1;39mLoad Kernel Module drm[0m...
+[  120.117447] systemd[1]: Condition check resulted in Set Up Additional Binary Formats being skipped.
+[  120.408991] systemd[1]: Starting Journal Service...
+         Starting [0;1;39mJournal Service[0m...
+[  120.740437] systemd[1]: Starting Load Kernel Modules...
+         Starting [0;1;39mLoad Kernel Modules[0m...
+[  121.075797] systemd[1]: Starting Remount Root and Kernel File Systems...
+         Starting [0;1;39mRemount Root and Kernel File Systems[0m...
+[  121.369243] systemd[1]: Starting Coldplug All udev Devices...
+         Starting [0;1;39mColdplug All udev Devices[0m...
+[  121.677040] systemd[1]: Starting Force rescan SCSI disks before local fs target...
+         Starting [0;1;39mForce rescan SCSI…isks before local fs target[0m...
+[  122.081481] systemd[1]: Mounted Huge Pages File System.
+[[0;32m  OK  [0m] Mounted [0;1;39mHuge Pages File System[0m.
+[  122.245203] systemd[1]: Mounted POSIX Message Queue File System.
+[[0;32m  OK  [0m] Mounted [0;1;39mPOSIX Message Queue File System[0m.
+[  122.435799] systemd[1]: Mounted Kernel Debug File System.
+[[0;32m  OK  [0m] Mounted [0;1;39mKernel Debug File System[0m.
+[  122.666661] systemd[1]: Mounted Kernel Trace File System.
+[[0;32m  OK  [0m] Mounted [0;1;39mKernel Trace File System[0m.
+[  122.903498] systemd[1]: Finished Create list of static device nodes for the current kernel.
+[[0;32m  OK  [0m] Finished [0;1;39mCreate list of st… nodes for the current kernel[0m.
+[  123.192809] systemd[1]: modprobe@configfs.service: Succeeded.
+[  123.296184] systemd[1]: Finished Load Kernel Module configfs.
+[[0;32m  OK  [0m] Finished [0;1;39mLoad Kernel Module configfs[0m.
+[  123.501646] systemd[1]: modprobe@drm.service: Succeeded.
+[  123.690834] systemd[1]: Finished Load Kernel Module drm.
+[  123.764522] mvcpss: Function PCI loaded
+[[0;32m  OK  [0m] Finished [0;1;39mLoad Kernel Module drm[0m.[  123.907001] mvdma mvdma: Device created, major 236, minor 1
+[  123.984638] mvcpss: Function DMA2 loaded
+
+[  124.042430] Version: 2.00
+[  124.078694] mvcpss: Function ETH loaded
+[  124.292904] systemd[1]: Finished Remount Root and Kernel File Systems.
+[[0;32m  OK  [0m] Finished [0;1;39mRemount Root and Kernel File Systems[0m.
+[  124.665643] systemd[1]: Mounting Kernel Configuration File System...
+         Mounting [0;1;39mKernel Configuration File System[0m...
+[  124.932056] systemd[1]: Condition check resulted in Rebuild Hardware Database being skipped.
+[  125.072894] systemd[1]: Condition check resulted in Platform Persistent Storage Archival being skipped.
+[  125.204982] PPP generic driver version 2.4.2
+[  125.427264] systemd[1]: Starting Load/Save Random Seed...
+         Starting [0;1;39mLoad/Save Random Seed[0m...
+[  125.728740] systemd[1]: Starting Create System Users...
+         Starting [0;1;39mCreate System Users[0m...
+[  125.961264] systemd[1]: Mounted Kernel Configuration File System.
+[[0;32m  OK  [0m] Mounted [0;1;39mKernel Configuration File System[0m.
+[  126.320535] systemd[1]: Finished Load Kernel Modules.
+[[0;32m  OK  [0m] Finished [0;1;39mLoad Kernel Modules[0m.
+[  126.663752] systemd[1]: Starting Ubiquiti Report initialization...
+         Starting [0;1;39mUbiquiti Report initialization[0m...
+[  126.963379] systemd[1]: Starting Generate anonymous device id...
+         Starting [0;1;39mGenerate anonymous device id[0m...
+[  127.326791] systemd[1]: Starting Create /dev/sflash for devreg...
+         Starting [0;1;39mCreate /dev/sflash for devreg[0m...
+[  127.580323] systemd[1]: Starting Apply Kernel Variables...
+         Starting [0;1;39mApply Kernel Variables[0m...
+[  127.971248] systemd[1]: Started UI button daemon.
+[[0;32m  OK  [0m] Started [0;1;39mUI button daemon[0m.
+[  128.380617] systemd[1]: Finished Load/Save Random Seed.
+[[0;32m  OK  [0m] Finished [0;1;39mLoad/Save Random Seed[0m.
+[  128.530659] systemd[1]: Reached target First Boot Complete.
+[[0;32m  OK  [0m] Reached target [0;1;39mFirst Boot Complete[0m.
+[  128.913258] systemd[1]: Finished Create /dev/sflash for devreg.
+[[0;32m  OK  [0m] Finished [0;1;39mCreate /dev/sflash for devreg[0m.
+[  130.115887] systemd[1]: Started Journal Service.
+[[0;32m  OK  [0m] Started [0;1;39mJournal Service[0m.
+         Starting [0;1;39mFlush Journal to Persistent Storage[0m...
+[  130.868219] systemd-journald[214]: Received client request to flush runtime journal.
+[[0;32m  OK  [0m] Finished [0;1;39mUbiquiti Report initialization[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mCreate System Users[0m.
+         Starting [0;1;39mCreate Static Device Nodes in /dev[0m...
+[[0;32m  OK  [0m] Finished [0;1;39mFlush Journal to Persistent Storage[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mGenerate anonymous device id[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mApply Kernel Variables[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mCreate Static Device Nodes in /dev[0m.
+         Starting [0;1;39mRule-based Manage…for Device Events and Files[0m...
+[[0;32m  OK  [0m] Started [0;1;39mRule-based Manager for Device Events and Files[0m.
+         Starting [0;1;39mNetwork Service[0m...
+[[0m[0;31m*     [0m] (1 of 4) A start job is running for… All udev Devices (22s / no limit)
+M[K[[0;1;31m*[0m[0;31m*    [0m] (1 of 4) A start job is running for… All udev Devices (23s / no limit)
+M[K[[0;32m  OK  [0m] Started [0;1;39mNetwork Service[0m.
+[K[[0;32m  OK  [0m] Finished [0;1;39mForce rescan SCSI disks before local fs target[0m.
+         Starting [0;1;39mWait for SCSI disks to be probed and ready[0m...
+[[0;31m*[0;1;31m*[0m[0;31m*   [0m] (1 of 3) A start job is running for… All udev Devices (27s / no limit)
+M[K[[0;32m  OK  [0m] Found device [0;1;39m/dev/ttyAMA0[0m.
+[K[[0;32m  OK  [0m] Finished [0;1;39mColdplug All udev Devices[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mWait for SCSI disks to be probed and ready[0m.
+         Starting [0;1;39mReset-format Monitor[0m...
+[[0;32m  OK  [0m] Listening on [0;1;39mLoad/Save RF …itch Status /dev/rfkill Watch[0m.
+[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for Reset-format Monitor (34s / no limit)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for Reset-format Monitor (34s / no limit)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for Reset-format Monitor (35s / no limit)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for Reset-format Monitor (35s / no limit)
+M[K[[0;32m  OK  [0m] Finished [0;1;39mReset-format Monitor[0m.
+[K[[0;32m  OK  [0m] Reached target [0;1;39mLocal File Systems (Pre)[0m.
+         Mounting [0;1;39mTemporary directory for Ubiquiti udapi server[0m...
+         Starting [0;1;39mUI status DB daemon[0m...
+[[0;32m  OK  [0m] Mounted [0;1;39mTemporary directory for Ubiquiti udapi server[0m.
+[     [0;31m*[0m] A start job is running for UI status DB daemon (38s / 2min 5s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for UI status DB daemon (38s / 2min 5s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for UI status DB daemon (39s / 2min 5s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for UI status DB daemon (39s / 2min 5s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for UI status DB daemon (40s / 2min 5s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for UI status DB daemon (40s / 2min 5s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for UI status DB daemon (41s / 2min 5s)
+M[K[[0m[0;31m*     [0m] A start job is running for UI status DB daemon (41s / 2min 5s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for UI status DB daemon (42s / 2min 5s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for UI status DB daemon (42s / 2min 5s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for UI status DB daemon (43s / 2min 5s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for UI status DB daemon (43s / 2min 5s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for UI status DB daemon (44s / 2min 5s)
+M[K[[0;32m  OK  [0m] Started [0;1;39mUI status DB daemon[0m.
+[K         Starting [0;1;39mUI hardware control daemon[0m...
+[    [0;31m*[0;1;31m*[0m] A start job is running for UI hardware control daemon (47s / 1min 14s)
+M[K[     [0;31m*[0m] A start job is running for UI hardware control daemon (47s / 1min 14s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for UI hardware control daemon (48s / 1min 14s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for UI hardware control daemon (48s / 1min 14s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for UI hardware control daemon (49s / 1min 14s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for UI hardware control daemon (49s / 1min 14s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for UI hardware control daemon (49s / 1min 14s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for UI hardware control daemon (50s / 1min 14s)
+M[K[[0m[0;31m*     [0m] A start job is running for UI hardware control daemon (50s / 1min 14s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for UI hardware control daemon (51s / 1min 14s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for UI hardware control daemon (51s / 1min 14s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for UI hardware control daemon (52s / 1min 14s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for UI hardware control daemon (52s / 1min 14s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for UI hardware control daemon (53s / 1min 14s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for UI hardware control daemon (53s / 1min 14s)
+M[K[     [0;31m*[0m] A start job is running for UI hardware control daemon (54s / 1min 14s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for UI hardware control daemon (54s / 1min 14s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for UI hardware control daemon (55s / 1min 14s)
+M[K[[0;32m  OK  [0m] Started [0;1;39mUI hardware control daemon[0m.
+[K         Starting [0;1;39mUI storage daemon[0m...
+[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for UI storage daemon (58s / 10min 55s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for UI storage daemon (58s / 10min 55s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for UI storage daemon (59s / 10min 55s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for UI storage daemon (59s / 10min 55s)
+M[K[[0m[0;31m*     [0m] A start job is running for UI storage daemon (59s / 10min 55s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for UI storage daemon (1min / 10min 55s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for UI storage daemon (1min / 10min 55s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for UI storage daemon (1min 1s / 10min 55s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for UI storage daemon (1min 1s / 10min 55s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for UI storage daemon (1min 2s / 10min 55s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for UI storage daemon (1min 2s / 10min 55s)
+M[K[     [0;31m*[0m] A start job is running for UI storage daemon (1min 3s / 10min 55s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for UI storage daemon (1min 3s / 10min 55s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for UI storage daemon (1min 4s / 10min 55s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for UI storage daemon (1min 4s / 10min 55s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for UI storage daemon (1min 5s / 10min 55s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for UI storage daemon (1min 5s / 10min 55s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for UI storage daemon (1min 6s / 10min 55s)
+M[K[[0m[0;31m*     [0m] A start job is running for UI storage daemon (1min 6s / 10min 55s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for UI storage daemon (1min 7s / 10min 55s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for UI storage daemon (1min 7s / 10min 55s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for UI storage daemon (1min 8s / 10min 55s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for UI storage daemon (1min 8s / 10min 55s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for UI storage daemon (1min 9s / 10min 55s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for UI storage daemon (1min 9s / 10min 55s)
+M[K[     [0;31m*[0m] A start job is running for UI storage daemon (1min 10s / 10min 55s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for UI storage daemon (1min 10s / 10min 55s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for UI storage daemon (1min 11s / 10min 55s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for UI storage daemon (1min 11s / 10min 55s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for UI storage daemon (1min 12s / 10min 55s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for UI storage daemon (1min 12s / 10min 55s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for UI storage daemon (1min 13s / 10min 55s)
+M[K[[0m[0;31m*     [0m] A start job is running for UI storage daemon (1min 13s / 10min 55s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for UI storage daemon (1min 13s / 10min 55s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for UI storage daemon (1min 14s / 10min 55s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for UI storage daemon (1min 14s / 10min 55s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for UI storage daemon (1min 15s / 10min 55s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for UI storage daemon (1min 15s / 10min 55s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for UI storage daemon (1min 16s / 10min 55s)
+M[K[     [0;31m*[0m] A start job is running for UI storage daemon (1min 16s / 10min 55s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for UI storage daemon (1min 17s / 10min 55s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for UI storage daemon (1min 17s / 10min 55s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for UI storage daemon (1min 18s / 10min 55s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for UI storage daemon (1min 18s / 10min 55s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for UI storage daemon (1min 19s / 10min 55s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for UI storage daemon (1min 19s / 10min 55s)
+M[K[[0m[0;31m*     [0m] A start job is running for UI storage daemon (1min 20s / 10min 55s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for UI storage daemon (1min 20s / 10min 55s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for UI storage daemon (1min 21s / 10min 55s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for UI storage daemon (1min 21s / 10min 55s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for UI storage daemon (1min 22s / 10min 55s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for UI storage daemon (1min 22s / 10min 55s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for UI storage daemon (1min 23s / 10min 55s)
+M[K[     [0;31m*[0m] A start job is running for UI storage daemon (1min 23s / 10min 55s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for UI storage daemon (1min 24s / 10min 55s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for UI storage daemon (1min 24s / 10min 55s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for UI storage daemon (1min 25s / 10min 55s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for UI storage daemon (1min 25s / 10min 55s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for UI storage daemon (1min 26s / 10min 55s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for UI storage daemon (1min 26s / 10min 55s)
+M[K[[0m[0;31m*     [0m] A start job is running for UI storage daemon (1min 27s / 10min 55s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for UI storage daemon (1min 27s / 10min 55s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for UI storage daemon (1min 28s / 10min 55s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for UI storage daemon (1min 28s / 10min 55s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for UI storage daemon (1min 29s / 10min 55s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for UI storage daemon (1min 29s / 10min 55s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for UI storage daemon (1min 30s / 10min 55s)
+M[K[     [0;31m*[0m] A start job is running for UI storage daemon (1min 30s / 10min 55s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for UI storage daemon (1min 31s / 10min 55s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for UI storage daemon (1min 31s / 10min 55s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for UI storage daemon (1min 32s / 10min 55s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for UI storage daemon (1min 32s / 10min 55s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for UI storage daemon (1min 33s / 10min 55s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for UI storage daemon (1min 33s / 10min 55s)
+M[K[[0;32m  OK  [0m] Started [0;1;39mUI storage daemon[0m.
+[K[[0;32m  OK  [0m] Reached target [0;1;39mLocal File Systems[0m.
+         Starting [0;1;39mUI State Exporter Daemon[0m...
+         Starting [0;1;39mAlign /var/log be…en read-only fs and root fs[0m...
+         Starting [0;1;39mInvoke bootup-top hooks[0m...
+         Starting [0;1;39mCommit a transient machine-id on disk[0m...
+[[0;32m  OK  [0m] Finished [0;1;39mCommit a transient machine-id on disk[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mAlign /var/log between read-only fs and root fs[0m.
+[[0;32m  OK  [0m] Started [0;1;39mUI State Exporter Daemon[0m.
+[[0m[0;31m*     [0m] A start job is running for Invoke b…p-top hooks (1min 41s / 16min 34s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for Invoke b…p-top hooks (1min 41s / 16min 34s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for Invoke b…p-top hooks (1min 42s / 16min 34s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for Invoke b…p-top hooks (1min 42s / 16min 34s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for Invoke b…p-top hooks (1min 43s / 16min 34s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for Invoke b…p-top hooks (1min 43s / 16min 34s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for Invoke b…p-top hooks (1min 44s / 16min 34s)
+M[K[     [0;31m*[0m] A start job is running for Invoke b…p-top hooks (1min 44s / 16min 34s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for Invoke b…p-top hooks (1min 45s / 16min 34s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for Invoke b…p-top hooks (1min 45s / 16min 34s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for Invoke b…p-top hooks (1min 46s / 16min 34s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for Invoke b…p-top hooks (1min 46s / 16min 34s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for Invoke b…p-top hooks (1min 47s / 16min 34s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for Invoke b…p-top hooks (1min 47s / 16min 34s)
+M[K[[0m[0;31m*     [0m] A start job is running for Invoke b…p-top hooks (1min 48s / 16min 34s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for Invoke b…p-top hooks (1min 48s / 16min 34s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for Invoke b…p-top hooks (1min 49s / 16min 34s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for Invoke b…p-top hooks (1min 49s / 16min 34s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for Invoke b…p-top hooks (1min 50s / 16min 34s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for Invoke b…p-top hooks (1min 50s / 16min 34s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for Invoke b…p-top hooks (1min 51s / 16min 34s)
+M[K[     [0;31m*[0m] A start job is running for Invoke b…p-top hooks (1min 51s / 16min 34s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for Invoke b…p-top hooks (1min 52s / 16min 34s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for Invoke b…up-top hooks (2min 1s / 16min 34s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for Invoke b…up-top hooks (2min 1s / 16min 34s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for Invoke b…up-top hooks (2min 2s / 16min 34s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for Invoke b…up-top hooks (2min 2s / 16min 34s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for Invoke b…up-top hooks (2min 3s / 16min 34s)
+M[K[[0m[0;31m*     [0m] A start job is running for Invoke b…up-top hooks (2min 4s / 16min 34s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for Invoke b…up-top hooks (2min 5s / 16min 34s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for Invoke b…up-top hooks (2min 5s / 16min 34s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for Invoke b…up-top hooks (2min 6s / 16min 34s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for Invoke b…p-top hooks (2min 15s / 16min 34s)
+M[K[[0;32m  OK  [0m] Finished [0;1;39mInvoke bootup-top hooks[0m.
+[K         Starting [0;1;39mCreate Volatile Files and Directories[0m...
+[[0;32m  OK  [0m] Finished [0;1;39mCreate Volatile Files and Directories[0m.
+         Starting [0;1;39mNetwork Name Resolution[0m...
+         Starting [0;1;39mNetwork Time Synchronization[0m...
+         Starting [0;1;39mUpdate UTMP about System Boot/Shutdown[0m...
+[[0;32m  OK  [0m] Finished [0;1;39mUpdate UTMP about System Boot/Shutdown[0m.
+[[0;32m  OK  [0m] Started [0;1;39mNetwork Time Synchronization[0m.
+[[0;32m  OK  [0m] Reached target [0;1;39mSystem Initialization[0m.
+[[0;32m  OK  [0m] Started [0;1;39mDaily Cleanup of Temporary Directories[0m.
+[[0;32m  OK  [0m] Reached target [0;1;39mSystem Time Set[0m.
+[[0;32m  OK  [0m] Reached target [0;1;39mSystem Time Synchronized[0m.
+[[0;32m  OK  [0m] Started [0;1;39mDaily apt download activities[0m.
+[[0;32m  OK  [0m] Started [0;1;39mDaily apt upgrade and clean activities[0m.
+[[0;32m  OK  [0m] Started [0;1;39mPeriodic ext4 Onli…ata Check for All Filesystems[0m.
+[[0;32m  OK  [0m] Started [0;1;39mDiscard unused blocks once a week[0m.
+[[0;32m  OK  [0m] Started [0;1;39mRun system activit…ounting tool every 10 minutes[0m.
+[[0;32m  OK  [0m] Started [0;1;39mGenerate summary o…esterday's process accounting[0m.
+[[0;32m  OK  [0m] Started [0;1;39mChecks wifiman-proxy TSL certificate[0m.
+[[0;32m  OK  [0m] Reached target [0;1;39mTimers[0m.
+[[0;32m  OK  [0m] Listening on [0;1;39mAvahi mDNS/DNS-SD Stack Activation Socket[0m.
+[[0;32m  OK  [0m] Listening on [0;1;39mD-Bus System Message Bus Socket[0m.
+[[0;32m  OK  [0m] Listening on [0;1;39mErlang Port Mapper Daemon Activation Socket[0m.
+[[0;32m  OK  [0m] Listening on [0;1;39mUUID daemon activation socket[0m.
+[[0;32m  OK  [0m] Reached target [0;1;39mSockets[0m.
+[[0;32m  OK  [0m] Reached target [0;1;39mBasic System[0m.
+         Starting [0;1;39mFRRouting[0m...
+         Starting [0;1;39mAvahi mDNS/DNS-SD Stack[0m...
+         Starting [0;1;39mbluetooth-controller@hci0.service[0m...
+         Starting [0;1;39mBluetooth service[0m...
+         Starting [0;1;39mConntrack Daemon[0m...
+[[0;32m  OK  [0m] Started [0;1;39mRegular background program processing daemon[0m.
+[[0;32m  OK  [0m] Started [0;1;39mD-Bus System Message Bus[0m.
+         Starting [0;1;39mRemove Stale Onli…t4 Metadata Check Snapshots[0m...
+[[0;32m  OK  [0m] Started [0;1;39mEarly OOM Daemon[0m.
+         Starting [0;1;39mFreeradius DH key generator.[0m...
+[[0;32m  OK  [0m] Started [0;1;39mUbiquiti control service[0m.
+         Starting [0;1;39mLSB: Execute the …-e command to reboot system[0m...
+         Starting [0;1;39mlinkcheck service[0m...
+         Starting [0;1;39mInitialize hardware monitoring sensors[0m...
+         Starting [0;1;39mMemory trend monitor[0m...
+         Starting [0;1;39mInit network interfaces[0m...
+         Starting [0;1;39mDispatcher daemon for systemd-networkd[0m...
+         Starting [0;1;39mOpenSSH Server host key generation[0m...
+         Starting [0;1;39mRedirector key generator[0m...
+         Starting [0;1;39mResets System Activity Logs[0m...
+         Starting [0;1;39mUser Login Management[0m...
+         Starting [0;1;39mGenerating device node[0m...
+         Starting [0;1;39mGenerating device node[0m...
+         Starting [0;1;39mInitialize the or…or virtual UniFi FreeRADIUS[0m...
+[[0;32m  OK  [0m] Started [0;1;39mDaemon for MCU based LCM control[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mHold the services…hich shutdown hooks depend on[0m.
+         Starting [0;1;39mNetfilter Userspace Logging Daemon[0m...
+         Starting [0;1;39mutermd service[0m...
+         Starting [0;1;39mGenerates and ren…tificate for wifiman-proxy.[0m...
+[[0;1;31mFAILED[0m] Failed to start [0;1;39mbluetooth-controller@hci0.service[0m.
+See 'systemctl status bluetooth-controller@hci0.service' for details.
+[[0;32m  OK  [0m] Finished [0;1;39mGenerating device node[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mGenerating device node[0m.
+[[0;32m  OK  [0m] Started [0;1;39mlinkcheck service[0m.
+[[0;32m  OK  [0m] Started [0;1;39mutermd service[0m.
+[[0;32m  OK  [0m] Started [0;1;39mNetwork Name Resolution[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mResets System Activity Logs[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mInitialize hardware monitoring sensors[0m.
+[[0;32m  OK  [0m] Started [0;1;39mNetfilter Userspace Logging Daemon[0m.
+[[0;32m  OK  [0m] Started [0;1;39mConntrack Daemon[0m.
+[[0;32m  OK  [0m] Started [0;1;39mLSB: Execute the k…c -e command to reboot system[0m.
+         Starting [0;1;39mLSB: Load kernel image with kexec[0m...
+[[0;32m  OK  [0m] Started [0;1;39mLSB: Load kernel image with kexec[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mGenerates and ren…ertificate for wifiman-proxy.[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mMemory trend monitor[0m.
+[[0;32m  OK  [0m] Started [0;1;39mBluetooth service[0m.
+[[0;32m  OK  [0m] Started [0;1;39mUser Login Management[0m.
+[[0;32m  OK  [0m] Started [0;1;39mAvahi mDNS/DNS-SD Stack[0m.
+[[0;32m  OK  [0m] Reached target [0;1;39mBluetooth[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mRemove Stale Onli…ext4 Metadata Check Snapshots[0m.
+         Starting [0;1;39mHostname Service[0m...
+[   [0;31m*[0;1;31m*[0m[0;31m*[0m] (1 of 8) A start job is running for FRRouting (2min 32s / 4min 18s)
+M[K[    [0;31m*[0;1;31m*[0m] (1 of 8) A start job is running for FRRouting (2min 32s / 4min 18s)
+M[K[[0;32m  OK  [0m] Finished [0;1;39mRedirector key generator[0m.
+[K[     [0;31m*[0m] (1 of 7) A start job is running for FRRouting (2min 35s / 4min 18s)
+M[K[    [0;31m*[0;1;31m*[0m] (1 of 7) A start job is running for FRRouting (2min 35s / 4min 18s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] (1 of 7) A start job is running for FRRouting (2min 36s / 4min 18s)
+M[K[[0;32m  OK  [0m] Finished [0;1;39mInitialize the or… for virtual UniFi FreeRADIUS[0m.
+[K[[0;32m  OK  [0m] Started [0;1;39mHostname Service[0m.
+[  [0;31m*[0;1;31m*[0m[0;31m* [0m] (1 of 5) A start job is running for FRRouting (2min 39s / 4min 18s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] (1 of 5) A start job is running for FRRouting (2min 40s / 4min 18s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] (1 of 5) A start job is running for FRRouting (2min 40s / 4min 18s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] (2 of 5) A start job is running for…k interfaces (2min 41s / 5min 21s)
+M[K[[0;32m  OK  [0m] Started [0;1;39mFRRouting[0m.
+[K[[0;32m  OK  [0m] Finished [0;1;39mFreeradius DH key generator.[0m.
+[[0;32m  OK  [0m] Started [0;1;39mDispatcher daemon for systemd-networkd[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mInit network interfaces[0m.
+         Starting [0;1;39mUbiquiti udapi server[0m...
+[[0;32m  OK  [0m] Finished [0;1;39mOpenSSH Server host key generation[0m.
+         Stopping [0;1;39mNetfilter Userspace Logging Daemon[0m...
+[[0;32m  OK  [0m] Stopped [0;1;39mNetfilter Userspace Logging Daemon[0m.
+         Starting [0;1;39mNetfilter Userspace Logging Daemon[0m...
+[[0;32m  OK  [0m] Started [0;1;39mNetfilter Userspace Logging Daemon[0m.
+[[0m[0;31m*     [0m] A start job is running for Ubiquiti udapi server (2min 50s / 8min 45s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for Ubiquiti udapi server (2min 51s / 8min 45s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for Ubiquiti udapi server (2min 51s / 8min 45s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for Ubiquiti udapi server (2min 52s / 8min 45s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for Ubiquiti udapi server (2min 52s / 8min 45s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for Ubiquiti udapi server (2min 53s / 8min 45s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for Ubiquiti udapi server (2min 53s / 8min 45s)
+M[K[     [0;31m*[0m] A start job is running for Ubiquiti udapi server (2min 54s / 8min 45s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for Ubiquiti udapi server (2min 54s / 8min 45s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for Ubiquiti udapi server (2min 55s / 8min 45s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for Ubiquiti udapi server (2min 55s / 8min 45s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for Ubiquiti udapi server (2min 56s / 8min 45s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for Ubiquiti udapi server (2min 56s / 8min 45s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for Ubiquiti udapi server (2min 57s / 8min 45s)
+M[K[[0m[0;31m*     [0m] A start job is running for Ubiquiti udapi server (2min 57s / 8min 45s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for Ubiquiti udapi server (2min 58s / 8min 45s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for Ubiquiti udapi server (2min 58s / 8min 45s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for Ubiquiti udapi server (2min 59s / 8min 45s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for Ubiquiti udapi server (2min 59s / 8min 45s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for Ubiquiti udapi server (3min / 8min 45s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for Ubiquiti udapi server (3min / 8min 45s)
+M[K[     [0;31m*[0m] A start job is running for Ubiquiti udapi server (3min 1s / 8min 45s)
+M[K         Stopping [0;1;39mNetfilter Userspace Logging Daemon[0m...
+[K[[0;32m  OK  [0m] Stopped [0;1;39mNetfilter Userspace Logging Daemon[0m.
+         Starting [0;1;39mNetfilter Userspace Logging Daemon[0m...
+[[0;32m  OK  [0m] Started [0;1;39mNetfilter Userspace Logging Daemon[0m.
+[    [0;31m*[0;1;31m*[0m] A start job is running for Ubiquiti udapi server (3min 4s / 8min 45s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for Ubiquiti udapi server (3min 4s / 8min 45s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for Ubiquiti udapi server (3min 4s / 8min 45s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for Ubiquiti udapi server (3min 5s / 8min 45s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for Ubiquiti udapi server (3min 5s / 8min 45s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for Ubiquiti udapi server (3min 6s / 8min 45s)
+M[K         Starting [0;1;39msystem activity accounting tool[0m...
+[K[[0m[0;31m*     [0m] (1 of 2) A start job is running for…accounting tool (448ms / no limit)
+M[K[[0;32m  OK  [0m] Finished [0;1;39msystem activity accounting tool[0m.
+[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for Ubiquiti udapi server (3min 9s / 8min 45s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for Ubiquiti udapi server (3min 9s / 8min 45s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for Ubiquiti udapi server (3min 9s / 8min 45s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for Ubiquiti udapi server (3min 10s / 8min 45s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for Ubiquiti udapi server (3min 10s / 8min 45s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for Ubiquiti udapi server (3min 11s / 8min 45s)
+M[K[     [0;31m*[0m] A start job is running for Ubiquiti udapi server (3min 11s / 8min 45s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for Ubiquiti udapi server (3min 12s / 8min 45s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for Ubiquiti udapi server (3min 12s / 8min 45s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for Ubiquiti udapi server (3min 13s / 8min 45s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for Ubiquiti udapi server (3min 13s / 8min 45s)
+M[K[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for Ubiquiti udapi server (3min 14s / 8min 45s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for Ubiquiti udapi server (3min 14s / 8min 45s)
+M[K[[0m[0;31m*     [0m] A start job is running for Ubiquiti udapi server (3min 15s / 8min 45s)
+M[K[[0;1;31m*[0m[0;31m*    [0m] A start job is running for Ubiquiti udapi server (3min 15s / 8min 45s)
+M[K         Stopping [0;1;39mNetwork Time Synchronization[0m...
+[K[[0;32m  OK  [0m] Stopped [0;1;39mNetwork Time Synchronization[0m.
+         Starting [0;1;39mNetwork Time Synchronization[0m...
+[[0;32m  OK  [0m] Started [0;1;39mNetwork Time Synchronization[0m.
+[[0;31m*[0;1;31m*[0m[0;31m*   [0m] A start job is running for Ubiquiti udapi server (3min 19s / 8min 45s)
+M[K[ [0;31m*[0;1;31m*[0m[0;31m*  [0m] A start job is running for Ubiquiti udapi server (3min 20s / 8min 45s)
+M[K[  [0;31m*[0;1;31m*[0m[0;31m* [0m] A start job is running for Ubiquiti udapi server (3min 20s / 8min 45s)
+M[K[   [0;31m*[0;1;31m*[0m[0;31m*[0m] A start job is running for Ubiquiti udapi server (3min 21s / 8min 45s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for Ubiquiti udapi server (3min 21s / 8min 45s)
+M[K[     [0;31m*[0m] A start job is running for Ubiquiti udapi server (3min 22s / 8min 45s)
+M[K[    [0;31m*[0;1;31m*[0m] A start job is running for Ubiquiti udapi server (3min 22s / 8min 45s)
+M[K[[0;32m  OK  [0m] Started [0;1;39mUbiquiti udapi server[0m.
+[K[[0;32m  OK  [0m] Reached target [0;1;39mNetwork[0m.
+[[0;32m  OK  [0m] Reached target [0;1;39mNetwork is Online[0m.
+         Starting [0;1;39mDNS cache database service[0m...
+         Starting [0;1;39mdnsmasq - A light…DHCP and caching DNS server[0m...
+[[0;32m  OK  [0m] Started [0;1;39mErlang Port Mapper Daemon[0m.
+         Starting [0;1;39mFreeRADIUS multi-protocol policy server[0m...
+         Starting [0;1;39mLSB: disk temperature monitoring daemon[0m...
+[[0;32m  OK  [0m] Started [0;1;39mInternet Dynamic DNS Client[0m.
+[[0;32m  OK  [0m] Started [0;1;39miperf3 server[0m.
+         Starting [0;1;39mLLDP daemon[0m...
+[[0;32m  OK  [0m] Started [0;1;39mAn object/document-oriented database[0m.
+         Starting [0;1;39mOpenVPN service[0m...
+         Starting [0;1;39mPostgreSQL upgrade service[0m...
+         Starting [0;1;39mRabbitMQ Messaging Server[0m...
+         Starting [0;1;39mSimple Network Ma…ent Protocol (SNMP) Daemon.[0m...
+[[0;32m  OK  [0m] Started [0;1;39mstrongSwan IPsec I…IKEv2 daemon using ipsec.conf[0m.
+         Starting [0;1;39mSystem Logger Daemon[0m...
+         Starting [0;1;39mPermit User Sessions[0m...
+         Starting [0;1;39mUbiquiti udapi bridge[0m...
+         Starting [0;1;39mUniFi MongoDB[0m...
+         Starting [0;1;39mUniFi OS Agent[0m...
+[[0;32m  OK  [0m] Started [0;1;39mUniFi OS discovery client[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mOpenVPN service[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mPostgreSQL upgrade service[0m.
+[[0;32m  OK  [0m] Started [0;1;39mSimple Network Man…ement Protocol (SNMP) Daemon.[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mPermit User Sessions[0m.
+[[0;32m  OK  [0m] Started [0;1;39mDNS cache database service[0m.
+[[0;32m  OK  [0m] Started [0;1;39mLSB: disk temperature monitoring daemon[0m.
+[[0;32m  OK  [0m] Started [0;1;39mGetty on tty1[0m.
+         Starting [0;1;39mPostgreSQL initial setup service[0m...
+[[0;32m  OK  [0m] Started [0;1;39mSerial Getty on ttyAMA0[0m.
+[[0;32m  OK  [0m] Reached target [0;1;39mLogin Prompts[0m.
+[[0;32m  OK  [0m] Started [0;1;39mUniFi OS Agent[0m.
+[[0;1;31mFAILED[0m] Failed to start [0;1;39mdnsmasq - …t DHCP and caching DNS server[0m.
+See 'systemctl status dnsmasq.service' for details.
+[[0;32m  OK  [0m] Reached target [0;1;39mHost and Network Name Lookups[0m.
+         Starting [0;1;39mnginx - high performance web server[0m...
+         Starting [0;1;39mnginx - high performance web server[0m...
+[[0;32m  OK  [0m] Started [0;1;39mLLDP daemon[0m.
+
+Debian GNU/Linux 11 UDM-BEAST ttyAMA0
+
+UDM-BEAST login: 

@@ -1,0 +1,49 @@
+UDM Beast R5: Debian-Testserver
+
+Der lokale VM-Test wurde auf deinen Wunsch beendet. Die eingerichtete
+Test-VM laeuft auf 5.9.102.7 mit 8 GiB RAM und sechs emulierten ARM64-Kernen.
+Ersteinrichtung, Besitzeranmeldung, native IPv4-Firewall und ein regulaerer
+Neustart wurden erfolgreich geprueft. Siehe verification/native-gateway-r5/.
+
+Weboberflaeche auf diesem Windows-Rechner oeffnen:
+
+1. PowerShell im Projektordner C:\Users\L.Bartel\udm oeffnen:
+
+   .\testserver-zugang.ps1
+
+2. Das Fenster offen lassen und im Browser https://127.0.0.1:18443 aufrufen.
+   UniFi verwendet ein lokales, selbst signiertes Zertifikat.
+
+3. In einem zweiten PowerShell-Fenster den Testzugang anzeigen:
+
+   .\testserver-zugang.ps1 -ShowLogin
+
+   Dieses Kommando zeigt Benutzername und Passwort aus der root-exklusiven
+   Serverdatei /root/udm-beast-test-login.json. Nicht in gemeinsame Logs kopieren.
+   Es wird keine lokale Passwortdatei angelegt. Strg+C beendet den Tunnel.
+
+Der Zugang nutzt den eigens eingerichteten SSH-Schluessel unter
+%USERPROFILE%\.ssh\udm-debian-test-20261009 und eine separate bekannte Hostdatei.
+Es gibt keine oeffentlich freigegebene UniFi-Weboberflaeche. Der Gast hat
+weiterhin keinen Internet-Uplink. Die Testverbindung belegt nur den LAN-Port
+eth0; WAN-Pakettests erfordern das vorherige Stoppen dieses LAN-Zugangs.
+
+Serververwaltung per SSH:
+  systemctl status udm-beast-r5-resume.service udm-beast-r5-gui-access.service
+  systemctl stop udm-beast-r5-gui-access.service
+  systemctl start udm-beast-r5-gui-access.service
+
+Die GUI-Hilfe verwendet einen anonymen Netzwerk-Namespace ohne Host-Routen.
+Sie beendet sich mit der VM; ihre TAP-Karte verschwindet beim Prozessende.
+Die VM verwendet einen temporaeren systemd-Testdienst. Der GUI-Dienst ist
+installiert, aber nicht fuer den Hoststart aktiviert. Nach einem Host-Neustart
+startet die Testumgebung nicht automatisch. Platten und Ergebnisse bleiben unter:
+  /var/lib/udm-beast-tests/r5-20261009/native-r5/
+
+Das Release-Archiv enthaelt ein unbenutztes Zustandsabbild, keine Konten,
+Passwoerter, SSH-Schluessel oder private Testdaten. Fuer Proxmox das Archiv
+release/udm-beast-proxmox-5.1.33.tar verwenden; Importanleitung in README.md.
+Alle 14 Ports sind beim Import frei zuweisbar und anfangs getrennt.
+
+Noch ungeprueft: interaktive Browser-Konfiguration, echter Proxmox-Import,
+VLANs, IPv6, WAN2-Failover, Internet-Durchsatz, Langzeitbetrieb und HA.

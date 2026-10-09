@@ -1,0 +1,466 @@
+python : test_absolute_windows_paths_and_spaces_are_converted 
+(test_build_wrapper.BuildWrapperTests.test_absolute_windows_paths_and_spaces_are_converted) ... ok
+In Zeile:2 Zeichen:1
++ python -m unittest discover -s tests -v *> work/tests-windows-r5.log; ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_absolute_w...nverted) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_conversion_failure_prevents_build (test_build_wrapper.BuildWrapperTests.test_conversion_failure_prevents_build) 
+... ok
+test_drive_relative_or_empty_output_fails_before_build 
+(test_build_wrapper.BuildWrapperTests.test_drive_relative_or_empty_output_fails_before_build) ... ok
+test_failed_build_is_reported (test_build_wrapper.BuildWrapperTests.test_failed_build_is_reported) ... ok
+test_linux_absolute_paths_pass_through_and_firmware_is_optional 
+(test_build_wrapper.BuildWrapperTests.test_linux_absolute_paths_pass_through_and_firmware_is_optional) ... ok
+test_relative_windows_paths_use_project_directory 
+(test_build_wrapper.BuildWrapperTests.test_relative_windows_paths_use_project_directory) ... ok
+test_atomic_publication_exact_contents_permissions_and_reuse 
+(test_controller_flat.FlatCacheTests.test_atomic_publication_exact_contents_permissions_and_reuse) ... skipped 'Cache 
+requires Linux ownership, permissions and flock'
+test_changed_source_and_nonterminal_invocation_never_execute 
+(test_controller_flat.FlatCacheTests.test_changed_source_and_nonterminal_invocation_never_execute) ... skipped 'Cache 
+requires Linux ownership, permissions and flock'
+test_classpath_order_mismatch_never_publishes 
+(test_controller_flat.FlatCacheTests.test_classpath_order_mismatch_never_publishes) ... skipped 'Cache requires Linux 
+ownership, permissions and flock'
+test_guest_guard_and_hal_marker_prevent_preparation 
+(test_controller_flat.FlatCacheTests.test_guest_guard_and_hal_marker_prevent_preparation) ... skipped 'Cache requires 
+Linux ownership, permissions and flock'
+test_modified_missing_extra_writable_or_symlink_member_blocks_launch 
+(test_controller_flat.FlatCacheTests.test_modified_missing_extra_writable_or_symlink_member_blocks_launch) ... skipped 
+'Cache requires Linux ownership, permissions and flock'
+test_publish_failure_leaves_no_partial_cache 
+(test_controller_flat.FlatCacheTests.test_publish_failure_leaves_no_partial_cache) ... skipped 'Cache requires Linux 
+ownership, permissions and flock'
+test_root_owned_readonly_cache_launches_after_child_drops_privileges 
+(test_controller_flat.FlatCacheTests.test_root_owned_readonly_cache_launches_after_child_drops_privileges) ... skipped 
+'Cache requires Linux ownership, permissions and flock'
+test_symlink_cache_root_and_unexpected_owner_refused 
+(test_controller_flat.FlatCacheTests.test_symlink_cache_root_and_unexpected_owner_refused) ... skipped 'Cache requires 
+Linux ownership, permissions and flock'
+test_tampered_metadata_never_publishes_and_partial_tree_removed 
+(test_controller_flat.FlatCacheTests.test_tampered_metadata_never_publishes_and_partial_tree_removed) ... skipped 
+'Cache requires Linux ownership, permissions and flock'
+test_unprivileged_launch_preserves_jvm_arguments_uses_exec_and_order 
+(test_controller_flat.FlatCacheTests.test_unprivileged_launch_preserves_jvm_arguments_uses_exec_and_order) ... skipped 
+'Cache requires Linux ownership, permissions and flock'
+test_all_resources_and_opaque_jars_described_in_exact_index_order 
+(test_controller_flat.FlatMetadataTests.test_all_resources_and_opaque_jars_described_in_exact_index_order) ... ok
+test_manifest_entrypoint_cannot_change (test_controller_flat.FlatMetadataTests.test_manifest_entrypoint_cannot_change) 
+... ok
+test_missing_duplicate_and_unexpected_index_entries_refused 
+(test_controller_flat.FlatMetadataTests.test_missing_duplicate_and_unexpected_index_entries_refused) ... ok
+test_prepare_default_does_not_read_metadata_or_touch_cache 
+(test_controller_flat.FlatMetadataTests.test_prepare_default_does_not_read_metadata_or_touch_cache) ... ok
+test_traversal_special_files_and_aliases_refused 
+(test_controller_flat.FlatMetadataTests.test_traversal_special_files_and_aliases_refused) ... ok
+test_unknown_original_adapted_and_nested_hashes_refused 
+(test_controller_flat.FlatMetadataTests.test_unknown_original_adapted_and_nested_hashes_refused) ... ok
+test_current_result_is_idempotent_without_lower_or_installer 
+(test_controller_guest.GuestControllerTests.test_current_result_is_idempotent_without_lower_or_installer) ... ok
+test_failed_attribute_preservation_does_not_replace_source 
+(test_controller_guest.GuestControllerTests.test_failed_attribute_preservation_does_not_replace_source) ... skipped 
+'POSIX mount, ownership and replacement semantics'
+test_failed_installer_keeps_source_and_cleans_partial_result 
+(test_controller_guest.GuestControllerTests.test_failed_installer_keeps_source_and_cleans_partial_result) ... skipped 
+'POSIX mount, ownership and replacement semantics'
+test_fresh_original_installs_without_reading_lower 
+(test_controller_guest.GuestControllerTests.test_fresh_original_installs_without_reading_lower) ... skipped 'POSIX 
+mount, ownership and replacement semantics'
+test_invalid_report_is_refused_without_destructive_overwrite 
+(test_controller_guest.GuestControllerTests.test_invalid_report_is_refused_without_destructive_overwrite) ... ok
+test_lower_file_symlink_is_refused_without_install 
+(test_controller_guest.GuestControllerTests.test_lower_file_symlink_is_refused_without_install) ... skipped 'POSIX 
+mount, ownership and replacement semantics'
+test_lower_parent_component_symlink_is_refused 
+(test_controller_guest.GuestControllerTests.test_lower_parent_component_symlink_is_refused) ... skipped 'POSIX mount, 
+ownership and replacement semantics'
+test_lower_root_symlink_is_refused (test_controller_guest.GuestControllerTests.test_lower_root_symlink_is_refused) ... 
+skipped 'POSIX mount, ownership and replacement semantics'
+test_missing_or_malformed_mountinfo_is_refused 
+(test_controller_guest.GuestControllerTests.test_missing_or_malformed_mountinfo_is_refused) ... skipped 'POSIX mount, 
+ownership and replacement semantics'
+test_nested_directory_and_file_mounts_are_refused 
+(test_controller_guest.GuestControllerTests.test_nested_directory_and_file_mounts_are_refused) ... skipped 'POSIX 
+mount, ownership and replacement semantics'
+test_nonregular_overlay_is_refused_before_hashing 
+(test_controller_guest.GuestControllerTests.test_nonregular_overlay_is_refused_before_hashing) ... ok
+test_overlay_file_symlink_is_refused_before_hashing 
+(test_controller_guest.GuestControllerTests.test_overlay_file_symlink_is_refused_before_hashing) ... skipped 'POSIX 
+mount, ownership and replacement semantics'
+test_overlay_parent_symlink_is_refused_before_hashing 
+(test_controller_guest.GuestControllerTests.test_overlay_parent_symlink_is_refused_before_hashing) ... skipped 'POSIX 
+mount, ownership and replacement semantics'
+test_previous_migrates_from_readonly_original_and_atomically_preserves_attrs (test_controller_guest.GuestControllerTest
+s.test_previous_migrates_from_readonly_original_and_atomically_preserves_attrs) ... skipped 'POSIX mount, ownership 
+and replacement semantics'
+test_replace_failure_keeps_source_and_cleans_result 
+(test_controller_guest.GuestControllerTests.test_replace_failure_keeps_source_and_cleans_result) ... skipped 'POSIX 
+mount, ownership and replacement semantics'
+test_source_content_changed_during_install_is_not_overwritten 
+(test_controller_guest.GuestControllerTests.test_source_content_changed_during_install_is_not_overwritten) ... skipped 
+'POSIX mount, ownership and replacement semantics'
+test_stacked_mountpoints_are_refused_regardless_of_line_order 
+(test_controller_guest.GuestControllerTests.test_stacked_mountpoints_are_refused_regardless_of_line_order) ... skipped 
+'POSIX mount, ownership and replacement semantics'
+test_tampered_lower_is_refused_without_install 
+(test_controller_guest.GuestControllerTests.test_tampered_lower_is_refused_without_install) ... skipped 'POSIX mount, 
+ownership and replacement semantics'
+test_unknown_overlay_is_refused_before_reading_lower_or_installing 
+(test_controller_guest.GuestControllerTests.test_unknown_overlay_is_refused_before_reading_lower_or_installing) ... ok
+test_unrelated_mounts_do_not_hide_valid_original 
+(test_controller_guest.GuestControllerTests.test_unrelated_mounts_do_not_hide_valid_original) ... skipped 'POSIX 
+mount, ownership and replacement semantics'
+test_wrong_mount_attributes_and_filesystem_are_refused 
+(test_controller_guest.GuestControllerTests.test_wrong_mount_attributes_and_filesystem_are_refused) ... skipped 'POSIX 
+mount, ownership and replacement semantics'
+test_autodiscovery_requires_unique_bin (test_firmware.FirmwareTests.test_autodiscovery_requires_unique_bin) ... ok
+test_bad_crc_creates_no_output (test_firmware.FirmwareTests.test_bad_crc_creates_no_output) ... ok
+test_bad_header_and_payload_crc (test_firmware.FirmwareTests.test_bad_header_and_payload_crc) ... ok
+test_duplicate_names_rejected_case_insensitively 
+(test_firmware.FirmwareTests.test_duplicate_names_rejected_case_insensitively) ... ok
+test_existing_destination_never_overwritten (test_firmware.FirmwareTests.test_existing_destination_never_overwritten) 
+... ok
+test_extract_removes_only_its_own_files_after_io_failure 
+(test_firmware.FirmwareTests.test_extract_removes_only_its_own_files_after_io_failure) ... ok
+test_extract_selected_payload_and_manifest (test_firmware.FirmwareTests.test_extract_selected_payload_and_manifest) 
+... ok
+test_invalid_lengths_are_rejected_before_reading_payload 
+(test_firmware.FirmwareTests.test_invalid_lengths_are_rejected_before_reading_payload) ... ok
+test_json_report_refuses_overwrite (test_firmware.FirmwareTests.test_json_report_refuses_overwrite) ... ok
+test_path_traversal_windows_devices_and_unsafe_names 
+(test_firmware.FirmwareTests.test_path_traversal_windows_devices_and_unsafe_names) ... ok
+test_real_structure_hashes_architecture_and_embedded_false_magic 
+(test_firmware.FirmwareTests.test_real_structure_hashes_architecture_and_embedded_false_magic) ... ok
+test_streaming_with_small_chunks (test_firmware.FirmwareTests.test_streaming_with_small_chunks) ... ok
+test_truncated_records_payload_and_signature 
+(test_firmware.FirmwareTests.test_truncated_records_payload_and_signature) ... ok
+test_unknown_record_and_extra_trailer_data (test_firmware.FirmwareTests.test_unknown_record_and_extra_trailer_data) 
+... ok
+test_unknown_selection_creates_no_output (test_firmware.FirmwareTests.test_unknown_selection_creates_no_output) ... ok
+test_unsigned_container_crc (test_firmware.FirmwareTests.test_unsigned_container_crc) ... ok
+test_config_is_optional (test_fit.FitTests.test_config_is_optional) ... ok
+test_default_selection_hashes_config_and_outputs (test_fit.FitTests.test_default_selection_hashes_config_and_outputs) 
+... ok
+test_duplicate_nodes_and_properties_are_rejected (test_fit.FitTests.test_duplicate_nodes_and_properties_are_rejected) 
+... ok
+test_existing_output_is_never_overwritten (test_fit.FitTests.test_existing_output_is_never_overwritten) ... ok
+test_gzip_bomb_and_truncation_are_bounded (test_fit.FitTests.test_gzip_bomb_and_truncation_are_bounded) ... ok
+test_hash_corruption_refuses_all_outputs (test_fit.FitTests.test_hash_corruption_refuses_all_outputs) ... ok
+test_header_bounds_alignment_and_overlap (test_fit.FitTests.test_header_bounds_alignment_and_overlap) ... ok
+test_invalid_embedded_config_is_rejected (test_fit.FitTests.test_invalid_embedded_config_is_rejected) ... ok
+test_property_data_and_name_offsets_must_be_bounded 
+(test_fit.FitTests.test_property_data_and_name_offsets_must_be_bounded) ... ok
+test_structure_requires_balanced_nodes_and_final_end 
+(test_fit.FitTests.test_structure_requires_balanced_nodes_and_final_end) ... ok
+test_generated_dropin_selects_flat_and_appends_prepare_preserving_vendor_options (test_flat_integration.BuildPayloadFla
+tIntegrationTests.test_generated_dropin_selects_flat_and_appends_prepare_preserving_vendor_options) ... ok
+test_metadata_failure_prevents_packaged_controller_metadata 
+(test_flat_integration.BuildPayloadFlatIntegrationTests.test_metadata_failure_prevents_packaged_controller_metadata) 
+... ok
+test_metadata_written_before_packaging_and_no_duplicate_application_cache (test_flat_integration.BuildPayloadFlatIntegr
+ationTests.test_metadata_written_before_packaging_and_no_duplicate_application_cache) ... ok
+test_empty_or_unknown_mode_refuses_without_starting_any_program 
+(test_flat_integration.JavaWrapperTests.test_empty_or_unknown_mode_refuses_without_starting_any_program) ... skipped 
+'Requires host Bash'
+test_flat_mode_routes_to_helper_after_c1_conversion_with_exact_arguments 
+(test_flat_integration.JavaWrapperTests.test_flat_mode_routes_to_helper_after_c1_conversion_with_exact_arguments) ... 
+skipped 'Requires host Bash'
+test_nested_override_and_unset_mode_keep_original_jar_launch 
+(test_flat_integration.JavaWrapperTests.test_nested_override_and_unset_mode_keep_original_jar_launch) ... skipped 
+'Requires host Bash'
+test_concurrent_creation_is_preserved 
+(test_freeradius_cert.LocalCertificateTests.test_concurrent_creation_is_preserved) ... skipped 'Guest helper requires 
+Linux filesystem semantics'
+test_existing_key_is_reused_when_certificate_missing 
+(test_freeradius_cert.LocalCertificateTests.test_existing_key_is_reused_when_certificate_missing) ... skipped 'Guest 
+helper requires Linux filesystem semantics'
+test_existing_unmatched_certificate_or_invalid_material_is_never_overwritten (test_freeradius_cert.LocalCertificateTest
+s.test_existing_unmatched_certificate_or_invalid_material_is_never_overwritten) ... skipped 'Guest helper requires 
+Linux filesystem semantics'
+test_existing_valid_pair_is_preserved_without_permission_or_content_changes (test_freeradius_cert.LocalCertificateTests
+.test_existing_valid_pair_is_preserved_without_permission_or_content_changes) ... skipped 'Guest helper requires Linux 
+filesystem semantics'
+test_generation_failure_or_sigterm_never_commits_partial_output 
+(test_freeradius_cert.LocalCertificateTests.test_generation_failure_or_sigterm_never_commits_partial_output) ... 
+skipped 'Guest helper requires Linux filesystem semantics'
+test_guard_or_missing_hal_marker_prevents_openssl_and_writes 
+(test_freeradius_cert.LocalCertificateTests.test_guard_or_missing_hal_marker_prevents_openssl_and_writes) ... skipped 
+'Guest helper requires Linux filesystem semantics'
+test_interruption_between_key_and_cert_commit_reuses_committed_key 
+(test_freeradius_cert.LocalCertificateTests.test_interruption_between_key_and_cert_commit_reuses_committed_key) ... 
+skipped 'Guest helper requires Linux filesystem semantics'
+test_missing_or_empty_files_create_validated_pair_with_original_permissions (test_freeradius_cert.LocalCertificateTests
+.test_missing_or_empty_files_create_validated_pair_with_original_permissions) ... skipped 'Guest helper requires Linux 
+filesystem semantics'
+test_real_openssl_creates_and_reuses_local_2048_bit_pair 
+(test_freeradius_cert.LocalCertificateTests.test_real_openssl_creates_and_reuses_local_2048_bit_pair) ... skipped 
+'Guest helper requires Linux filesystem semantics'
+test_symlink_destinations_are_rejected_without_touching_target 
+(test_freeradius_cert.LocalCertificateTests.test_symlink_destinations_are_rejected_without_touching_target) ... 
+skipped 'Guest helper requires Linux filesystem semantics'
+test_validation_failure_preserves_empty_destinations 
+(test_freeradius_cert.LocalCertificateTests.test_validation_failure_preserves_empty_destinations) ... skipped 'Guest 
+helper requires Linux filesystem semantics'
+test_generated_invalid_parameters_never_replace_old_file 
+(test_freeradius_dh.DhParameterTests.test_generated_invalid_parameters_never_replace_old_file) ... skipped 'Guest 
+helper requires Linux filesystem/signal semantics'
+test_generation_error_preserves_old_file_and_cleans_partial_output 
+(test_freeradius_dh.DhParameterTests.test_generation_error_preserves_old_file_and_cleans_partial_output) ... skipped 
+'Guest helper requires Linux filesystem/signal semantics'
+test_guest_guard_and_missing_hal_marker_prevent_writes_or_openssl 
+(test_freeradius_dh.DhParameterTests.test_guest_guard_and_missing_hal_marker_prevent_writes_or_openssl) ... skipped 
+'Guest helper requires Linux filesystem/signal semantics'
+test_missing_empty_and_invalid_parameters_are_replaced_after_validation 
+(test_freeradius_dh.DhParameterTests.test_missing_empty_and_invalid_parameters_are_replaced_after_validation) ... 
+skipped 'Guest helper requires Linux filesystem/signal semantics'
+test_real_openssl_generates_valid_2048_bit_dsa_parameters 
+(test_freeradius_dh.DhParameterTests.test_real_openssl_generates_valid_2048_bit_dsa_parameters) ... skipped 'Guest 
+helper requires Linux filesystem/signal semantics'
+test_replace_failure_preserves_old_parameters 
+(test_freeradius_dh.DhParameterTests.test_replace_failure_preserves_old_parameters) ... skipped 'Guest helper requires 
+Linux filesystem/signal semantics'
+test_sigterm_cleans_temporary_and_restores_signal_handlers 
+(test_freeradius_dh.DhParameterTests.test_sigterm_cleans_temporary_and_restores_signal_handlers) ... skipped 'Guest 
+helper requires Linux filesystem/signal semantics'
+test_symlink_destination_is_not_followed 
+(test_freeradius_dh.DhParameterTests.test_symlink_destination_is_not_followed) ... skipped 'Guest helper requires 
+Linux filesystem/signal semantics'
+test_valid_existing_parameters_are_checked_and_not_regenerated 
+(test_freeradius_dh.DhParameterTests.test_valid_existing_parameters_are_checked_and_not_regenerated) ... skipped 
+'Guest helper requires Linux filesystem/signal semantics'
+test_duplicate_normalized_names_rejected (test_initramfs.InitramfsTests.test_duplicate_normalized_names_rejected) ... 
+ok
+test_multiple_init_rejected (test_initramfs.InitramfsTests.test_multiple_init_rejected) ... ok
+test_path_traversal_rejected (test_initramfs.InitramfsTests.test_path_traversal_rejected) ... ok
+test_payload_preserves_vendor_entries_and_creates_parents 
+(test_initramfs.InitramfsTests.test_payload_preserves_vendor_entries_and_creates_parents) ... ok
+test_payload_rejects_replacement_traversal_and_non_directory_parent 
+(test_initramfs.InitramfsTests.test_payload_rejects_replacement_traversal_and_non_directory_parent) ... ok
+test_replace_init_preserve_hardlinks_and_data 
+(test_initramfs.InitramfsTests.test_replace_init_preserve_hardlinks_and_data) ... ok
+test_truncated_and_trailing_archive_rejected 
+(test_initramfs.InitramfsTests.test_truncated_and_trailing_archive_rejected) ... ok
+test_changed_firmware_hook_is_rejected (test_late_boot.LateBootTests.test_changed_firmware_hook_is_rejected) ... ok
+test_commit_failure_preserves_original_and_removes_temporary 
+(test_late_boot.LateBootTests.test_commit_failure_preserves_original_and_removes_temporary) ... ok
+test_missing_or_ambiguous_kernel_module_block_refuses_to_patch 
+(test_late_boot.LateBootTests.test_missing_or_ambiguous_kernel_module_block_refuses_to_patch) ... ok
+test_original_hook_replaced_but_other_hooks_preserved_and_repeat_is_idempotent 
+(test_late_boot.LateBootTests.test_original_hook_replaced_but_other_hooks_preserved_and_repeat_is_idempotent) ... ok
+test_replacement_hook_executes_without_modprobe_or_device_access 
+(test_late_boot.LateBootTests.test_replacement_hook_executes_without_modprobe_or_device_access) ... skipped 'Requires 
+a POSIX shell'
+test_symlink_hook_is_never_followed (test_late_boot.LateBootTests.test_symlink_hook_is_never_followed) ... skipped 
+'Requires symbolic links'
+test_wrong_guest_missing_hal_or_loaded_module_refuses_changes 
+(test_late_boot.LateBootTests.test_wrong_guest_missing_hal_or_loaded_module_refuses_changes) ... ok
+test_checksum_known_vector_and_odd_payload (test_netprobe.CodecTests.test_checksum_known_vector_and_odd_payload) ... ok
+test_dhcp_truncated_options_and_wrong_hardware_rejected 
+(test_netprobe.CodecTests.test_dhcp_truncated_options_and_wrong_hardware_rejected) ... ok
+test_ipv4_bounds_checksum_and_fragment_rejection 
+(test_netprobe.CodecTests.test_ipv4_bounds_checksum_and_fragment_rejection) ... ok
+test_stream_partial_prefix_partial_packet_and_coalesced_packets 
+(test_netprobe.CodecTests.test_stream_partial_prefix_partial_packet_and_coalesced_packets) ... ok
+test_full_positive_flow_requires_return_and_bounded_drop_observation 
+(test_netprobe.FlowTests.test_full_positive_flow_requires_return_and_bounded_drop_observation) ... ok
+test_missing_nat_and_unsolicited_forwarding_fail 
+(test_netprobe.FlowTests.test_missing_nat_and_unsolicited_forwarding_fail) ... ok
+test_paused_guest_silence_cannot_pass_drop_check 
+(test_netprobe.FlowTests.test_paused_guest_silence_cannot_pass_drop_check) ... ok
+test_unrelated_echo_reply_cannot_satisfy_probe 
+(test_netprobe.FlowTests.test_unrelated_echo_reply_cannot_satisfy_probe) ... ok
+test_build_and_guest_install_are_byte_identical 
+(test_patch_controller.ControllerPatchTests.test_build_and_guest_install_are_byte_identical) ... ok
+test_existing_output_is_never_overwritten 
+(test_patch_controller.ControllerPatchTests.test_existing_output_is_never_overwritten) ... ok
+test_gcm_branch_consumes_boolean_and_never_reconciles_cbc 
+(test_patch_controller.ControllerPatchTests.test_gcm_branch_consumes_boolean_and_never_reconciles_cbc) ... ok
+test_gcm_exact_class_code_frame_and_enum_are_independent_guards 
+(test_patch_controller.ControllerPatchTests.test_gcm_exact_class_code_frame_and_enum_are_independent_guards) ... ok
+test_gcm_patch_keeps_enum_gate_setter_body_and_terminal_frame 
+(test_patch_controller.ControllerPatchTests.test_gcm_patch_keeps_enum_gate_setter_body_and_terminal_frame) ... ok
+test_guest_install_rejects_unpatched_second_class_even_with_matching_archive_hash (test_patch_controller.ControllerPatc
+hTests.test_guest_install_rejects_unpatched_second_class_even_with_matching_archive_hash) ... ok
+test_method_hash_and_helper_semantics_are_independent_guards 
+(test_patch_controller.ControllerPatchTests.test_method_hash_and_helper_semantics_are_independent_guards) ... ok
+test_nonstored_nested_library_is_refused 
+(test_patch_controller.ControllerPatchTests.test_nonstored_nested_library_is_refused) ... ok
+test_only_target_method_references_change 
+(test_patch_controller.ControllerPatchTests.test_only_target_method_references_change) ... ok
+test_real_signatures_and_manifest_digests_are_refused 
+(test_patch_controller.ControllerPatchTests.test_real_signatures_and_manifest_digests_are_refused) ... ok
+test_unknown_outer_class_and_nested_hashes_refuse 
+(test_patch_controller.ControllerPatchTests.test_unknown_outer_class_and_nested_hashes_refuse) ... ok
+test_unknown_second_class_refuses_before_creating_output 
+(test_patch_controller.ControllerPatchTests.test_unknown_second_class_refuses_before_creating_output) ... ok
+test_branch_encoding_handles_forward_and_backward_targets 
+(test_patch_cpss.CpssPatchTests.test_branch_encoding_handles_forward_and_backward_targets) ... ok
+test_existing_binary_or_report_refuses_before_writing 
+(test_patch_cpss.CpssPatchTests.test_existing_binary_or_report_refuses_before_writing) ... ok
+test_matching_version_still_requires_expected_instructions 
+(test_patch_cpss.CpssPatchTests.test_matching_version_still_requires_expected_instructions) ... ok
+test_nonexecutable_or_outside_segment_is_rejected 
+(test_patch_cpss.CpssPatchTests.test_nonexecutable_or_outside_segment_is_rejected) ... ok
+test_unknown_version_produces_no_output (test_patch_cpss.CpssPatchTests.test_unknown_version_produces_no_output) ... ok
+test_virtual_address_mapping_preserves_all_other_bytes 
+(test_patch_cpss.CpssPatchTests.test_virtual_address_mapping_preserves_all_other_bytes) ... ok
+test_ambiguous_import_never_attaches_guessed_disk 
+(test_proxmox.ProxmoxTests.test_ambiguous_import_never_attaches_guessed_disk) ... skipped 'Requires Linux Bash'
+test_apply_imports_actual_allocated_volumes_and_never_starts 
+(test_proxmox.ProxmoxTests.test_apply_imports_actual_allocated_volumes_and_never_starts) ... skipped 'Requires Linux 
+Bash'
+test_dry_run_is_default_and_changes_nothing (test_proxmox.ProxmoxTests.test_dry_run_is_default_and_changes_nothing) 
+... skipped 'Requires Linux Bash'
+test_host_preflight_failures_create_no_vm (test_proxmox.ProxmoxTests.test_host_preflight_failures_create_no_vm) ... 
+skipped 'Requires Linux Bash'
+test_integrity_failure_precedes_host_commands 
+(test_proxmox.ProxmoxTests.test_integrity_failure_precedes_host_commands) ... skipped 'Requires Linux Bash'
+test_invalid_bridge_and_count_rejected (test_proxmox.ProxmoxTests.test_invalid_bridge_and_count_rejected) ... skipped 
+'Requires Linux Bash'
+test_old_cpu_support_fails_before_disk_import 
+(test_proxmox.ProxmoxTests.test_old_cpu_support_fails_before_disk_import) ... skipped 'Requires Linux Bash'
+test_printed_plan_is_runnable_with_paths_containing_spaces 
+(test_proxmox.ProxmoxTests.test_printed_plan_is_runnable_with_paths_containing_spaces) ... skipped 'Requires Linux 
+Bash'
+test_snippets_injection_and_existing_destination_rejected 
+(test_proxmox.ProxmoxTests.test_snippets_injection_and_existing_destination_rejected) ... skipped 'Requires Linux Bash'
+test_system_mode_and_connect_are_explicit (test_proxmox.ProxmoxTests.test_system_mode_and_connect_are_explicit) ... 
+skipped 'Requires Linux Bash'
+test_virtual_port_mapping_only_connects_selected_bridges 
+(test_proxmox.ProxmoxTests.test_virtual_port_mapping_only_connects_selected_bridges) ... skipped 'Requires Linux Bash'
+test_virtual_port_mapping_rejects_duplicates_and_option_injection 
+(test_proxmox.ProxmoxTests.test_virtual_port_mapping_rejects_duplicates_and_option_injection) ... skipped 'Requires 
+Linux Bash'
+test_virtual_profile_creates_fourteen_disconnected_assignable_ports 
+(test_proxmox.ProxmoxTests.test_virtual_profile_creates_fourteen_disconnected_assignable_ports) ... skipped 'Requires 
+Linux Bash'
+test_all_nics_use_distinct_isolated_hubs (test_run_lab.RunLabTests.test_all_nics_use_distinct_isolated_hubs) ... ok
+test_arm_boot_uses_gic3_and_disables_known_hardware_initcalls 
+(test_run_lab.RunLabTests.test_arm_boot_uses_gic3_and_disables_known_hardware_initcalls) ... ok
+test_clean_exit_without_pass_and_pass_with_failed_exit_both_fail 
+(test_run_lab.RunLabTests.test_clean_exit_without_pass_and_pass_with_failed_exit_both_fail) ... ok
+test_cli_defaults_follow_manifest_status (test_run_lab.RunLabTests.test_cli_defaults_follow_manifest_status) ... ok
+test_failed_guest_binary_console_bytes_are_preserved 
+(test_run_lab.RunLabTests.test_failed_guest_binary_console_bytes_are_preserved) ... ok
+test_failure_init_failure_and_panic_override_pass 
+(test_run_lab.RunLabTests.test_failure_init_failure_and_panic_override_pass) ... ok
+test_keyboard_interrupt_kills_and_reaps_only_own_child 
+(test_run_lab.RunLabTests.test_keyboard_interrupt_kills_and_reaps_only_own_child) ... ok
+test_modified_build_artifacts_are_rejected_before_launch 
+(test_run_lab.RunLabTests.test_modified_build_artifacts_are_rejected_before_launch) ... ok
+test_original_disk_is_readonly_and_selftest_state_is_discarded 
+(test_run_lab.RunLabTests.test_original_disk_is_readonly_and_selftest_state_is_discarded) ... ok
+test_pass_requires_success_marker_and_clean_exit 
+(test_run_lab.RunLabTests.test_pass_requires_success_marker_and_clean_exit) ... ok
+test_real_child_log_is_visible_while_child_is_running 
+(test_run_lab.RunLabTests.test_real_child_log_is_visible_while_child_is_running) ... ok
+test_shell_state_persists_unless_snapshot_requested 
+(test_run_lab.RunLabTests.test_shell_state_persists_unless_snapshot_requested) ... ok
+test_squashfs_read_error_before_later_pass_is_fatal 
+(test_run_lab.RunLabTests.test_squashfs_read_error_before_later_pass_is_fatal) ... ok
+test_timeout_kills_guest_keeps_log_and_rejects_even_pass 
+(test_run_lab.RunLabTests.test_timeout_kills_guest_keeps_log_and_rejects_even_pass) ... ok
+test_unknown_manifest_and_qemu_option_delimiter_paths_rejected 
+(test_run_lab.RunLabTests.test_unknown_manifest_and_qemu_option_delimiter_paths_rejected) ... ok
+test_virtual_status_requires_fourteen_ports_without_profile_metadata 
+(test_run_lab.RunLabTests.test_virtual_status_requires_fourteen_ports_without_profile_metadata) ... ok
+test_boot_lab_profile_does_not_launch_network_validation 
+(test_validate_network.CommandTests.test_boot_lab_profile_does_not_launch_network_validation) ... ok
+test_explicit_test_policy_requires_snapshot_and_selects_guest_mode 
+(test_validate_network.CommandTests.test_explicit_test_policy_requires_snapshot_and_selects_guest_mode) ... ok
+test_only_lan_and_wan_changed_original_systemd_and_snapshot_requested 
+(test_validate_network.CommandTests.test_only_lan_and_wan_changed_original_systemd_and_snapshot_requested) ... ok
+test_unexpected_host_backends_or_non_snapshot_state_rejected 
+(test_validate_network.CommandTests.test_unexpected_host_backends_or_non_snapshot_state_rejected) ... ok
+test_ports_remain_owned_on_loopback_until_connection 
+(test_validate_network.ListenerTests.test_ports_remain_owned_on_loopback_until_connection) ... ok
+test_already_exited_process_is_not_signalled 
+(test_validate_network.OwnershipTests.test_already_exited_process_is_not_signalled) ... ok
+test_only_owned_process_terminated_and_reaped 
+(test_validate_network.OwnershipTests.test_only_owned_process_terminated_and_reaped) ... ok
+test_probe_exception_still_stops_owned_qemu_and_writes_failure_report 
+(test_validate_network.OwnershipTests.test_probe_exception_still_stops_owned_qemu_and_writes_failure_report) ... ok
+test_stubborn_owned_process_killed_after_bounded_wait 
+(test_validate_network.OwnershipTests.test_stubborn_owned_process_killed_after_bounded_wait) ... ok
+test_squashfs_read_error_overrides_successful_packet_checks_and_later_pass 
+(test_validate_network.SerialReportTests.test_squashfs_read_error_overrides_successful_packet_checks_and_later_pass) 
+... ok
+test_explicit_policy_preserves_factory_input_nat_and_other_chains 
+(test_validation_policy.ValidationPolicyTests.test_explicit_policy_preserves_factory_input_nat_and_other_chains) ... ok
+test_missing_forward_is_rejected (test_validation_policy.ValidationPolicyTests.test_missing_forward_is_rejected) ... ok
+test_generic_fallback_and_bad_local_serial_rejected 
+(test_virtual_identity.CliIdentityTests.test_generic_fallback_and_bad_local_serial_rejected) ... ok
+test_real_cli_output_accepted (test_virtual_identity.CliIdentityTests.test_real_cli_output_accepted) ... ok
+test_bad_crc_and_truncated_eeprom_rejected 
+(test_virtual_identity.EepromTests.test_bad_crc_and_truncated_eeprom_rejected) ... ok
+test_crc_agrees_with_independent_bitwise_accumulator 
+(test_virtual_identity.EepromTests.test_crc_agrees_with_independent_bitwise_accumulator) ... ok
+test_credentials_must_stay_absent (test_virtual_identity.EepromTests.test_credentials_must_stay_absent) ... ok
+test_descriptor_matches_native_driver_offsets 
+(test_virtual_identity.EepromTests.test_descriptor_matches_native_driver_offsets) ... ok
+test_legacy_cli_view_matches_modern_kernel_view 
+(test_virtual_identity.EepromTests.test_legacy_cli_view_matches_modern_kernel_view) ... ok
+test_payload_reproducible_and_cli_serial_matches_kernel_mac 
+(test_virtual_identity.EepromTests.test_payload_reproducible_and_cli_serial_matches_kernel_mac) ... ok
+test_physical_oui_multicast_overflow_and_bad_count_rejected 
+(test_virtual_identity.EepromTests.test_physical_oui_multicast_overflow_and_bad_count_rejected) ... ok
+test_spi_identity_is_local_stable_and_changes_with_vm_uuid 
+(test_virtual_identity.EepromTests.test_spi_identity_is_local_stable_and_changes_with_vm_uuid) ... ok
+test_identity_persists_uuid_across_reboots 
+(test_virtual_identity.GuestIdentityTests.test_identity_persists_uuid_across_reboots) ... skipped 'Guest persistence 
+semantics require Linux directory fsync'
+test_identity_symlink_and_global_mac_rejected 
+(test_virtual_identity.GuestIdentityTests.test_identity_symlink_and_global_mac_rejected) ... skipped 'Guest 
+persistence semantics require Linux directory fsync'
+test_mac_or_count_changes_do_not_replace_persistent_identity 
+(test_virtual_identity.GuestIdentityTests.test_mac_or_count_changes_do_not_replace_persistent_identity) ... skipped 
+'Guest persistence semantics require Linux directory fsync'
+test_only_empty_spi_class_gets_readonly_metadata_view 
+(test_virtual_identity.SpiViewTests.test_only_empty_spi_class_gets_readonly_metadata_view) ... ok
+test_populated_spi_class_is_never_hidden (test_virtual_identity.SpiViewTests.test_populated_spi_class_is_never_hidden) 
+... ok
+test_already_transformed_profiles_are_stable 
+(test_virtual_network.VirtualNetworkTests.test_already_transformed_profiles_are_stable) ... ok
+test_lan_excludes_both_wans_and_preserves_firewall_and_addressing 
+(test_virtual_network.VirtualNetworkTests.test_lan_excludes_both_wans_and_preserves_firewall_and_addressing) ... ok
+test_missing_or_duplicate_ports_cannot_silently_change_mapping 
+(test_virtual_network.VirtualNetworkTests.test_missing_or_duplicate_ports_cannot_silently_change_mapping) ... ok
+test_runtime_switch_map_has_one_cpu_interface_with_no_asic_ports 
+(test_virtual_network.VirtualNetworkTests.test_runtime_switch_map_has_one_cpu_interface_with_no_asic_ports) ... ok
+test_wrong_model_or_missing_cpu_descriptor_is_rejected 
+(test_virtual_network.VirtualNetworkTests.test_wrong_model_or_missing_cpu_descriptor_is_rejected) ... ok
+test_foreign_interface_names_still_prevent_port_collision 
+(test_virtual_port_order.InterfaceSnapshotTests.test_foreign_interface_names_still_prevent_port_collision) ... ok
+test_original_kernel_tunnel_addresses_do_not_fail_ethernet_snapshot 
+(test_virtual_port_order.InterfaceSnapshotTests.test_original_kernel_tunnel_addresses_do_not_fail_ethernet_snapshot) 
+... ok
+test_virtio_mac_mismatch_still_fails_and_names_the_interface 
+(test_virtual_port_order.InterfaceSnapshotTests.test_virtio_mac_mismatch_still_fails_and_names_the_interface) ... ok
+test_correctly_named_active_guest_is_not_modified 
+(test_virtual_port_order.PortOrderTests.test_correctly_named_active_guest_is_not_modified) ... ok
+test_each_phase_failure_rolls_back_and_still_aborts 
+(test_virtual_port_order.PortOrderTests.test_each_phase_failure_rolls_back_and_still_aborts) ... ok
+test_explicit_single_fourteen_port_boot_flag_is_required 
+(test_virtual_port_order.PortOrderTests.test_explicit_single_fourteen_port_boot_flag_is_required) ... ok
+test_global_and_multicast_macs_are_rejected 
+(test_virtual_port_order.PortOrderTests.test_global_and_multicast_macs_are_rejected) ... ok
+test_guest_guard_runs_before_read_or_mutation 
+(test_virtual_port_order.PortOrderTests.test_guest_guard_runs_before_read_or_mutation) ... ok
+test_missing_duplicate_and_noncontiguous_macs_rejected_before_moves 
+(test_virtual_port_order.PortOrderTests.test_missing_duplicate_and_noncontiguous_macs_rejected_before_moves) ... ok
+UDM_VIRTUAL_PORTS_ORDERED: MAC-derived eth0..eth13
+test_permuted_ports_are_named_by_mac_in_two_phases 
+(test_virtual_port_order.PortOrderTests.test_permuted_ports_are_named_by_mac_in_two_phases) ... ok
+test_required_and_temporary_name_collisions_refused 
+(test_virtual_port_order.PortOrderTests.test_required_and_temporary_name_collisions_refused) ... ok
+test_rollback_failure_is_reported_and_boot_aborts 
+(test_virtual_port_order.PortOrderTests.test_rollback_failure_is_reported_and_boot_aborts) ... ok
+test_up_ip_configured_and_enslaved_ports_rejected_before_moves 
+(test_virtual_port_order.PortOrderTests.test_up_ip_configured_and_enslaved_ports_rejected_before_moves) ... ok
+
+----------------------------------------------------------------------
+Ran 209 tests in 15.645s
+
+OK (skipped=68)

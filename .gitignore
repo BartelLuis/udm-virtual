@@ -1,0 +1,10 @@
+*.bin
+build/
+build-virtual/
+release/
+validation-runs/
+work/
+__pycache__/
+*.pyc
+*.qcow2
+*.raw

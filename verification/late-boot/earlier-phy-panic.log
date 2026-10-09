@@ -1,0 +1,45 @@
+[[0;32m  OK  [0m] Started [0;1;39munifi[0m.
+[[0;32m  OK  [0m] Reached target [0;1;39mMulti-User System[0m.
+         Starting [0;1;39mwatchdog daemon[0m...
+         Starting [0;1;39mInvoke bootup-bottom hooks[0m...
+         Starting [0;1;39mUpdate UTMP about System Runlevel Changes[0m...
+[[0;32m  OK  [0m] Started [0;1;39mwatchdog daemon[0m.
+[[0;32m  OK  [0m] Finished [0;1;39mUpdate UTMP about System Runlevel Changes[0m.
+[ 6635.532303] Internal error: Oops - Undefined instruction: 0000000002000000 [#1] PREEMPT SMP
+[ 6635.543262] Modules linked in: phy_diag(+) nf_nat_tftp nf_conntrack_tftp nf_nat_pptp nf_conntrack_pptp nf_nat_h323 nf_conntrack_h323 nf_nat_ftp nf_conntrack_ftp ipt_REJECT xt_dyn_random xt_conntrack xt_connmark xt_dpi(O) uio_pdrv_genirq ui_lcm(O) ifb ppp_generic slhc mvcpss(O) drm drm_panel_orientation_quirks ubnthal(PO) ubnt_common(PO) [last unloaded: nf_conntrack_tftp]
+[ 6635.554020] CPU: 2 PID: 58887 Comm: modprobe Tainted: P        W  O L     6.6.46-ui-cn10k #1
+[ 6635.556282] Hardware name: linux,dummy-virt (DT)
+[ 6635.558438] pstate: 41402005 (nZcv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+[ 6635.560613] pc : __arm_smccc_smc+0x10/0x40
+[ 6635.567213] lr : __arm_smccc_smc+0x10/0x40
+[ 6635.568410] sp : ffff000049bdfa40
+[ 6635.568936] x29: ffff000049bdfa40 x28: ffff000049bdfc90 x27: 0000000000000000
+[ 6635.570288] x26: 0000000000000000 x25: ffff80007b0b0058 x24: 0000000000000001
+[ 6635.573198] x23: ffff8000823c8aa0 x22: 0000000000000000 x21: ffff80007b0b0040
+[ 6635.574355] x20: ffff000046970300 x19: ffff80007b0f0000 x18: 0000000000000000
+[ 6635.577447] x17: 0000000000000000 x16: 0000000000000000 x15: 0000aaaad334fd98
+[ 6635.580540] x14: 0000000000000001 x13: 0064692d646c6975 x12: 00000000000000d8
+[ 6635.583932] x11: ffff80007b0f0000 x10: 0000000076360e72 x9 : ffff000049bdf730
+[ 6635.587408] x8 : 0101010101010101 x7 : 0000000000000000 x6 : 0000000000000000
+[ 6635.589410] x5 : 0000000000000000 x4 : 0000000000000000 x3 : 0000000000000000
+[ 6635.592046] x2 : 0000000000000000 x1 : 0000000000000000 x0 : 00000000c200ff01
+[ 6635.595908] Call trace:
+[ 6635.597026]  __arm_smccc_smc+0x10/0x40
+[ 6635.599584]  phy_dbg_init+0x4c/0x10000 [phy_diag]
+[ 6635.601478]  do_one_initcall+0x44/0x278
+[ 6635.603563]  do_init_module+0x58/0x1e8
+[ 6635.607392]  load_module+0x1a94/0x1cc4
+[ 6635.608607]  init_module_from_file+0x84/0xc0
+[ 6635.610406]  __arm64_sys_finit_module+0x1c8/0x2c4
+[ 6635.611870]  invoke_syscall.constprop.0+0x50/0xec
+[ 6635.613471]  do_el0_svc+0x40/0xc8
+[ 6635.614911]  el0_svc+0x58/0x1fc
+[ 6635.616105]  el0t_64_sync_handler+0xc0/0xc4
+[ 6635.617375]  el0t_64_sync+0x190/0x194
+[ 6635.619584] Code: d503245f a9bf7bfd 910003fd 97fffff3 (d4000003) 
+[ 6635.621712] ---[ end trace 0000000000000000 ]---
+[ 6635.623584] Kernel panic - not syncing: Oops - Undefined instruction: Fatal exception
+[ 6635.625036] SMP: stopping secondary CPUs
+[ 6635.626996] Kernel Offset: disabled
+[ 6635.627335] CPU features: 0x00,00000001,a3036f47,19ffff2f
+[ 6635.628115] Memory Limit: none

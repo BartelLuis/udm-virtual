@@ -1,0 +1,372 @@
+{
+  "artifacts": {
+    "build_verify_harness.py": {
+      "sha256": "a0eaed9a82f0e6c10ac6f0a9cbd99c9dacf2e08391e6705148f4bed2f3fdb09e",
+      "size_bytes": 5064
+    },
+    "gcm-cache-candidate.class": {
+      "sha256": "eaec94b020bfae34ebd714e19fcb557b6fb0abffc07fe36cdaf98383fdb70126",
+      "size_bytes": 66876
+    },
+    "gcm-cache-candidate.class.json": {
+      "sha256": "5fd228d58b3d12acafb757c47b1e4190ca0eba3a60847a4fd27a802f1876b100",
+      "size_bytes": 1316
+    },
+    "gcm-jvm-verifier/GcmVerifyHarness.class": {
+      "sha256": "a224bd44dcc9ea6e1a895df90b9a20880f1278b06dbeeae442128f7648451dcc",
+      "size_bytes": 641
+    },
+    "launch_verify_harness.py": {
+      "sha256": "5bc1352430cf09a916151b2e8c8f5baeefa04923011b6b58d2295a17b2263a6c",
+      "size_bytes": 7357
+    },
+    "patch_gcm_cache.py": {
+      "sha256": "308febd192616c38db2219e325c05c37a172813305eaed2125536c62f46b1d15",
+      "size_bytes": 5290
+    },
+    "test_patch_gcm_cache.py": {
+      "sha256": "87ed5d6e1a44f4d376a7f7d2eda7d4ca2a282c21893dda6c27092d469f667b7d",
+      "size_bytes": 9225
+    },
+    "test_verify_harness.py": {
+      "sha256": "a7f10b237546f1cf111792e2ee94a8e53295dc85e71a03cfe8fe7e3f799412bf",
+      "size_bytes": 6843
+    }
+  },
+  "candidate_sha256": "eaec94b020bfae34ebd714e19fcb557b6fb0abffc07fe36cdaf98383fdb70126",
+  "combined_inference": "Authenticated GCM informs and persistent x_aes_gcm=true coexist with repeated original-handler false-capability branches. This supports stale full-device cache metadata rather than missing mcad GCM support. The reviewed candidate passes isolated JVM verification.",
+  "data_minimization": {
+    "configuration_versions_embedded": false,
+    "device_identifiers_embedded": false,
+    "keys_or_credentials_embedded": false,
+    "raw_logs_embedded": false,
+    "raw_management_configuration_embedded": false,
+    "source_logs_remain_in_research_storage": true
+  },
+  "generated_utc": "2026-10-09T15:29:39.397050+00:00",
+  "jvm_verification": {
+    "candidate_class_version": "69.0",
+    "candidate_sha256": "eaec94b020bfae34ebd714e19fcb557b6fb0abffc07fe36cdaf98383fdb70126",
+    "exit_code": 0,
+    "guest_java_major_reported_by_root": 25,
+    "guest_stage": "/run/udm-gcm-class-verify-2spkxiar",
+    "harness_operation": "Class.forName(target, false, Harness.class.getClassLoader()).getDeclaredMethods()",
+    "heap_max_mib": 128,
+    "launcher_configuration": {
+      "c1_tier_limit": 1,
+      "candidate_precedes_original_classpath": true,
+      "original_cache_access": "read-only verification; no prepare",
+      "verify_all": true
+    },
+    "limits": [
+      "The console attests the exact candidate digest and successful helper exit; helper/launcher semantics are established separately by hashed artifacts and static review.",
+      "Java major25 is reported by root; this console does not include java -version. Candidate class version69 plus successful loading independently requires Java25 or newer.",
+      "No target initialization, live inform handling, adoption, readiness, configuration apply, firewall behavior, or cold-boot recovery is tested by this verifier.",
+      "128MiB is the maximum Java heap, not a total process memory cap."
+    ],
+    "minimum_compatible_java_major": 25,
+    "original_classpath_entries": 154,
+    "overall_timeout_seconds": 180,
+    "pass_line": "UDM_GCM_CLASS_VERIFY_PASS_NO_INITIALIZATION",
+    "run_uid": 997,
+    "source": "jvm_verifier",
+    "source_lines": {
+      "complete": 12,
+      "pass": 11,
+      "start": 10
+    },
+    "status": "passed_actual_guest_jvm_verification",
+    "verified_harness_semantics": {
+      "application_main_invoked": false,
+      "target_initialization_requested": false,
+      "target_methods_invoked": false
+    }
+  },
+  "native_debug_observation": {
+    "all_new_cfgversions_differ_from_previous": true,
+    "branch_occurrences": 10,
+    "branch_source_lines": [
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34
+    ],
+    "cfgversion_write_occurrences": 10,
+    "enable_source_line": 10,
+    "exact_branch_marker": "mgmt config update before provision",
+    "inference": "The exact original branch requires the main handler's Device.aesGcmInformEncryptionOnly() to be false; the device is supported and simulation/demo are inactive on that path.",
+    "limits": [
+      "The false main-handler flag is inferred from verified original control flow and the emitted branch marker, not from direct JVM object inspection.",
+      "Logging control success proves API rc ok; the log alone does not independently read back all restored category levels.",
+      "Enable/restore control lines precede the subsequently printed log excerpt; source line order is not the timing order of the captured branch events."
+    ],
+    "native_api_logging_enable_success": true,
+    "native_api_logging_restore_auto_success": true,
+    "restore_source_line": 11,
+    "source": "native_debug",
+    "static_mapping": {
+      "branch_bytecode_return": 3055,
+      "branch_bytecode_start": 2930,
+      "class": "com/ubnt/service/devmgr/l/xTAqASU",
+      "method_index": 15
+    },
+    "write_source_lines": [
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      33,
+      35
+    ]
+  },
+  "not_established": [
+    "An atomic per-packet snapshot of the wire, Mongo record, and JVM cache: these are separate historical observation windows.",
+    "The precise live event that first overwrote or diverged the caches; the state-checker snapshot race remains a static hypothesis.",
+    "That the candidate has repaired the live loop or reached genuine gateway readiness.",
+    "Fresh-image installation, cold boot, full configuration provisioning, or firewall packet filtering correctness.",
+    "Production supportability or measured performance impact of the additional mini-cache invalidation."
+  ],
+  "persistent_flag_observation": {
+    "limits": [
+      "Curation validates exact console bytes and allowlisted field lines; it does not reconnect to Mongo, export the record, or inspect current persistent state."
+    ],
+    "provenance_context": "Root identifies this existing console as its read-only native device/Mongo probe.",
+    "source": "mongo_probe",
+    "source_line": 47,
+    "wait_for_initial_inform": true,
+    "wait_source_line": 45,
+    "x_aes_gcm": true
+  },
+  "provenance": {
+    "jvm_verifier": {
+      "filename": "console-830fa3277d9042d8a25aa9b7ede80391.log",
+      "identifier": "830fa3277d9042d8a25aa9b7ede80391",
+      "kind": "existing_research_console_log",
+      "line_count": 14,
+      "raw_log_embedded": false,
+      "sha256": "b033fc61f797fecc33d7cbb959fcce4ac982f1294ad7866268eded732f5780b8",
+      "size_bytes": 759
+    },
+    "mongo_probe": {
+      "filename": "console-966bc71ff6374e42a30767304c6c5f40.log",
+      "identifier": "966bc71ff6374e42a30767304c6c5f40",
+      "kind": "existing_research_console_log",
+      "line_count": 334,
+      "raw_log_embedded": false,
+      "sha256": "9530feb0d7f28e1f0ed2027235ab77c40a94b5bf954c35e04d22a6fa4638d419",
+      "size_bytes": 30251
+    },
+    "native_debug": {
+      "filename": "console-cb113fe8c639482da9807161a37cbbe9.log",
+      "identifier": "cb113fe8c639482da9807161a37cbbe9",
+      "kind": "existing_research_console_log",
+      "line_count": 38,
+      "raw_log_embedded": false,
+      "sha256": "019c62b34f7af80b3064eeb17925ed5a5df6c723c58e2a52c556e17317ad8943",
+      "size_bytes": 4066
+    },
+    "wire": {
+      "filename": "console-4a4422cb2b9040ac9e8fe560af45b690.log",
+      "identifier": "4a4422cb2b9040ac9e8fe560af45b690",
+      "kind": "existing_research_console_log",
+      "line_count": 22,
+      "raw_log_embedded": false,
+      "sha256": "1cd7828be39264a7d79455618eeb11ae30bbe623f999ca3209a891022bb63b75",
+      "size_bytes": 12018
+    }
+  },
+  "schema": 1,
+  "scope": "Curated historical evidence for authenticated GCM cache divergence and isolated candidate JVM verification.",
+  "status": "research-proof-only-not-release-acceptance",
+  "wire_observation": {
+    "authenticated_records": 8,
+    "cfgversion_values_retained": false,
+    "completion_source_line": 20,
+    "guest_clock_capture_span_seconds": 17,
+    "limits": [
+      "Four observed request/response exchanges are a bounded sample, not a complete traffic history.",
+      "Authentication results come from the existing safe observer; curation does not re-decrypt packets or retain keys/ciphertext.",
+      "Wire and plaintext byte counts describe this capture; earlier unpaired captures can differ.",
+      "No full operational inform or successful readiness transition is established by notification packets."
+    ],
+    "observer_inbound_packets": 37,
+    "observer_reported_rejections": 0,
+    "pairs": [
+      {
+        "header_and_payload_device_identity_match": true,
+        "pair": 1,
+        "request": {
+          "cfgversion_effective_saved_all_equal": true,
+          "default": false,
+          "device_reported_state": 2,
+          "gcm_authenticated": true,
+          "inform_as_notif": true,
+          "notification_reason": "setparam",
+          "plaintext_bytes": 1861,
+          "port_table_reported": false,
+          "protocol": 1,
+          "switch_port_table_reported": false,
+          "wire_bytes": 950,
+          "wire_flags": 11
+        },
+        "response": {
+          "cfgversion_differs_from_request": true,
+          "gcm_authenticated": true,
+          "management_authkey_present": false,
+          "management_is_setup_completed": false,
+          "management_use_aes_gcm": true,
+          "plaintext_bytes": 327,
+          "top_level_keys": [
+            "_type",
+            "mgmt_cfg",
+            "server_time_in_utc"
+          ],
+          "type": "setparam",
+          "wire_bytes": 383,
+          "wire_flags": 9
+        },
+        "same_tcp_port": true,
+        "source_lines": {
+          "request": 12,
+          "response": 13
+        }
+      },
+      {
+        "header_and_payload_device_identity_match": true,
+        "pair": 2,
+        "request": {
+          "cfgversion_effective_saved_all_equal": true,
+          "default": false,
+          "device_reported_state": 2,
+          "gcm_authenticated": true,
+          "inform_as_notif": true,
+          "notification_reason": "setparam",
+          "plaintext_bytes": 1861,
+          "port_table_reported": false,
+          "protocol": 1,
+          "switch_port_table_reported": false,
+          "wire_bytes": 950,
+          "wire_flags": 11
+        },
+        "response": {
+          "cfgversion_differs_from_request": true,
+          "gcm_authenticated": true,
+          "management_authkey_present": false,
+          "management_is_setup_completed": false,
+          "management_use_aes_gcm": true,
+          "plaintext_bytes": 327,
+          "top_level_keys": [
+            "_type",
+            "mgmt_cfg",
+            "server_time_in_utc"
+          ],
+          "type": "setparam",
+          "wire_bytes": 383,
+          "wire_flags": 9
+        },
+        "same_tcp_port": true,
+        "source_lines": {
+          "request": 14,
+          "response": 15
+        }
+      },
+      {
+        "header_and_payload_device_identity_match": true,
+        "pair": 3,
+        "request": {
+          "cfgversion_effective_saved_all_equal": true,
+          "default": false,
+          "device_reported_state": 2,
+          "gcm_authenticated": true,
+          "inform_as_notif": true,
+          "notification_reason": "setparam",
+          "plaintext_bytes": 1862,
+          "port_table_reported": false,
+          "protocol": 1,
+          "switch_port_table_reported": false,
+          "wire_bytes": 950,
+          "wire_flags": 11
+        },
+        "response": {
+          "cfgversion_differs_from_request": true,
+          "gcm_authenticated": true,
+          "management_authkey_present": false,
+          "management_is_setup_completed": false,
+          "management_use_aes_gcm": true,
+          "plaintext_bytes": 327,
+          "top_level_keys": [
+            "_type",
+            "mgmt_cfg",
+            "server_time_in_utc"
+          ],
+          "type": "setparam",
+          "wire_bytes": 383,
+          "wire_flags": 9
+        },
+        "same_tcp_port": true,
+        "source_lines": {
+          "request": 16,
+          "response": 17
+        }
+      },
+      {
+        "header_and_payload_device_identity_match": true,
+        "pair": 4,
+        "request": {
+          "cfgversion_effective_saved_all_equal": true,
+          "default": false,
+          "device_reported_state": 2,
+          "gcm_authenticated": true,
+          "inform_as_notif": true,
+          "notification_reason": "setparam",
+          "plaintext_bytes": 1862,
+          "port_table_reported": false,
+          "protocol": 1,
+          "switch_port_table_reported": false,
+          "wire_bytes": 950,
+          "wire_flags": 11
+        },
+        "response": {
+          "cfgversion_differs_from_request": true,
+          "gcm_authenticated": true,
+          "management_authkey_present": false,
+          "management_is_setup_completed": false,
+          "management_use_aes_gcm": true,
+          "plaintext_bytes": 327,
+          "top_level_keys": [
+            "_type",
+            "mgmt_cfg",
+            "server_time_in_utc"
+          ],
+          "type": "setparam",
+          "wire_bytes": 383,
+          "wire_flags": 9
+        },
+        "same_tcp_port": true,
+        "source_lines": {
+          "request": 18,
+          "response": 19
+        }
+      }
+    ],
+    "pairs_observed": 4,
+    "request_distinct_cfgversions": 4,
+    "response_distinct_cfgversions": 4,
+    "source": "wire",
+    "subsequent_request_matches_previous_response": [
+      true,
+      true,
+      true
+    ]
+  }
+}

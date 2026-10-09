@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "research_resumed": true,
+  "temporary_swap_removed": true,
+  "pristine_base_state_unchanged": true,
+  "selftest_report": "/mnt/c/Users/L.Bartel/udm/validation-runs/release-selftest-06/report.json",
+  "network_report": "/mnt/c/Users/L.Bartel/udm/validation-runs/release-network-04/report.json",
+  "network_policy": "explicit temporary IPv4 test policy",
+  "native_setup_verified": false
+}

@@ -1,0 +1,271 @@
+{
+  "data_minimization": {
+    "current_guest_or_console_accessed": false,
+    "device_identifiers_embedded": false,
+    "keys_or_credentials_embedded": false,
+    "raw_logs_embedded": false,
+    "raw_management_configuration_embedded": false,
+    "source_logs_remain_in_research_storage": true
+  },
+  "initramfs_comparison": {
+    "added_entries": [],
+    "all_udm_virtual_payloads_and_newc_metadata_identical": true,
+    "changed_entries": [
+      "init"
+    ],
+    "payload_entries": {
+      "udm-virtual/boot.sh": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "e3e9c797e0fa035a8bd6362c4b84d94d2beee860624fa4fe9c676f1acb5a3b62",
+        "size_bytes": 3530
+      },
+      "udm-virtual/controller.json": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "5778989e3819f93ea5c8c9c0fd51f7444c1aeb5e98c34356e34576b6c1e647f6",
+        "size_bytes": 43115
+      },
+      "udm-virtual/controller_flat.py": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "3d63c91b9860ff9f23b0b7861320cd5a2478c232bdbcde84e7ac2d9e98484d69",
+        "size_bytes": 16715
+      },
+      "udm-virtual/controller_guest.py": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "a38687d8f2cfca35364c3cc77206bfef595b1b499aab144733f549213934c2a3",
+        "size_bytes": 5278
+      },
+      "udm-virtual/freeradius-cert.conf": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "dccb685ec3210d29b8109df4c28334b93d01a865b9bee46899e606d4b1f0aa8a",
+        "size_bytes": 94
+      },
+      "udm-virtual/freeradius-cert.service": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "eaf34925d0a8b4e2270c6a1363b611a79902114dc4b1ad36fe79063510356793",
+        "size_bytes": 284
+      },
+      "udm-virtual/freeradius_cert.py": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "9d4460654d428230f9682f10935dcfb8b911242e7477c067a35c4293370ed30b",
+        "size_bytes": 6673
+      },
+      "udm-virtual/freeradius_dh.py": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "cddb34b393d540b40665a49f77c7ad143fe3a96a5c12dad09087f9cda5c76c0b",
+        "size_bytes": 3770
+      },
+      "udm-virtual/hal_eeprom.py": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "7446c51739cf110201c15723a914bbe231442a16548bae83e8e42e74c44d2d43",
+        "size_bytes": 7400
+      },
+      "udm-virtual/hal_guest.py": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "ee6943e918a3330f244c8f14b57c1a7de9b82e121565fc8184e0dee7738cca5d",
+        "size_bytes": 16731
+      },
+      "udm-virtual/internal-dependencies.virtual.jar": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "bd36d87411e84c6dcc75ae6eb4f91b09ad759153668670da240803a6866d4fea",
+        "size_bytes": 31753099
+      },
+      "udm-virtual/java-tcg.sh": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "e3daeffe746147b53253718a8667587c4ea7a07303812eafa7bdddc50bdf9970",
+        "size_bytes": 671
+      },
+      "udm-virtual/late_boot.py": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "1a4fc6e419445c974f2930750239a8d9502660da8c9602776cc7e7d4f45ea174",
+        "size_bytes": 2486
+      },
+      "udm-virtual/patch_controller.py": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "24f0681bdbf477e539bdaf25a2686c299ff952109d677a2b9c3827f2eeec3f65",
+        "size_bytes": 20631
+      },
+      "udm-virtual/ubios-udapi-server.virtual": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "d2460e19ea0e2fc883e2393f0312822a260dd301a01344adc70d763e860c5e7b",
+        "size_bytes": 9341280
+      },
+      "udm-virtual/unifi-tcg.conf": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "e0e30d0460bcde38e44cf4d4d578adf219e6e49a3aa3669f612fde441a77f79a",
+        "size_bytes": 1108
+      },
+      "udm-virtual/validation.default": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "1285cb3121bb24b1a26c408588724c384da3a975499bf83748e447c3b91dd1c5",
+        "size_bytes": 13719
+      },
+      "udm-virtual/virtual-board.json": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "1196997ce3985c38b63720c181ab54b066f5fa6d110a21f32b21b08aca8e8e60",
+        "size_bytes": 7990
+      },
+      "udm-virtual/virtual.default": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "54342c77f15da8664ed9c0a027e342329dac8d2f304ab17e80c673f5dcc02f9e",
+        "size_bytes": 15096
+      },
+      "udm-virtual/virtual.fallback": {
+        "payload_and_newc_metadata_identical": true,
+        "sha256": "1b1fbde7a355f448f38d00addc23367656b2dbd1c43eb66d31244f7bf81e742d",
+        "size_bytes": 10538
+      }
+    },
+    "product_init": {
+      "line_count": 167,
+      "sha256": "0cd7c5e47a69de9b023ee33a971e3dc8270af627e762355d0208dd68da8a030f",
+      "size_bytes": 6237
+    },
+    "removed_entries": [],
+    "research_init": {
+      "line_count": 200,
+      "sha256": "5071e57efab042d82e42cb3ab0adee2f2a5a9044bb560c2890fe240ffbd61cb1",
+      "size_bytes": 7399
+    },
+    "research_init_changes": [
+      "Mount a research 9P share with the explicit ro option.",
+      "Install a local interactive research console on ttyAMA1.",
+      "Conditionally move 98-research-stop.conf and 99-research-flat.conf from unifi.service.d to /data/udm-virtual/research-disabled, refusing an existing backup."
+    ],
+    "udm_virtual_entry_count": 20
+  },
+  "interpretation": "The archived native research boot reports successful migration of the exact known previous controller, then starts systemd and later reaches the kernel power-down marker. The identical deployed helper checks the read-only original source and expected output digest before atomic replacement and emitting the migration marker.",
+  "limits": [
+    "The runtime log attests the helper migration result; it does not independently print or remeasure the installed JAR digest.",
+    "The research initramfs differs from the product only in /init, including a local console, a read-only share, and conditional relocation of two research service overrides.",
+    "This migration run does not prove R5 Network READY, owner setup, adoption, provisioning, settings behavior, or configuration apply semantics.",
+    "The final reboot: Power down marker records power-off; it does not prove a subsequent reboot or cold-boot recovery."
+  ],
+  "migration_payload": {
+    "actual_nested_gcm_class": {
+      "member": "com/ubnt/service/devmgr/l/xTAqASU.class",
+      "sha256": "eaec94b020bfae34ebd714e19fcb557b6fb0abffc07fe36cdaf98383fdb70126",
+      "size_bytes": 66876
+    },
+    "deployed_helpers_match_local_sources_after_lf_normalization": {
+      "controller_guest.py": true,
+      "patch_controller.py": true
+    },
+    "digest_provenance": "Previous digest comes from the deployed guest helper; current digest comes from its deployed controller report; nested JAR and GCM class digests are measured from the initramfs payload.",
+    "direct_controller_digest_source_lines_in_boot_log": {
+      "current_controller": [],
+      "gcm_class": [],
+      "previous_controller": []
+    },
+    "expected_current_controller_sha256": "d0d7c2cdae069b19bd78da34adde08840f9671dbc9aa35dc201c7aece12111c5",
+    "guest_helper": {
+      "line_count": 112,
+      "reference": "udm-virtual/controller_guest.py",
+      "sha256": "a38687d8f2cfca35364c3cc77206bfef595b1b499aab144733f549213934c2a3",
+      "size_bytes": 5278
+    },
+    "guest_helper_static_source_lines": {
+      "atomic_replace": [
+        94
+      ],
+      "known_previous_branch": [
+        78
+      ],
+      "migration_status_print": [
+        108
+      ],
+      "original_digest_check": [
+        57
+      ],
+      "readonly_firmware_requirement": [
+        54
+      ],
+      "readonly_original_call": [
+        79
+      ]
+    },
+    "known_previous_controller_sha256": "49799062afc6e36778319ef4739c072f5adc4651d4a8638c19adfa8176507fc4",
+    "nested_jar_sha256": "bd36d87411e84c6dcc75ae6eb4f91b09ad759153668670da240803a6866d4fea",
+    "original_firmware_controller_sha256": "7b8decf39bb8787c29367901aff2a28fedff1571ecde5f9203be5ac61e04202d"
+  },
+  "runtime_markers": {
+    "adaptation_ready": {
+      "marker": "UDM_VIRTUAL_ADAPTATION_READY",
+      "occurrences": 1,
+      "source_lines": [
+        555
+      ]
+    },
+    "controller_migrated": {
+      "marker": "UDM_VIRTUAL_CONTROLLER_READY: migrated-known-controller",
+      "occurrences": 1,
+      "source_lines": [
+        554
+      ]
+    },
+    "hal_ready": {
+      "marker": "UDM_VIRTUAL_HAL_NATIVE_READY",
+      "occurrences": 1,
+      "source_lines": [
+        552
+      ]
+    },
+    "late_boot_ready": {
+      "marker": "UDM_VIRTUAL_LATE_BOOT_READY",
+      "occurrences": 1,
+      "source_lines": [
+        553
+      ]
+    },
+    "power_down": {
+      "marker": "reboot: Power down",
+      "occurrences": 1,
+      "source_lines": [
+        1277
+      ]
+    },
+    "powering_off": {
+      "marker": "systemd-shutdown[1]: Powering off.",
+      "occurrences": 1,
+      "source_lines": [
+        1276
+      ]
+    },
+    "systemd_pid1": {
+      "marker": "systemd[1]: systemd 247",
+      "occurrences": 1,
+      "source_lines": [
+        557
+      ]
+    }
+  },
+  "schema_version": 1,
+  "sources": {
+    "boot_log": {
+      "line_count": 1277,
+      "reference": "history-r5-migration/boot.log",
+      "sha256": "ddb8da6ac39bc47d88be0421ccecff8751f562cd28dae267471b642bf98f12c8",
+      "size_bytes": 84360
+    },
+    "parser": {
+      "api": "read_newc(gzip.decompress(bytes))",
+      "line_count": 117,
+      "reference": "initramfs.py",
+      "sha256": "7eb6c526f628affa21ba3acf57de19f796c2d129af2ce35d462c5a406f37085f",
+      "size_bytes": 5249
+    },
+    "product_initramfs": {
+      "newc_entry_count": 566,
+      "reference": "build-virtual/initramfs.gz",
+      "sha256": "ccff18466c8bbd099c692d77587a4ee789728ce223a0d653f86c4e752035937f",
+      "size_bytes": 42503633
+    },
+    "research_history_root": "/home/luis/udm-research",
+    "research_initramfs": {
+      "newc_entry_count": 566,
+      "reference": "history-r5-migration/initramfs.gz",
+      "sha256": "b072bfb3eb97ab63af14274348629f71c445583f426aa9ccc948abccec08810c",
+      "size_bytes": 42504359
+    }
+  },
+  "status": "archived_native_known_overlay_migration_attested"
+}

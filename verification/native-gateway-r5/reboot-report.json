@@ -1,0 +1,463 @@
+{
+  "clean_shutdown": {
+    "clean_poweroff_marker": true,
+    "configured_state_sha256": "bf782019af09befccada83554879f01abb670d964730296bf08c2505fd11ea1a",
+    "host_reported_boot_log_bytes": 98653,
+    "host_reported_boot_log_sha256": "1849c8eecb304031d3342f68c2f9cc1a6cd713db7feb159d882826c8770f0c28",
+    "normal_systemd_poweroff": true,
+    "observed_at_utc": "2026-10-09T17:10:45.673311+00:00",
+    "private_backup_verified_by_host": true,
+    "qemu_exited": true,
+    "raw_boot_log_not_downloaded": true,
+    "source": "shutdown-proof.json"
+  },
+  "cleanup": {
+    "errors": [],
+    "namespaces_deleted": {
+      "lan": true,
+      "wan": true
+    },
+    "owned_namespace_count": 2,
+    "owned_worker_count": 2,
+    "ownership_source": "native-flow-resources.json",
+    "report_source": "native-flows.json",
+    "scope": "Helper cleanup and both namespace deletions are recorded; no separate host process enumeration is embedded.",
+    "tap_lifetime": "Nonpersistent TAP descriptors belong to the owned workers."
+  },
+  "data_minimization": {
+    "configured_disks_private_backups_or_credential_files_downloaded": false,
+    "cookies_or_session_tokens_embedded": false,
+    "guest_console_or_runtime_mutations_during_curation": false,
+    "host_pids_namespace_inodes_or_private_run_identifiers_embedded": false,
+    "host_public_ip_embedded": false,
+    "html_page_contents_embedded": false,
+    "only_explicitly_allowlisted_host_evidence_files_downloaded": true,
+    "raw_credentials_embedded": false,
+    "raw_logs_embedded": false,
+    "raw_management_configuration_embedded": false,
+    "raw_owner_responses_embedded": false
+  },
+  "environment": {
+    "cores": 6,
+    "memory_mib": 8192,
+    "network_scope": "Isolated synthetic IPv4 peers; no public uplink or Internet test",
+    "platform": "Debian test server, QEMU AArch64 TCG"
+  },
+  "first_boot_report": {
+    "left_unchanged": true,
+    "reference": "verification/native-gateway-r5/report.json",
+    "sha256": "ddcff421f473387145daec5836d4a3781eea31c911f9adb6a68c2456c80a252b"
+  },
+  "input_provenance": {
+    "archive_scope": "The original b422381b archive is the tested input; later documentation/evidence repackaging does not change that historical input reference.",
+    "configured_state_or_private_backup_downloaded": false,
+    "configured_state_sha256_after_shutdown": "bf782019af09befccada83554879f01abb670d964730296bf08c2505fd11ea1a",
+    "original_tested_r5_archive": {
+      "digest_basis": "Pinned by the remote unpack workflow and independently recomputed from the original local release archive during this curation.",
+      "filename": "udm-beast-proxmox-5.1.33.tar",
+      "sha256": "b422381b222b8adceb9b4aec42493e36b53cf31c71aa95b30ab163bc2b76a439",
+      "size_bytes": 1122734080
+    },
+    "pristine_base_state_sha256": "14ac5dd319d45387e70e36b05cded788617279175275f9f4f1da241bdcc0e9a5",
+    "product_initramfs_sha256": "ccff18466c8bbd099c692d77587a4ee789728ce223a0d653f86c4e752035937f",
+    "release_artifacts": {
+      "Image": {
+        "sha256": "3953777d3682f6b08918bfd4e7b7a0a819d033b8c2117fd8ab95971ab5ce0814",
+        "size_bytes": 37210624
+      },
+      "initramfs.gz": {
+        "sha256": "ccff18466c8bbd099c692d77587a4ee789728ce223a0d653f86c4e752035937f",
+        "size_bytes": 42503633
+      },
+      "rootfs.qcow2": {
+        "sha256": "ebb9cf82d81cf0feb13392d0afb44d2a6c233827685879c90fc49fee57223ab2",
+        "size_bytes": 1034289152
+      },
+      "state.qcow2": {
+        "sha256": "14ac5dd319d45387e70e36b05cded788617279175275f9f4f1da241bdcc0e9a5",
+        "size_bytes": 7798784
+      }
+    },
+    "release_artifacts_match_first_boot_report": true,
+    "research_initramfs_sha256": "b072bfb3eb97ab63af14274348629f71c445583f426aa9ccc948abccec08810c",
+    "research_payload_scope": {
+      "changed_initramfs_entries": [
+        "init"
+      ],
+      "comparison_reference": "verification/controller-migration/report.json",
+      "identical_udm_virtual_entries": 20,
+      "scope": "Research console/read-only share and conditional research-override handling in /init; original product payload entries unchanged."
+    },
+    "reviewed_local_flow_probe_source_sha256": "a003efa7297619b123bb6da4657659c4d2db8656100f88d8ea1c03ea4b03c819",
+    "same_configured_state_sha256_verified_before_restart": "bf782019af09befccada83554879f01abb670d964730296bf08c2505fd11ea1a",
+    "state_hash_evidence": [
+      "shutdown-proof.json",
+      "resume-provenance.json"
+    ],
+    "state_hashes_match": true,
+    "state_mode": "Retained configured overlay; no new pristine overlay or repeated owner setup"
+  },
+  "limits": [
+    "One clean systemd shutdown and restart on the same configured overlay is demonstrated. Repeated cycling, abrupt power loss, crash recovery and long-duration stability are not tested.",
+    "HTTPS proves anonymous HTTP 200 HTML bearing a UniFi marker. Normal owner login was tested separately through the original API. Browser configuration workflows and UI interaction remain untested.",
+    "Internet access, IPv6, VLANs, throughput and deployment on real Proxmox remain untested.",
+    "WAN, DNS and NAT peers are synthetic and isolated; results do not establish arbitrary Internet or firewall behavior.",
+    "The research initramfs differs from the product in /init. The 20 product payload entries match; a bit-identical product-initramfs boot is not claimed.",
+    "Configured-state and clean-shutdown measurements are verified host attestations; no state disk, private backup or raw boot log was downloaded.",
+    "Native policy projections select limited fields. They do not prove equality of complete firewall configurations or arbitrary settings persistence.",
+    "Service markers, packet availability and later authenticated/flow observations have different timestamps; elapsed wall-clock gaps include orchestration delays."
+  ],
+  "native_flow_probe": {
+    "check_count": 7,
+    "checks": {
+      "dns_via_original_gateway": true,
+      "ethernet_pumps_healthy": true,
+      "original_https_gui_html": true,
+      "subsequent_tcp_udp_control": true,
+      "tcp_roundtrip_nat": true,
+      "udp_roundtrip_nat": true,
+      "unsolicited_wan_tcp_blocked": true
+    },
+    "completed_at_utc": "2026-10-09T17:21:20.339394+00:00",
+    "dns": {
+      "answers": [
+        "198.18.0.10"
+      ],
+      "passed": true,
+      "query_matched_owned_run": true,
+      "query_pattern": "native-flow-<per-run-random>.example.com",
+      "resolver": "192.168.1.1",
+      "synthetic_upstream_answers": 1,
+      "upstream_observed_sources": [
+        "198.18.0.2"
+      ]
+    },
+    "elapsed_seconds": 10.379,
+    "ethernet_pumps": {
+      "lan": {
+        "counts": {
+          "from_qemu": 28,
+          "to_qemu": 28,
+          "unsolicited_syn_from_qemu": 0,
+          "unsolicited_syn_to_qemu": 0
+        },
+        "error": null
+      },
+      "wan": {
+        "counts": {
+          "from_qemu": 45,
+          "to_qemu": 43,
+          "unsolicited_syn_from_qemu": 0,
+          "unsolicited_syn_to_qemu": 9
+        },
+        "error": null
+      }
+    },
+    "original_https_gui": {
+      "browser_configuration_or_ui_interaction_proved": false,
+      "content_type": "text/html",
+      "credentials_cookies_or_proxies_used": false,
+      "endpoint": "https://192.168.1.1:443/",
+      "html": true,
+      "maximum_body_bytes": 131072,
+      "maximum_relative_redirects": 3,
+      "operation": "Anonymous GET with bounded same-origin relative redirects",
+      "page_contents_not_embedded": true,
+      "passed": true,
+      "self_signed_test_certificate_explicitly_accepted": true,
+      "socket_timeout_seconds": 5,
+      "status": 200,
+      "total_deadline_seconds": 15,
+      "unifi_marker": true
+    },
+    "outbound_tcp": {
+      "observed_source": "198.18.0.2",
+      "passed": true
+    },
+    "outbound_udp": {
+      "observed_source": "198.18.0.2",
+      "passed": true
+    },
+    "passed": true,
+    "source": "native-flows.json",
+    "unsolicited_wan_tcp": {
+      "attempt_results": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ],
+      "later_tcp_udp_control": {
+        "tcp": {
+          "observed_source": "198.18.0.2",
+          "passed": true
+        },
+        "udp": {
+          "observed_source": "198.18.0.2",
+          "passed": true
+        }
+      },
+      "matching_syn_received_on_lan": 0,
+      "remote_lan_listener_accepts": 0,
+      "wan_syn_to_qemu_count": 9
+    }
+  },
+  "native_policy": {
+    "begin_source_line": 10,
+    "complete_source_line": 18,
+    "diagnostic_failed_sections": [],
+    "native_network_service_enabled": true,
+    "native_services": [
+      {
+        "active_state": "active",
+        "reported_restarts": 0,
+        "sub_state": "running",
+        "unit": "unifi.service"
+      },
+      {
+        "active_state": "active",
+        "reported_restarts": 0,
+        "sub_state": "running",
+        "unit": "udapi-server.service"
+      },
+      {
+        "active_state": "active",
+        "reported_restarts": 0,
+        "sub_state": "running",
+        "unit": "unifi-core.service"
+      }
+    ],
+    "selected_forward_fields_match_factory_template": false,
+    "selected_forward_fields_match_temporary_validation_template": false,
+    "selected_rule_projection": {
+      "forward": {
+        "present": true,
+        "rule_count": 27,
+        "source_line": 16,
+        "truncated": false
+      },
+      "nat": {
+        "present": true,
+        "rule_count": 26,
+        "source_line": 17,
+        "truncated": false
+      }
+    },
+    "services_source_line": 13,
+    "source": "native-diagnostics.log",
+    "template_comparison_scope": "Selected forward fields only; no complete firewall configuration equivalence claim.",
+    "udapi_configuration_source_line": 14,
+    "validation_policy_requested_at_boot": false
+  },
+  "packet_probe": {
+    "check_count": 6,
+    "checks": {
+      "lan_dhcp": true,
+      "lan_router_ping": true,
+      "outbound_nat": true,
+      "return_forwarding": true,
+      "unsolicited_wan_blocked": true,
+      "wan_dhcp": true
+    },
+    "completed_at_utc": "2026-10-09T17:13:18.850891+00:00",
+    "counts": {
+      "lan_received": 71,
+      "malformed_ignored": 0,
+      "unsolicited_leaked": 0,
+      "unsolicited_sent": 8,
+      "wan_received": 58
+    },
+    "drop_control_roundtrips": 5,
+    "elapsed_seconds": 116.736,
+    "passed": true,
+    "scope": "Isolated IPv4 DHCP, router ICMP, native outbound NAT/return forwarding and bounded unsolicited ICMP blocking with positive controls.",
+    "source": "reboot-packets.json"
+  },
+  "passed": true,
+  "persisted_core_state": {
+    "deviceErrorCode": null,
+    "deviceState": "setup",
+    "device_state_source": "native-diagnostics.log",
+    "device_state_source_line": 11,
+    "interpretation": "setup is the normal completed Core state; settingUp is in progress and notSetup is unconfigured. The observed state does not require another completion request.",
+    "isSetup": true,
+    "isSetup_source": "normal-login-state.log",
+    "isSetup_source_line": 8,
+    "source_distinction": "The diagnostic projection reports deviceState/error only; isSetup:true is independently present in the authenticated normal-login projection.",
+    "static_original_source": {
+      "enum": {
+        "NOT_SETUP": "notSetup",
+        "SETTING_UP": "settingUp",
+        "SETUP": "setup"
+      },
+      "reference": "/home/luis/udm-analysis/usr/share/unifi-core/app/service.js",
+      "runtime_reducer_semantics": "KSt returns the dispatched device state unchanged; deviceErrorCode is null for non-error states.",
+      "scope": "Static interpretation of the original firmware source; no live guest Core-file digest was collected.",
+      "settings_reducer_semantics": "SETUP_COMPLETED and UPDATE_CONSOLE_STATE with state=setup both set isSetup:true.",
+      "sha256": "9def42c03b368a9434b1b3d5ee48f7a295bae616ae1060639f4c53c4e292fbb0",
+      "size_bytes": 1337995,
+      "zero_based_byte_offsets": {
+        "completed_log": 738055,
+        "device_state_reducer": 1319007,
+        "normal_completion_state": 737200,
+        "setting_up": 735627,
+        "settings_reducer": 80870,
+        "startup_restore_completed_state": 1294185,
+        "state_enum": 15862
+      }
+    }
+  },
+  "persisted_network_state": {
+    "configuration_version_omitted": true,
+    "controllerStatus": "READY",
+    "isConfigured": true,
+    "isReadyForSetup": true,
+    "observed_at_utc": "2026-10-09T17:20:58.982386+00:00",
+    "source": "native-diagnostics.log",
+    "source_line": 12
+  },
+  "persisted_owner_login": {
+    "authenticated_system_request_succeeded": true,
+    "completed_at_utc": "2026-10-09T17:17:15.937881+00:00",
+    "credentials_or_owner_data_exported_at_test_time": false,
+    "deviceState_is_completed_setup": true,
+    "existing_owner_normal_login": true,
+    "isSetup": true,
+    "login_http_status": 200,
+    "passed": true,
+    "scope": "Normal existing-owner authentication and an authenticated system-state request, not browser interaction or owner recreation.",
+    "source": "normal-login-state.log",
+    "source_line": 8
+  },
+  "schema_version": 1,
+  "source_integrity": {
+    "all_local_source_hashes_match_both_remote_measurements": true,
+    "download_manifest_reference": "work/debian-evidence-r5-reboot/download-manifest.json",
+    "download_manifest_sha256": "449dacc1b84c25861c0606302171b521a71aa8890029620c357e0f9111ff06c4",
+    "remote_hash_verification": "Read-only SHA256 of exactly the eight allowlisted host files, before and after download",
+    "remote_sources_unchanged_during_download": true,
+    "source_count": 8,
+    "sources": {
+      "native-diagnostics.log": {
+        "line_count": 20,
+        "matches_remote_before_and_after_download": true,
+        "reference": "work/debian-evidence-r5-reboot/native-diagnostics.log",
+        "sha256": "3c8aad3a3962f984370c89a42b8a3a01b324e69962c9ec3a9867f84c46c34e82",
+        "size_bytes": 18390
+      },
+      "native-flow-resources.json": {
+        "line_count": 21,
+        "matches_remote_before_and_after_download": true,
+        "reference": "work/debian-evidence-r5-reboot/native-flow-resources.json",
+        "sha256": "6eef00e9abb609e2e34fb2c883888ed1ee77a811f805e1af6639cd7875e01809",
+        "size_bytes": 400
+      },
+      "native-flows.json": {
+        "line_count": 98,
+        "matches_remote_before_and_after_download": true,
+        "reference": "work/debian-evidence-r5-reboot/native-flows.json",
+        "sha256": "3b93f8b538083fe53ba3a41027179f0b37edf38be627866c2de32b03038932e6",
+        "size_bytes": 2378
+      },
+      "normal-login-state.log": {
+        "line_count": 10,
+        "matches_remote_before_and_after_download": true,
+        "reference": "work/debian-evidence-r5-reboot/normal-login-state.log",
+        "sha256": "689e5c7963f5078550c44064dcd5bf72353663ae2a36ed3d6a4cf0168e485a96",
+        "size_bytes": 509
+      },
+      "reboot-packets.json": {
+        "line_count": 87,
+        "matches_remote_before_and_after_download": true,
+        "reference": "work/debian-evidence-r5-reboot/reboot-packets.json",
+        "sha256": "79315b04589b38cba49bc30411c8f20189b4bb35dcaab59091b59b60281f8f81",
+        "size_bytes": 2151
+      },
+      "resume-provenance.json": {
+        "line_count": 26,
+        "matches_remote_before_and_after_download": true,
+        "reference": "work/debian-evidence-r5-reboot/resume-provenance.json",
+        "sha256": "ee2c320bd829e7e67997bcae4de8588d7da2ca9e2a91a612e91ae2d7532a7e91",
+        "size_bytes": 1022
+      },
+      "shutdown-proof.json": {
+        "line_count": 11,
+        "matches_remote_before_and_after_download": true,
+        "reference": "work/debian-evidence-r5-reboot/shutdown-proof.json",
+        "sha256": "452310de2a435e05e48177f60e8318f78d73d44a34b09342c6456e366689ed13",
+        "size_bytes": 497
+      },
+      "startup-health.log": {
+        "line_count": 34,
+        "matches_remote_before_and_after_download": true,
+        "reference": "work/debian-evidence-r5-reboot/startup-health.log",
+        "sha256": "b247cf41fca76b84ddfb162770c98b22d0095c9dd2e16f0fb47cc99dd3d97a62",
+        "size_bytes": 1204
+      }
+    },
+    "transport": "Native Windows OpenSSH SCP with the existing dedicated identity and strict pinned host-key checking"
+  },
+  "startup_health": {
+    "controller_startup_markers": {
+      "boot_launcher": {
+        "reported_bootlauncher_seconds": 129.641,
+        "reported_process_running_seconds": 142.256,
+        "source_line": 29,
+        "timestamp_utc": "2026-10-09T17:17:00.510+00:00"
+      },
+      "context_ready": {
+        "source_line": 30,
+        "timestamp_utc": "2026-10-09T17:17:00.573+00:00"
+      },
+      "startup_complete": {
+        "source_line": 31,
+        "timestamp_utc": "2026-10-09T17:17:16.621+00:00"
+      }
+    },
+    "observed_at_utc": "2026-10-09T17:17:49Z",
+    "scope": "Selected service health and controller startup markers; raw logs and process identifiers omitted.",
+    "services": [
+      {
+        "active_state": "active",
+        "source_line": 14,
+        "sub_state": "running",
+        "unit": "unifi.service"
+      },
+      {
+        "active_state": "active",
+        "source_line": 19,
+        "sub_state": "running",
+        "unit": "unifi-core.service"
+      },
+      {
+        "active_state": "active",
+        "source_line": 24,
+        "sub_state": "running",
+        "unit": "freeradius.service"
+      }
+    ],
+    "source": "startup-health.log",
+    "timestamp_source_line": 12
+  },
+  "status": "passed_clean_restart_native_gateway",
+  "summary": "The retained configured state survived one clean shutdown and restart. Existing-owner normal login, configured Network READY, all six packet checks, all seven native flow checks, and helper cleanup passed.",
+  "test_kind": "Original guest systemd poweroff followed by QEMU restart using the same configured writable state",
+  "timings": {
+    "controller_context_ready_at_utc": "2026-10-09T17:17:00.573+00:00",
+    "controller_startup_complete_at_utc": "2026-10-09T17:17:16.621+00:00",
+    "existing_owner_login_completed_at_utc": "2026-10-09T17:17:15.937881+00:00",
+    "interpretation": "Packet availability, Core login, controller startup, and later flow checks are distinct observations. Wall-clock offsets include orchestration/waiting and are not a throughput benchmark.",
+    "native_flow_checks_completed_at_utc": "2026-10-09T17:21:20.339394+00:00",
+    "native_flow_probe_elapsed_seconds": 10.379,
+    "native_state_observed_at_utc": "2026-10-09T17:20:58.982386+00:00",
+    "packet_checks_completed_at_utc": "2026-10-09T17:13:18.850891+00:00",
+    "packet_probe_elapsed_seconds": 116.736,
+    "restart_started_at_utc": "2026-10-09T17:11:21.243763+00:00",
+    "restart_to_controller_startup_complete_seconds": 355.377237,
+    "restart_to_existing_owner_login_seconds": 354.694118,
+    "restart_to_native_flow_checks_complete_seconds": 599.095631,
+    "restart_to_packet_checks_complete_seconds": 117.607128,
+    "shutdown_observation_to_restart_seconds": 35.570452,
+    "shutdown_observed_at_utc": "2026-10-09T17:10:45.673311+00:00",
+    "startup_health_observed_at_utc": "2026-10-09T17:17:49Z"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "status": "native Network READY, automatic adoption and late boot observed; owner setup not ready",
+  "scope": {
+    "environment": "isolated ARM64 QEMU TCG research guest under Debian/WSL",
+    "product_adaptations": "current release source, including flat Java launch, local TLS initialization and late PHY guard",
+    "release_initramfs_sha256": "5fbfb040f99fbebb12d3171dc00728df9331800b771ba9033215b3fccf0951eb",
+    "original_kernel_sha256": "3953777d3682f6b08918bfd4e7b7a0a819d033b8c2117fd8ab95971ab5ce0814",
+    "original_rootfs_qcow2_sha256": "ebb9cf82d81cf0feb13392d0afb44d2a6c233827685879c90fc49fee57223ab2",
+    "research_initramfs_has_additional_local_diagnostic_console": true,
+    "persistent_state_previously_used": true,
+    "pristine_release_state_coldboot": false,
+    "timestamps": "guest UTC clock, which can lag wall-clock time after VM pauses"
+  },
+  "observations": {
+    "guest_observed_at_utc": "2026-10-09T14:02:49Z",
+    "network_startup_completed_at_utc": "2026-10-09T14:00:50.895Z",
+    "network_isRunning": true,
+    "network_controllerStatus": "READY",
+    "network_isReadyForSetup": false,
+    "automatic_gateway_adoption_started_at_utc": "2026-10-09T14:01:14.351Z",
+    "automatic_gateway_adoption_completed_at_utc": "2026-10-09T14:01:54.898Z",
+    "unifi_service": {
+      "ActiveState": "active",
+      "SubState": "running",
+      "Result": "success"
+    },
+    "bootup_bottom_invoke_service": {
+      "ActiveState": "inactive",
+      "SubState": "dead",
+      "Result": "success",
+      "journal_reported_finished": true
+    },
+    "multi_user_target_active": true,
+    "sysready_target_active": true,
+    "guest_console_command_completed_successfully_after_late_boot": true,
+    "kernel_panic_observed_in_this_capture": false
+  },
+  "limitations": [
+    "READY means that Network started; isReadyForSetup remained false.",
+    "Automatic gateway adoption is not proof of a connected or fully provisioned gateway.",
+    "No successful original owner setup or native firewall packet test is established by this report.",
+    "This research run does not prove native setup from the pristine release state or persistence across a later reboot.",
+    "Continued guest responsiveness after late boot is observed; this short capture is not a long-duration stability test."
+  ],
+  "evidence": {
+    "source_capture": "console-f755973b16034968995b090a48fe28cf.log",
+    "source_capture_sha256": "07d2dc50474b1f22b209235876fb4b89336b7a63a8f15a03cc427e531df69a60",
+    "source_capture_size_bytes": 4655,
+    "source_capture_included_in_release": false,
+    "curation": "Only service states, selected readiness flags and boot/adoption timestamps are retained. Research state, credentials and raw device configuration are not included."
+  }
+}

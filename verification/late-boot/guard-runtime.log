@@ -1,0 +1,36 @@
+(
+[?2004l_GUARD_RUNTIME_PASS
+if test -e /data/udm-virtual/research-setup/submitted; then
+    echo EARLIER_NATIVE_SETUP_SUBMITTED
+else
+    echo NATIVE_SETUP_NOT_PREVIOUSLY_SUBMITTED
+fi
+
+); result=$?; printf "\n%s%s:%s\n" "DONE_" "29d0c467b6de4998811b5b7b41377cf7" "$result"
+[?2004h> set -e
+[?2004l[?2004h> test -f /run/udm-virtual/ready
+[?2004l[?2004h> grep -qw 'module_blacklist=phy_diag' /proc/cmdline
+[?2004l[?2004h> set +e
+[?2004l[?2004h> /sbin/modprobe --ignore-install phy_diag
+[?2004l[?2004h> result=$?
+[?2004l[?2004h> set -e
+[?2004l[?2004h> test "$result" -ne 0
+[?2004l[?2004h> test ! -d /sys/module/phy_diag
+[?2004l[?2004h> echo UDM_PHY_KERNEL_LOAD_BLOCKED
+[?2004l[?2004h> /usr/lib/ubnt/hooks/system/bootup-bottom/01-phy-diag-wa
+[?2004l[?2004h> test ! -d /sys/module/phy_diag
+[?2004l[?2004h> echo UDM_PHY_GUARD_RUNTIME_PASS
+[?2004l[?2004h> if test -e /data/udm-virtual/research-setup/submitted; then
+[?2004l[?2004h>     echo EARLIER_NATIVE_SETUP_SUBMITTED
+[?2004l[?2004h> else
+[?2004l[?2004h>     echo NATIVE_SETUP_NOT_PREVIOUSLY_SUBMITTED
+[?2004l[?2004h> fi
+[?2004l[?2004h> 
+[?2004l[?2004h> ); result=$?; printf "\n%s%s:%s\n" "DONE_" "29d0c467b6de4998811b5b7b41377cf7" ""$result"
+[?2004lmodprobe: ERROR: could not insert 'phy_diag': Operation not permitted
+UDM_PHY_KERNEL_LOAD_BLOCKED
+UDM_VIRTUAL_PHY_DIAG_SKIPPED
+UDM_PHY_GUARD_RUNTIME_PASS
+NATIVE_SETUP_NOT_PREVIOUSLY_SUBMITTED
+
+DONE_29d0c467b6de4998811b5b7b41377cf7:0

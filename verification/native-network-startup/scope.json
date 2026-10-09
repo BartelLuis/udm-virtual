@@ -1,0 +1,6 @@
+{
+  "status": "historical R3/R4 research evidence; not a native R5 runtime test",
+  "release_initramfs_sha256": "5fbfb040f99fbebb12d3171dc00728df9331800b771ba9033215b3fccf0951eb",
+  "copied_files_unchanged": true,
+  "note": "References to current adaptations inside the preserved original report mean the R3/R4 runtime."
+}

@@ -1,0 +1,13 @@
+qemu-system-aarch64: warning: hub 13 is not connected to host network
+qemu-system-aarch64: warning: hub 12 is not connected to host network
+qemu-system-aarch64: warning: hub 11 is not connected to host network
+qemu-system-aarch64: warning: hub 10 is not connected to host network
+qemu-system-aarch64: warning: hub 9 is not connected to host network
+qemu-system-aarch64: warning: hub 7 is not connected to host network
+qemu-system-aarch64: warning: hub 6 is not connected to host network
+qemu-system-aarch64: warning: hub 5 is not connected to host network
+qemu-system-aarch64: warning: hub 4 is not connected to host network
+qemu-system-aarch64: warning: hub 3 is not connected to host network
+qemu-system-aarch64: warning: hub 2 is not connected to host network
+qemu-system-aarch64: warning: hub 1 is not connected to host network
+qemu-system-aarch64: terminating on signal 15 from pid 8143 (python3)

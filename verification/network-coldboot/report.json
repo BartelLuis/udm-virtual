@@ -1,0 +1,101 @@
+{
+  "passed": true,
+  "checks": {
+    "lan_dhcp": true,
+    "wan_dhcp": true,
+    "lan_router_ping": true,
+    "outbound_nat": true,
+    "return_forwarding": true,
+    "unsolicited_wan_blocked": true
+  },
+  "failure": null,
+  "counts": {
+    "lan_received": 79,
+    "wan_received": 52,
+    "malformed_ignored": 0,
+    "unsolicited_sent": 8,
+    "unsolicited_leaked": 0
+  },
+  "lan_address": "192.168.1.94",
+  "wan_address": "198.18.0.2",
+  "events": [
+    {
+      "event": "connected",
+      "elapsed_seconds": 0.0,
+      "links": [
+        "lan",
+        "wan"
+      ]
+    },
+    {
+      "event": "wan_dhcp_ack_sent",
+      "elapsed_seconds": 339.945,
+      "offered": "198.18.0.2",
+      "client_mac": "02:55:44:4d:00:08"
+    },
+    {
+      "event": "lan_dhcp_offer",
+      "elapsed_seconds": 342.481,
+      "address": "192.168.1.94",
+      "server": "192.168.1.1"
+    },
+    {
+      "event": "lan_dhcp",
+      "elapsed_seconds": 342.501,
+      "address": "192.168.1.94",
+      "gateway": "192.168.1.1"
+    },
+    {
+      "event": "lan_router_ping",
+      "elapsed_seconds": 343.064,
+      "router": "192.168.1.1"
+    },
+    {
+      "event": "wan_dhcp",
+      "elapsed_seconds": 343.618,
+      "observed_configured_address": "198.18.0.2"
+    },
+    {
+      "event": "outbound_nat",
+      "elapsed_seconds": 345.585,
+      "observed_source": "198.18.0.2",
+      "destination": "198.18.0.10"
+    },
+    {
+      "event": "return_forwarding",
+      "elapsed_seconds": 345.588,
+      "destination": "192.168.1.94"
+    },
+    {
+      "event": "unsolicited_wan_check_begin",
+      "elapsed_seconds": 345.588,
+      "window_seconds": 10
+    },
+    {
+      "event": "unsolicited_wan_blocked",
+      "elapsed_seconds": 355.676,
+      "probes": 8,
+      "observation_seconds": 10.08809808299975,
+      "subsequent_nat_roundtrip_verified": true
+    }
+  ],
+  "malformed_samples": [],
+  "drop_control_roundtrips": 5,
+  "elapsed_seconds": 355.678,
+  "scope": "Isolated IPv4 DHCP/ARP/ICMP/NAT and bounded unsolicited-ICMP drop probe; no throughput, DNS, TCP, UDP forwarding, IPv6 or Internet validation",
+  "timestamp_utc": "2026-10-09T15:40:49.499720+00:00",
+  "assets": "/home/luis/udm-release-final",
+  "snapshot_state": true,
+  "policy": "explicit temporary IPv4 test policy",
+  "unifi_ui_provisioning_tested": false,
+  "owned_qemu_pid": 8205,
+  "owned_qemu_final_returncode": 0,
+  "total_elapsed_seconds": 357.057,
+  "serial_fatal_markers": [],
+  "artifacts": {
+    "serial": "serial.log",
+    "qemu": "qemu.log",
+    "packets": "packets.pcap",
+    "command": "command.json"
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "date_utc": "2026-10-09T17:23:25.110905+00:00",
+  "status": "experimental; original owner setup and basic native IPv4 firewall verified before and after one clean restart; real Proxmox import unverified",
+  "artifact_hashes": {
+    "Image": {
+      "sha256": "3953777d3682f6b08918bfd4e7b7a0a819d033b8c2117fd8ab95971ab5ce0814",
+      "size_bytes": 37210624
+    },
+    "initramfs.gz": {
+      "size_bytes": 42503633,
+      "sha256": "ccff18466c8bbd099c692d77587a4ee789728ce223a0d653f86c4e752035937f"
+    },
+    "rootfs.qcow2": {
+      "sha256": "ebb9cf82d81cf0feb13392d0afb44d2a6c233827685879c90fc49fee57223ab2",
+      "size_bytes": 1034289152
+    },
+    "state.qcow2": {
+      "sha256": "14ac5dd319d45387e70e36b05cded788617279175275f9f4f1da241bdcc0e9a5",
+      "size_bytes": 7798784
+    }
+  },
+  "boot_selftest": {
+    "passed": true,
+    "report": "boot-selftest/report.json",
+    "all_fourteen_pci_nics_reversed": true,
+    "mac_based_port_normalization_verified": true,
+    "guest_seconds_to_poweroff": 100.174372,
+    "total_elapsed_seconds": 108.508995
+  },
+  "network_coldboot": {
+    "passed": true,
+    "report": "network-coldboot/report.json",
+    "seconds": 357.057,
+    "policy": "explicit temporary IPv4 test policy",
+    "checks": {
+      "lan_dhcp": true,
+      "wan_dhcp": true,
+      "lan_router_ping": true,
+      "outbound_nat": true,
+      "return_forwarding": true,
+      "unsolicited_wan_blocked": true
+    },
+    "unifi_ui_provisioning_tested": false
+  },
+  "late_phy_guard": {
+    "passed": true,
+    "scope": "historical R3/R4 research guest; not an integrated R5 native runtime test",
+    "forced_module_load_rejected_by_kernel": true,
+    "adapted_original_hook_succeeded": true,
+    "release_initramfs_sha256": "5fbfb040f99fbebb12d3171dc00728df9331800b771ba9033215b3fccf0951eb"
+  },
+  "native_network_startup": {
+    "report": "native-network-startup/report.json",
+    "scope": "historical R3/R4 research guest; not an integrated R5 native runtime test",
+    "guest_observed_at_utc": "2026-10-09T14:02:49Z",
+    "network_controllerStatus": "READY",
+    "network_isRunning": true,
+    "automatic_gateway_adoption_completed": true,
+    "late_boot_hooks_succeeded": true,
+    "multi_user_and_sysready_targets_active": true,
+    "network_isReadyForSetup": false,
+    "complete_native_owner_setup_verified": false,
+    "pristine_release_state_coldboot": false,
+    "release_initramfs_sha256": "5fbfb040f99fbebb12d3171dc00728df9331800b771ba9033215b3fccf0951eb"
+  },
+  "native_gcm_cache": {
+    "report": "native-gcm-cache/report.json",
+    "scope": "Historical R3/R4 cache divergence and isolated exact-candidate JVM verification.",
+    "candidate_class_sha256": "eaec94b020bfae34ebd714e19fcb557b6fb0abffc07fe36cdaf98383fdb70126",
+    "candidate_jvm_verification_passed": true,
+    "integrated_R5_native_setup_or_provisioning_verified": true,
+    "integrated_runtime_report": "native-gateway-r5/report.json"
+  },
+  "local_tls": {
+    "fresh_generation_unit_finished_in_coldboot": true,
+    "existing_pair_checked_and_original_freeradius_running_in_research_guest": {
+      "observed": true,
+      "scope": "historical R3/R4 research guest",
+      "release_initramfs_sha256": "5fbfb040f99fbebb12d3171dc00728df9331800b771ba9033215b3fccf0951eb"
+    },
+    "original_freeradius_running_in_native_r5_before_and_after_restart": true
+  },
+  "rootfs_block_comparison": {
+    "passed": true,
+    "output": "Images are identical.",
+    "exit_code": 0,
+    "command": "qemu-img compare -f qcow2 -F raw /home/luis/udm-release-final/rootfs.qcow2 /home/luis/udm-virtual-build/source/rootfs.bin",
+    "note": "The rootfs artifact hash has not changed since this successful comparison."
+  },
+  "tool_tests": {
+    "linux": {
+      "total": 209,
+      "passed": 203,
+      "skipped": 6,
+      "failures": 0
+    },
+    "windows": {
+      "total": 209,
+      "passed": 141,
+      "skipped": 68,
+      "failures": 0
+    }
+  },
+  "not_validated": [
+    "interactive browser setup and configuration changes",
+    "settings behavior after known-overlay migration",
+    "VLANs",
+    "IPv6",
+    "WAN2 failover",
+    "Internet access",
+    "throughput and long-term stability",
+    "real Proxmox import",
+    "HA/migration/restore and recovery after abrupt power loss"
+  ],
+  "earlier_failures_fixed": [
+    "Non-Ethernet tunnel addresses in port-order guard.",
+    "WSL /mnt/c SquashFS read errors: use native Linux storage; fatal log detection strengthened.",
+    "Original FreeRADIUS DH timeout left an empty file: checked atomic generation.",
+    "Missing local TLS identity caused a FreeRADIUS restart loop: initialize it before service startup.",
+    "After original Network reached READY, physical PHY diagnostic caused a kernel SMC panic: block the module and skip only its exact late-boot hook.",
+    "Windows ZIP test fixture normalized an intentionally invalid backslash; raw archive fixture fixed and Windows suite repeated successfully."
+  ],
+  "controller_migration": {
+    "report": "controller-migration/report.json",
+    "known_overlay_installation_observed": true,
+    "clean_poweroff_observed": true,
+    "scope": "Research guest with identical R5 product adaptation payload; no Network READY or settings-behavior claim",
+    "release_initramfs_sha256": "ccff18466c8bbd099c692d77587a4ee789728ce223a0d653f86c4e752035937f"
+  },
+  "current_adaptation_native_validation": "Original authenticated GCM listener reconciles the full device cache; native readiness, original owner setup and provisioning passed in R5 without forcing application state.",
+  "native_gateway_r5": {
+    "passed": true,
+    "first_boot_report": "native-gateway-r5/report.json",
+    "restart_report": "native-gateway-r5/reboot-report.json",
+    "host": "Debian 13.5 / QEMU 10.0.13 / AMD Ryzen 5 3600",
+    "guest_memory_mib": 8192,
+    "emulated_cpus": 6,
+    "original_owner_setup_api_http_status": 200,
+    "core_isSetup": true,
+    "network_controllerStatus": "READY",
+    "network_isConfigured": true,
+    "temporary_validation_policy_used": false,
+    "native_packet_checks_passed": 6,
+    "native_protocol_checks_passed": 7,
+    "protocols": [
+      "IPv4 DHCP",
+      "ICMP",
+      "TCP",
+      "UDP",
+      "DNS via original gateway",
+      "anonymous original HTTPS GUI HTML"
+    ],
+    "clean_restart_same_configured_state": true,
+    "existing_owner_normal_login_after_restart_passed": true,
+    "all_packet_and_protocol_checks_repeated_after_restart": true,
+    "pristine_release_state_used_for_initial_overlay": true,
+    "research_initramfs_difference": "Only /init adds a local diagnostic console and read-only diagnostic share; all 20 product adaptation entries are identical.",
+    "scope": "Isolated default LAN/WAN IPv4 on eth0/eth8; original setup API and generated UniFi policy. One clean restart. No Internet uplink or interactive browser configuration."
+  }
+}

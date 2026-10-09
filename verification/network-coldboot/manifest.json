@@ -1,0 +1,1116 @@
+{
+  "status": "experimental-virtual-gateway",
+  "firmware_version": "UDMEA4C.cn10k.v5.1.33.44ce47b.260909.0025",
+  "firmware_sha256": "31c8607480519ff164f1eacd4a8c021202afe99914ff56077df32c2d235b1734",
+  "architecture": "aarch64",
+  "machine": "virt",
+  "artifacts": {
+    "Image": {
+      "sha256": "3953777d3682f6b08918bfd4e7b7a0a819d033b8c2117fd8ab95971ab5ce0814",
+      "size_bytes": 37210624
+    },
+    "initramfs.gz": {
+      "size_bytes": 42503633,
+      "sha256": "ccff18466c8bbd099c692d77587a4ee789728ce223a0d653f86c4e752035937f"
+    },
+    "rootfs.qcow2": {
+      "sha256": "ebb9cf82d81cf0feb13392d0afb44d2a6c233827685879c90fc49fee57223ab2",
+      "size_bytes": 1034289152
+    },
+    "state.qcow2": {
+      "sha256": "14ac5dd319d45387e70e36b05cded788617279175275f9f4f1da241bdcc0e9a5",
+      "size_bytes": 7798784
+    }
+  },
+  "state_size_gib": 32,
+  "changes": [
+    "Original /init replaced with guest-lab-init.sh; remaining initramfs entries preserved",
+    "Original kernel and squashfs unchanged; separate writable ext4 overlay",
+    "Boot arguments skip mrvl_swup_init,uart_redirect_init,mub_gen_init,portm_boot_cfg_init; module_blacklist=phy_diag blocks physical PHY diagnostics",
+    "Original HAL modules read locally generated virtual EEPROM metadata; version-guarded CPSS adaptation uses native Linux interfaces; physical manufacturing-record attestation disabled for virtual hardware; board/default configurations and controller port table adapted for fourteen VirtIO ports",
+    "Original controller dependencies use a verified read-only extracted classpath and C1 compilation under TCG",
+    "First boot validates or initializes local FreeRADIUS DH parameters and the local self-signed TLS certificate",
+    "Only the hash-verified physical PHY diagnostic late-boot hook is skipped; other original late-boot hooks remain",
+    "Reconcile the full controller device cache after every authenticated AES-GCM inform; original authentication and provisioning remain in effect",
+    "Migrate only the exact previously supported controller overlay from its hash-verified original on the read-only firmware mount"
+  ],
+  "gateway_verified": false,
+  "signature_authenticated": false,
+  "profile": "virtual",
+  "nics": 14,
+  "default_boot_mode": "systemd",
+  "adaptation": {
+    "status": "hardware-adaptation-candidate",
+    "source_sha256": "ccdda14e798184b7e10c8385c6b85d46df82695a4c9a0ec50e849bfab00416ec",
+    "result_sha256": "d2460e19ea0e2fc883e2393f0312822a260dd301a01344adc70d763e860c5e7b",
+    "source_size": 9341280,
+    "result_size": 9341280,
+    "changes": [
+      {
+        "virtual_address": "0x5a7a5c",
+        "file_offset": "0x397a5c",
+        "before": "ffc301d1fd7b03a9",
+        "after": "20008052c0035fd6",
+        "purpose": "Virtual hardware: replace the cached physical manufacturing-record attestation predicate with true. No manufacturer identity/signature is created; account authentication is unchanged."
+      },
+      {
+        "virtual_address": "0x61ab70",
+        "file_offset": "0x40ab70",
+        "before": "fd7bbaa9",
+        "after": "c0035fd6",
+        "purpose": "Skip global CPSS hardware initialization; caller has set API vtable."
+      },
+      {
+        "virtual_address": "0x620480",
+        "file_offset": "0x410480",
+        "before": "a1e3fff0",
+        "after": "3e000014",
+        "purpose": "MTD constructor retains vtable and NULL implementation; use normal epilogue."
+      },
+      {
+        "virtual_address": "0x621248",
+        "file_offset": "0x411248",
+        "before": "161040f9",
+        "after": "d5000014",
+        "purpose": "Return fully initialized empty CPSS port map; bypass hardware CPU/edge port construction."
+      },
+      {
+        "virtual_address": "0x6296fc",
+        "file_offset": "0x4196fc",
+        "before": "c1025b38",
+        "after": "30000014",
+        "purpose": "Switch actor retains udapi::Switch and empty vector; skip ASIC writes and ASIC actor creation."
+      },
+      {
+        "virtual_address": "0x630280",
+        "file_offset": "0x420280",
+        "before": "fd7bbaa9fc6f01a9fa6702a9",
+        "after": "1f7d00a91f0900f9c0035fd6",
+        "purpose": "Return empty ASIC FDB vector using original x8 result ABI; do not open CPSS shared cache."
+      }
+    ],
+    "controller": {
+      "status": "controller-port-and-gcm-cache-adaptation-candidate",
+      "source_sha256": "7b8decf39bb8787c29367901aff2a28fedff1571ecde5f9203be5ac61e04202d",
+      "result_sha256": "d0d7c2cdae069b19bd78da34adde08840f9671dbc9aa35dc201c7aece12111c5",
+      "nested_member": "BOOT-INF/lib/internal-dependencies.jar",
+      "nested_source_sha256": "56507c3484f9babca9d735b9a295606230cc9c89e2ee22bf7926712bd6f9a83c",
+      "nested_result_sha256": "bd36d87411e84c6dcc75ae6eb4f91b09ad759153668670da240803a6866d4fea",
+      "nested_artifact": "internal-dependencies.virtual.jar",
+      "class": "com/ubnt/data/NYCLZfielo.class",
+      "class_source_sha256": "4582e67a4893425e77bf6a88de1098df4d80d12eb980f49231f5a0793f9782f7",
+      "class_result_sha256": "8bcb79ab64a10ceee28183a0993ebd7fd4f86490ed16fd8ffa320f47bf0f0f5f",
+      "method": "seedPortTable()Ljava/util/List;",
+      "method_source_sha256": "124464c5bc11303886b47a49a3db79cb689d5f6d31713aa450f4dc8a8e3124ff",
+      "method_result_sha256": "13cde8af5e90617731038d3b1bcda3f4b6e4d37fd654b8511e595759703aeaaf",
+      "method_size": 4801,
+      "helper_descriptor": "(Ljava/lang/String;Ljava/lang/String;)Lcom/ubnt/data/pfELyUmQb;",
+      "changes": [
+        {
+          "port": "eth2",
+          "method_offset": 3040,
+          "before": "b605b0",
+          "after": "b60467"
+        },
+        {
+          "port": "eth3",
+          "method_offset": 3055,
+          "before": "b605b0",
+          "after": "b60467"
+        },
+        {
+          "port": "eth4",
+          "method_offset": 3070,
+          "before": "b605b0",
+          "after": "b60467"
+        },
+        {
+          "port": "eth5",
+          "method_offset": 3085,
+          "before": "b605b0",
+          "after": "b60467"
+        },
+        {
+          "port": "eth6",
+          "method_offset": 3100,
+          "before": "b605b0",
+          "after": "b60467"
+        },
+        {
+          "port": "eth7",
+          "method_offset": 3115,
+          "before": "b605b0",
+          "after": "b60467"
+        },
+        {
+          "port": "eth8",
+          "method_offset": 3134,
+          "before": "b605b0",
+          "after": "b60467"
+        },
+        {
+          "port": "eth9",
+          "method_offset": 3149,
+          "before": "b605b0",
+          "after": "b60467"
+        },
+        {
+          "port": "eth10",
+          "method_offset": 3164,
+          "before": "b605b0",
+          "after": "b60467"
+        },
+        {
+          "port": "eth11",
+          "method_offset": 3179,
+          "before": "b605b0",
+          "after": "b60467"
+        }
+      ],
+      "changed_classes": [
+        "com/ubnt/data/NYCLZfielo.class",
+        "com/ubnt/service/devmgr/l/xTAqASU.class"
+      ],
+      "unlisted_classes_unchanged": true,
+      "nested_zip_storage_preserved": true,
+      "gcm_cache": {
+        "class": "com/ubnt/service/devmgr/l/xTAqASU.class",
+        "class_source_sha256": "5a748cc3b39517274e7b5a80541b106c3a26db3366fc425efe578a935c0c432e",
+        "class_result_sha256": "eaec94b020bfae34ebd714e19fcb557b6fb0abffc07fe36cdaf98383fdb70126",
+        "method": "bUGnmQhkcUmRE(Ljava/lang/String;Lcom/ubnt/data/NYCLZfielo;Lcom/ubnt/net/VqUfr;)V",
+        "method_source_sha256": "c35dde869e2936d531a0bfee026d74fb272a3e089545b3935b06a444527ddb03",
+        "method_result_sha256": "da49f0067f6bd91b42d8d3c38bde0613f79be90559493cd09bf761b9122b7375",
+        "method_offset": 14,
+        "before": "9a0037",
+        "after": "570000",
+        "scope": "All authenticated AES_GCM informs through the original listener",
+        "cryptographic_checks_unchanged": true,
+        "readiness_and_state_setters_unchanged": true,
+        "extra_minidevice_cache_invalidation_per_gcm_inform": true
+      },
+      "ui_provisioning_verified": false,
+      "flat": {
+        "schema": 1,
+        "source_sha256": "d0d7c2cdae069b19bd78da34adde08840f9671dbc9aa35dc201c7aece12111c5",
+        "main_class": "com.ubnt.ace.BootLauncher",
+        "spring_boot_version": "3.5.12",
+        "classpath": [
+          "BOOT-INF/classes",
+          "BOOT-INF/lib/HikariCP-6.3.3.jar",
+          "BOOT-INF/lib/ahocorasick-0.6.3.jar",
+          "BOOT-INF/lib/amqp-client-5.25.0.jar",
+          "BOOT-INF/lib/angus-activation-2.0.3.jar",
+          "BOOT-INF/lib/annotations-13.0.jar",
+          "BOOT-INF/lib/annotations-4.1.1.4.jar",
+          "BOOT-INF/lib/asn-one-0.6.0.jar",
+          "BOOT-INF/lib/bcpkix-jdk18on-1.78.1.jar",
+          "BOOT-INF/lib/bcprov-jdk18on-1.78.1.jar",
+          "BOOT-INF/lib/bcutil-jdk18on-1.78.1.jar",
+          "BOOT-INF/lib/bson-5.5.2.jar",
+          "BOOT-INF/lib/bson-record-codec-5.5.2.jar",
+          "BOOT-INF/lib/builder-2.10.1.jar",
+          "BOOT-INF/lib/caffeine-3.2.3.jar",
+          "BOOT-INF/lib/checker-qual-3.52.0.jar",
+          "BOOT-INF/lib/classmate-1.7.3.jar",
+          "BOOT-INF/lib/coloring-1.0.jar",
+          "BOOT-INF/lib/commons-beanutils-1.11.0.jar",
+          "BOOT-INF/lib/commons-codec-1.18.0.jar",
+          "BOOT-INF/lib/commons-collections4-4.5.0.jar",
+          "BOOT-INF/lib/commons-io-2.16.1.jar",
+          "BOOT-INF/lib/commons-lang3-3.18.0.jar",
+          "BOOT-INF/lib/commons-logging-1.3.5.jar",
+          "BOOT-INF/lib/commons-math3-3.6.1.jar",
+          "BOOT-INF/lib/commons-net-3.11.1.jar",
+          "BOOT-INF/lib/commons-text-1.12.0.jar",
+          "BOOT-INF/lib/commons-validator-1.10.0.jar",
+          "BOOT-INF/lib/compiler-0.9.6.jar",
+          "BOOT-INF/lib/cron4j-2.2.5.jar",
+          "BOOT-INF/lib/dom4j-2.1.4.jar",
+          "BOOT-INF/lib/eddsa-0.3.0.jar",
+          "BOOT-INF/lib/error_prone_annotations-2.43.0.jar",
+          "BOOT-INF/lib/failureaccess-1.0.2.jar",
+          "BOOT-INF/lib/google-http-client-1.26.0.jar",
+          "BOOT-INF/lib/grpc-api-1.75.0.jar",
+          "BOOT-INF/lib/grpc-context-1.75.0.jar",
+          "BOOT-INF/lib/grpc-core-1.75.0.jar",
+          "BOOT-INF/lib/grpc-okhttp-1.75.0.jar",
+          "BOOT-INF/lib/grpc-protobuf-1.75.0.jar",
+          "BOOT-INF/lib/grpc-protobuf-lite-1.75.0.jar",
+          "BOOT-INF/lib/grpc-stub-1.75.0.jar",
+          "BOOT-INF/lib/grpc-util-1.75.0.jar",
+          "BOOT-INF/lib/gson-2.13.2.jar",
+          "BOOT-INF/lib/guava-33.3.1-jre.jar",
+          "BOOT-INF/lib/hibernate-validator-8.0.3.Final.jar",
+          "BOOT-INF/lib/httpclient-4.5.5.jar",
+          "BOOT-INF/lib/httpclient5-5.5.2.jar",
+          "BOOT-INF/lib/httpcore-4.4.16.jar",
+          "BOOT-INF/lib/httpcore5-5.3.6.jar",
+          "BOOT-INF/lib/httpcore5-h2-5.3.6.jar",
+          "BOOT-INF/lib/internal-dependencies.jar",
+          "BOOT-INF/lib/j2objc-annotations-3.0.0.jar",
+          "BOOT-INF/lib/jackson-annotations-2.21.jar",
+          "BOOT-INF/lib/jackson-core-2.21.2.jar",
+          "BOOT-INF/lib/jackson-databind-2.21.2.jar",
+          "BOOT-INF/lib/jackson-databind-nullable-0.2.8.jar",
+          "BOOT-INF/lib/jackson-datatype-jdk8-2.21.2.jar",
+          "BOOT-INF/lib/jackson-datatype-jsr310-2.21.2.jar",
+          "BOOT-INF/lib/jackson-module-parameter-names-2.21.2.jar",
+          "BOOT-INF/lib/jakarta.activation-api-2.1.4.jar",
+          "BOOT-INF/lib/jakarta.annotation-api-2.1.1.jar",
+          "BOOT-INF/lib/jakarta.mail-2.0.5.jar",
+          "BOOT-INF/lib/jakarta.mail-api-2.1.5.jar",
+          "BOOT-INF/lib/jakarta.validation-api-3.0.2.jar",
+          "BOOT-INF/lib/jakarta.xml.bind-api-4.0.4.jar",
+          "BOOT-INF/lib/java-ipv6-0.17.jar",
+          "BOOT-INF/lib/java-semver-0.9.0.jar",
+          "BOOT-INF/lib/java-uuid-generator-4.3.0.jar",
+          "BOOT-INF/lib/java10-shim-20240325.1.jar",
+          "BOOT-INF/lib/java8-shim-20240325.1.jar",
+          "BOOT-INF/lib/jaxb-api-2.2.12.jar",
+          "BOOT-INF/lib/jaxb-core-4.0.6.jar",
+          "BOOT-INF/lib/jaxb-impl-4.0.6.jar",
+          "BOOT-INF/lib/jaxen-2.0.1.jar",
+          "BOOT-INF/lib/jbcrypt-0.4.jar",
+          "BOOT-INF/lib/jboss-logging-3.6.3.Final.jar",
+          "BOOT-INF/lib/jcl-over-slf4j-2.0.17.jar",
+          "BOOT-INF/lib/jenetics-4.2.0.jar",
+          "BOOT-INF/lib/jmdns-3.4.1.jar",
+          "BOOT-INF/lib/jna-5.12.1.jar",
+          "BOOT-INF/lib/joda-time-2.12.7.jar",
+          "BOOT-INF/lib/jsonschema-generator-4.37.0.jar",
+          "BOOT-INF/lib/jsonschema-module-jackson-4.37.0.jar",
+          "BOOT-INF/lib/jsonschema-module-jakarta-validation-4.37.0.jar",
+          "BOOT-INF/lib/jspecify-1.0.0.jar",
+          "BOOT-INF/lib/jsr305-3.0.2.jar",
+          "BOOT-INF/lib/jstun-0.7.4.jar",
+          "BOOT-INF/lib/jul-to-slf4j-2.0.17.jar",
+          "BOOT-INF/lib/kotlin-stdlib-1.9.25.jar",
+          "BOOT-INF/lib/kotlin-stdlib-jdk7-1.9.25.jar",
+          "BOOT-INF/lib/kotlin-stdlib-jdk8-1.9.25.jar",
+          "BOOT-INF/lib/lazysodium-java-5.1.4.jar",
+          "BOOT-INF/lib/log4j-api-2.24.3.jar",
+          "BOOT-INF/lib/log4j-to-slf4j-2.24.3.jar",
+          "BOOT-INF/lib/logback-access-common-2.0.12.jar",
+          "BOOT-INF/lib/logback-access-tomcat-2.0.12.jar",
+          "BOOT-INF/lib/logback-classic-1.5.32.jar",
+          "BOOT-INF/lib/logback-core-1.5.32.jar",
+          "BOOT-INF/lib/mapstruct-1.6.2.jar",
+          "BOOT-INF/lib/micrometer-commons-1.15.11.jar",
+          "BOOT-INF/lib/micrometer-observation-1.15.11.jar",
+          "BOOT-INF/lib/minimal-json-0.9.5.jar",
+          "BOOT-INF/lib/mongodb-driver-core-5.1.4.jar",
+          "BOOT-INF/lib/mongodb-driver-sync-5.1.4.jar",
+          "BOOT-INF/lib/okio-jvm-3.4.0.jar",
+          "BOOT-INF/lib/openssh-1.0.jar",
+          "BOOT-INF/lib/owasp-java-html-sanitizer-20240325.1.jar",
+          "BOOT-INF/lib/parsla-0.2.0.jar",
+          "BOOT-INF/lib/perfmark-api-0.27.0.jar",
+          "BOOT-INF/lib/postgresql-42.7.10.jar",
+          "BOOT-INF/lib/proto-google-common-protos-2.59.2.jar",
+          "BOOT-INF/lib/protobuf-java-4.31.1.jar",
+          "BOOT-INF/lib/protobuf-java-util-4.31.1.jar",
+          "BOOT-INF/lib/pull-parser-2.1.10.jar",
+          "BOOT-INF/lib/radclient4.jar",
+          "BOOT-INF/lib/reactive-streams-1.0.4.jar",
+          "BOOT-INF/lib/reactor-core-3.7.18.jar",
+          "BOOT-INF/lib/relaxngDatatype-20020414.jar",
+          "BOOT-INF/lib/resource-loader-2.0.2.jar",
+          "BOOT-INF/lib/slf4j-api-2.0.17.jar",
+          "BOOT-INF/lib/snakeyaml-2.4.jar",
+          "BOOT-INF/lib/snappy-java-1.1.10.8.jar",
+          "BOOT-INF/lib/spring-amqp-3.2.10.jar",
+          "BOOT-INF/lib/spring-aop-6.2.18.jar",
+          "BOOT-INF/lib/spring-beans-6.2.18.jar",
+          "BOOT-INF/lib/spring-boot-3.5.14.jar",
+          "BOOT-INF/lib/spring-boot-autoconfigure-3.5.14.jar",
+          "BOOT-INF/lib/spring-context-6.2.18.jar",
+          "BOOT-INF/lib/spring-core-6.2.18.jar",
+          "BOOT-INF/lib/spring-data-commons-3.5.11.jar",
+          "BOOT-INF/lib/spring-data-jdbc-3.5.11.jar",
+          "BOOT-INF/lib/spring-data-mongodb-4.5.11.jar",
+          "BOOT-INF/lib/spring-data-relational-3.5.11.jar",
+          "BOOT-INF/lib/spring-expression-6.2.18.jar",
+          "BOOT-INF/lib/spring-jdbc-6.2.18.jar",
+          "BOOT-INF/lib/spring-messaging-6.2.18.jar",
+          "BOOT-INF/lib/spring-rabbit-3.2.10.jar",
+          "BOOT-INF/lib/spring-retry-2.0.12.jar",
+          "BOOT-INF/lib/spring-tx-6.2.18.jar",
+          "BOOT-INF/lib/spring-web-6.2.18.jar",
+          "BOOT-INF/lib/spring-webmvc-6.2.18.jar",
+          "BOOT-INF/lib/spring-websocket-6.2.18.jar",
+          "BOOT-INF/lib/sshj-0.39.0.jar",
+          "BOOT-INF/lib/stax-api-1.0-2.jar",
+          "BOOT-INF/lib/tomcat-annotations-api-10.1.54.jar",
+          "BOOT-INF/lib/tomcat-embed-core-10.1.54.jar",
+          "BOOT-INF/lib/tomcat-embed-el-10.1.54.jar",
+          "BOOT-INF/lib/tomcat-embed-websocket-10.1.54.jar",
+          "BOOT-INF/lib/urlrewritefilter-4.0.4.1-jakarta.jar",
+          "BOOT-INF/lib/value-annotations-2.10.1.jar",
+          "BOOT-INF/lib/xpp3-1.1.4c.jar",
+          "BOOT-INF/lib/xsdlib-2013.6.1.jar",
+          "BOOT-INF/lib/spring-boot-jarmode-tools-3.5.12.jar"
+        ],
+        "files": {
+          "BOOT-INF/classes/logback-access.xml": {
+            "size_bytes": 996,
+            "sha256": "f76ba3d65c851d9417629322e4731787e4796537a56d8902819785dbaca075ef"
+          },
+          "BOOT-INF/classes/logback-test.xml": {
+            "size_bytes": 7761,
+            "sha256": "20477963a56455d1f1babb0b1116ff1488738b6a6f410f3fce698a88f3a4097d"
+          },
+          "BOOT-INF/classes/logback.xml": {
+            "size_bytes": 7761,
+            "sha256": "20477963a56455d1f1babb0b1116ff1488738b6a6f410f3fce698a88f3a4097d"
+          },
+          "BOOT-INF/classes/product.properties": {
+            "size_bytes": 4516,
+            "sha256": "5166ea879b951e742f748921f58f6f237d936b6c8036eaf95625e3784507c171"
+          },
+          "BOOT-INF/classes/system.properties": {
+            "size_bytes": 1703,
+            "sha256": "1bfdfce59f2f53f01f481f5f0046add4dfd63b8a325bb8c121fa9ea066cab397"
+          },
+          "BOOT-INF/lib/HikariCP-6.3.3.jar": {
+            "size_bytes": 171931,
+            "sha256": "709f378c05756280939ce50fc1b1f1a53bb8e1899dc1b249f21f12703640b48b"
+          },
+          "BOOT-INF/lib/ahocorasick-0.6.3.jar": {
+            "size_bytes": 37907,
+            "sha256": "80bc42edaf2d8ec2d0b665c8c344012006cf2bd00279b10b2df871184f809194"
+          },
+          "BOOT-INF/lib/amqp-client-5.25.0.jar": {
+            "size_bytes": 698912,
+            "sha256": "5aa96f005084139eb1077d94b55dc6428eca7da7e2cc53eab44a773391f8aa8f"
+          },
+          "BOOT-INF/lib/angus-activation-2.0.3.jar": {
+            "size_bytes": 26729,
+            "sha256": "a6bd35c538cf90fff941ad6258c40c08fca0b5c9c3f536c657114f27ce0527a7"
+          },
+          "BOOT-INF/lib/annotations-13.0.jar": {
+            "size_bytes": 17536,
+            "sha256": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478"
+          },
+          "BOOT-INF/lib/annotations-4.1.1.4.jar": {
+            "size_bytes": 3120,
+            "sha256": "ba734e1e84c09d615af6a09d33034b4f0442f8772dec120efb376d86a565ae15"
+          },
+          "BOOT-INF/lib/asn-one-0.6.0.jar": {
+            "size_bytes": 67005,
+            "sha256": "e4f70fd92849b52240048b8ebace0c9a17d3bb7b9c882b3c7778cec3458495f5"
+          },
+          "BOOT-INF/lib/bcpkix-jdk18on-1.78.1.jar": {
+            "size_bytes": 1125173,
+            "sha256": "4b48ea084e5232b9d79ebca1887b9de037b124931807cd60710748c2aee08cc9"
+          },
+          "BOOT-INF/lib/bcprov-jdk18on-1.78.1.jar": {
+            "size_bytes": 8324412,
+            "sha256": "add5915e6acfc6ab5836e1fd8a5e21c6488536a8c1f21f386eeb3bf280b702d7"
+          },
+          "BOOT-INF/lib/bcutil-jdk18on-1.78.1.jar": {
+            "size_bytes": 705135,
+            "sha256": "d9fa56f97b0f761ce3bc8d9d74c5d7137a987bf5bd3abfe1003f9bafa45a1d2f"
+          },
+          "BOOT-INF/lib/bson-5.5.2.jar": {
+            "size_bytes": 527013,
+            "sha256": "e1194dbd95e94382bf9e6a0c5f24fefb95e1f3fbd2c4721c9a5355aeb857850a"
+          },
+          "BOOT-INF/lib/bson-record-codec-5.5.2.jar": {
+            "size_bytes": 11795,
+            "sha256": "cf5958ead440f7abc8e1d8f793754f07b4f21730c9c5060e8e996dec944071aa"
+          },
+          "BOOT-INF/lib/builder-2.10.1.jar": {
+            "size_bytes": 3973,
+            "sha256": "53414b273756c87c5f758694a96f14abebdba235484b7ceae458304218b60df7"
+          },
+          "BOOT-INF/lib/caffeine-3.2.3.jar": {
+            "size_bytes": 1020615,
+            "sha256": "ca70c90a5d1ce1511880ce9c93d4ad22108f61111d3daf91eb52762b571bd179"
+          },
+          "BOOT-INF/lib/checker-qual-3.52.0.jar": {
+            "size_bytes": 241628,
+            "sha256": "0b5bb1a4bdc4e4b1217482fe598efcaab4e1fba7b37f9412639178fc8116fc05"
+          },
+          "BOOT-INF/lib/classmate-1.7.3.jar": {
+            "size_bytes": 68249,
+            "sha256": "75fbda45456f123fb6e2028a6189442d8d0730b357adce4c0a6d7e789f70669b"
+          },
+          "BOOT-INF/lib/coloring-1.0.jar": {
+            "size_bytes": 1864308,
+            "sha256": "3dc023d7e998eb1d56a6559bc57f3f1945694b23cbab6fe1098910e8966fde83"
+          },
+          "BOOT-INF/lib/commons-beanutils-1.11.0.jar": {
+            "size_bytes": 246806,
+            "sha256": "9e44ba68ec9a3f21286fa2a8bbb003b735c0f69101bb43144b79f4f8aaa74709"
+          },
+          "BOOT-INF/lib/commons-codec-1.18.0.jar": {
+            "size_bytes": 373045,
+            "sha256": "ba005f304cef92a3dede24a38ad5ac9b8afccf0d8f75839d6c1338634cf7f6e4"
+          },
+          "BOOT-INF/lib/commons-collections4-4.5.0.jar": {
+            "size_bytes": 898652,
+            "sha256": "00f93263c267be201b8ae521b44a7137271b16688435340bf629db1bac0a5845"
+          },
+          "BOOT-INF/lib/commons-io-2.16.1.jar": {
+            "size_bytes": 508826,
+            "sha256": "f41f7baacd716896447ace9758621f62c1c6b0a91d89acee488da26fc477c84f"
+          },
+          "BOOT-INF/lib/commons-lang3-3.18.0.jar": {
+            "size_bytes": 702952,
+            "sha256": "4eeeae8d20c078abb64b015ec158add383ac581571cddc45c68f0c9ae0230720"
+          },
+          "BOOT-INF/lib/commons-logging-1.3.5.jar": {
+            "size_bytes": 73737,
+            "sha256": "6d7a744e4027649fbb50895df9497d109f98c766a637062fe8d2eabbb3140ba4"
+          },
+          "BOOT-INF/lib/commons-math3-3.6.1.jar": {
+            "size_bytes": 2213560,
+            "sha256": "1e56d7b058d28b65abd256b8458e3885b674c1d588fa43cd7d1cbb9c7ef2b308"
+          },
+          "BOOT-INF/lib/commons-net-3.11.1.jar": {
+            "size_bytes": 325395,
+            "sha256": "3bb861274992dba5487de328303745b7085de72694b63a3300be1e057144311e"
+          },
+          "BOOT-INF/lib/commons-text-1.12.0.jar": {
+            "size_bytes": 251227,
+            "sha256": "de023257ff166044a56bd1aa9124e843cd05dac5806cc705a9311f3556d5a15f"
+          },
+          "BOOT-INF/lib/commons-validator-1.10.0.jar": {
+            "size_bytes": 202380,
+            "sha256": "0d1600cddc24af7f49b5eb01e31adda3ce3b25f236c8c75eaecdf78428469eb9"
+          },
+          "BOOT-INF/lib/compiler-0.9.6.jar": {
+            "size_bytes": 100892,
+            "sha256": "c4d697fd3619cb616cc5e22e9530c8a4fd4a8e9a76953c0655ee627cb2d22318"
+          },
+          "BOOT-INF/lib/cron4j-2.2.5.jar": {
+            "size_bytes": 36227,
+            "sha256": "51339030fe1a20b428f4a21a9eb8a901f401020b27893d6014fb10d197d83731"
+          },
+          "BOOT-INF/lib/dom4j-2.1.4.jar": {
+            "size_bytes": 324655,
+            "sha256": "235a9167a8a199be04b5326d92927ca0adeb90d11f69fe2e821b34ce8433b591"
+          },
+          "BOOT-INF/lib/eddsa-0.3.0.jar": {
+            "size_bytes": 63292,
+            "sha256": "4dda1120db856640dbec04140ed23242215a075fe127bdefa0dcfa29fb31267d"
+          },
+          "BOOT-INF/lib/error_prone_annotations-2.43.0.jar": {
+            "size_bytes": 20390,
+            "sha256": "48272e75c16e1f7bdc7bd19529ccacd5ee170404701d7f5a23441bb5847957f5"
+          },
+          "BOOT-INF/lib/failureaccess-1.0.2.jar": {
+            "size_bytes": 4740,
+            "sha256": "8a8f81cf9b359e3f6dfa691a1e776985c061ef2f223c9b2c80753e1b458e8064"
+          },
+          "BOOT-INF/lib/google-http-client-1.26.0.jar": {
+            "size_bytes": 271904,
+            "sha256": "fa32a2d7c3b21f574eff4a732fd8bc234306341f18dccb30aa04d5663e5f659e"
+          },
+          "BOOT-INF/lib/grpc-api-1.75.0.jar": {
+            "size_bytes": 323413,
+            "sha256": "7f309616691fa655d02512762049ed18bf4ab2b52ced424cab2f527d0bb8e3fc"
+          },
+          "BOOT-INF/lib/grpc-context-1.75.0.jar": {
+            "size_bytes": 293,
+            "sha256": "7e1de7847ea621a9ec7cb988a8baa947748d0eaef94bfe457d04d9b57105079f"
+          },
+          "BOOT-INF/lib/grpc-core-1.75.0.jar": {
+            "size_bytes": 655917,
+            "sha256": "f10cdbe558378494e4ffc6b1bb328b8a137f3201d46c8b24f0154eb9e51191a1"
+          },
+          "BOOT-INF/lib/grpc-okhttp-1.75.0.jar": {
+            "size_bytes": 254951,
+            "sha256": "26b27fea8c72008a7e9e7c58467e2fe1f7666950da4d63f19bb0b466543ead72"
+          },
+          "BOOT-INF/lib/grpc-protobuf-1.75.0.jar": {
+            "size_bytes": 5204,
+            "sha256": "f52b53c349b0776815e437636dff3d3844e9b10cbb25be419a786bf3d6f20269"
+          },
+          "BOOT-INF/lib/grpc-protobuf-lite-1.75.0.jar": {
+            "size_bytes": 7815,
+            "sha256": "60fafc627aa04bcab328dcc9206f0e7aa71d95f1b612774a18272dfe7dc24cf1"
+          },
+          "BOOT-INF/lib/grpc-stub-1.75.0.jar": {
+            "size_bytes": 61041,
+            "sha256": "dc98fe18654206948666e6657e13fe301ad0754751f28c6c10961e1e6c457997"
+          },
+          "BOOT-INF/lib/grpc-util-1.75.0.jar": {
+            "size_bytes": 98878,
+            "sha256": "92b5a1195dad4cbd7c405b01cbd9fd2dbbd548d13d4cfabf9d2d6a37bad4cb81"
+          },
+          "BOOT-INF/lib/gson-2.13.2.jar": {
+            "size_bytes": 289901,
+            "sha256": "dd0ce1b55a3ed2080cb70f9c655850cda86c206862310009dcb5e5c95265a5e0"
+          },
+          "BOOT-INF/lib/guava-33.3.1-jre.jar": {
+            "size_bytes": 3079289,
+            "sha256": "4bf0e2c5af8e4525c96e8fde17a4f7307f97f8478f11c4c8e35a0e3298ae4e90"
+          },
+          "BOOT-INF/lib/hibernate-validator-8.0.3.Final.jar": {
+            "size_bytes": 1330712,
+            "sha256": "2ad24670fd08e21d3f43d3105d5326bd5ef6b01e819c5cd103823866b954517e"
+          },
+          "BOOT-INF/lib/httpclient-4.5.5.jar": {
+            "size_bytes": 766123,
+            "sha256": "7e97724443ad2a25ad8c73183431d47cc7946271bcbbdfa91a8a17522a566573"
+          },
+          "BOOT-INF/lib/httpclient5-5.5.2.jar": {
+            "size_bytes": 960897,
+            "sha256": "5aec3f3447ec816e593e380b59fbe3e42083318af6b215bc177386f7742f6146"
+          },
+          "BOOT-INF/lib/httpcore-4.4.16.jar": {
+            "size_bytes": 327891,
+            "sha256": "6c9b3dd142a09dc468e23ad39aad6f75a0f2b85125104469f026e52a474e464f"
+          },
+          "BOOT-INF/lib/httpcore5-5.3.6.jar": {
+            "size_bytes": 909490,
+            "sha256": "8fb4528d3e970aca440523a1bd698a389fa710ecfea4c5c6096698b86d1669ce"
+          },
+          "BOOT-INF/lib/httpcore5-h2-5.3.6.jar": {
+            "size_bytes": 242521,
+            "sha256": "479a8aa5e6f99030a2a446a68d1f62320698932746f811fc656a1ea06b94184d"
+          },
+          "BOOT-INF/lib/internal-dependencies.jar": {
+            "size_bytes": 31753099,
+            "sha256": "bd36d87411e84c6dcc75ae6eb4f91b09ad759153668670da240803a6866d4fea"
+          },
+          "BOOT-INF/lib/j2objc-annotations-3.0.0.jar": {
+            "size_bytes": 12467,
+            "sha256": "88241573467ddca44ffd4d74aa04c2bbfd11bf7c17e0c342c94c9de7a70a7c64"
+          },
+          "BOOT-INF/lib/jackson-annotations-2.21.jar": {
+            "size_bytes": 82104,
+            "sha256": "53ca085f4a150f703f49e1aabd935bd03b43e1ea3d55d135438292af22cef56b"
+          },
+          "BOOT-INF/lib/jackson-core-2.21.2.jar": {
+            "size_bytes": 595531,
+            "sha256": "12e8655b100267b44d0f14d01b1f5082a5105e616174dc4307be1a761e92407b"
+          },
+          "BOOT-INF/lib/jackson-databind-2.21.2.jar": {
+            "size_bytes": 1701926,
+            "sha256": "8c982f01f148d805f0aaac2339011244757e0df7c6ff8951f2fa3f433b8ed849"
+          },
+          "BOOT-INF/lib/jackson-databind-nullable-0.2.8.jar": {
+            "size_bytes": 27690,
+            "sha256": "0cef88241ce6775f5b24f1a2c993aceb6fed25e15ff285e686e7b6e1f530bec7"
+          },
+          "BOOT-INF/lib/jackson-datatype-jdk8-2.21.2.jar": {
+            "size_bytes": 36037,
+            "sha256": "e581bbf3fc5622d16b57366dd41e10fc56921fb202879de2ef487f87dd9b30e7"
+          },
+          "BOOT-INF/lib/jackson-datatype-jsr310-2.21.2.jar": {
+            "size_bytes": 136578,
+            "sha256": "a083d57cd1c4a28fefcc6bd071740779eb7fc1c22a3c1b40451b5477c443f02f"
+          },
+          "BOOT-INF/lib/jackson-module-parameter-names-2.21.2.jar": {
+            "size_bytes": 10182,
+            "sha256": "1f1c4449bde17778e9e8571667363923427b108622622a7d23206a465586864e"
+          },
+          "BOOT-INF/lib/jakarta.activation-api-2.1.4.jar": {
+            "size_bytes": 67380,
+            "sha256": "c9db52100ce6c8aac95cc39075f95720d2e561b11f8051b81c121ad4effd7004"
+          },
+          "BOOT-INF/lib/jakarta.annotation-api-2.1.1.jar": {
+            "size_bytes": 26141,
+            "sha256": "5f65fdaf424eee2b55e1d882ba9bb376be93fb09b37b808be6e22e8851c909fe"
+          },
+          "BOOT-INF/lib/jakarta.mail-2.0.5.jar": {
+            "size_bytes": 727296,
+            "sha256": "f48001755a4a591bb1b602965337fcf316d794c43783052f88ede05130539358"
+          },
+          "BOOT-INF/lib/jakarta.mail-api-2.1.5.jar": {
+            "size_bytes": 237267,
+            "sha256": "aa493753acb7a8c45ba8f4c9cf1230a74e20237056dd5b5c8bc86c583e8cfa0e"
+          },
+          "BOOT-INF/lib/jakarta.validation-api-3.0.2.jar": {
+            "size_bytes": 93298,
+            "sha256": "291c25e6910cc6a7ebd96d4c6baebf6d7c37676c5482c2d96146e901b62c1fc9"
+          },
+          "BOOT-INF/lib/jakarta.xml.bind-api-4.0.4.jar": {
+            "size_bytes": 131188,
+            "sha256": "c507ca69a8c6dd11bf4afeec9e0d412c4fa3933fffb0a84680ea5727e8472124"
+          },
+          "BOOT-INF/lib/java-ipv6-0.17.jar": {
+            "size_bytes": 33304,
+            "sha256": "37cf71baf707041cb494834c559ad12b631f5c7747c804ec19598bc0e0f01162"
+          },
+          "BOOT-INF/lib/java-semver-0.9.0.jar": {
+            "size_bytes": 46843,
+            "sha256": "2218c73b40f9af98b570d084420c1b4a81332297bd7fc27ddd552e903be8e93c"
+          },
+          "BOOT-INF/lib/java-uuid-generator-4.3.0.jar": {
+            "size_bytes": 53102,
+            "sha256": "5671fbf1d8ec468d3eaa16ecde98e1c2aa646e1c70fafd2c37ed1599f366421d"
+          },
+          "BOOT-INF/lib/java10-shim-20240325.1.jar": {
+            "size_bytes": 3861,
+            "sha256": "e4637fb9d825c23677d4526ab1ff58117702e54c30d260a047cea10a93be1a92"
+          },
+          "BOOT-INF/lib/java8-shim-20240325.1.jar": {
+            "size_bytes": 11573,
+            "sha256": "11f5a6c345d5c48a9d47703b6552fce150c2af266a9915eb20c20ac6d87507fa"
+          },
+          "BOOT-INF/lib/jaxb-api-2.2.12.jar": {
+            "size_bytes": 102480,
+            "sha256": "68a621ec18485f951d09ac76f43e57eee394dbe42cb8f2a4c59c93296fa9dcc6"
+          },
+          "BOOT-INF/lib/jaxb-core-4.0.6.jar": {
+            "size_bytes": 234637,
+            "sha256": "22b7e93e9e25cf1264fd436e0ffaa54bb05aa8b076acbee1a5325386cb8f80b8"
+          },
+          "BOOT-INF/lib/jaxb-impl-4.0.6.jar": {
+            "size_bytes": 923147,
+            "sha256": "6316f34f83dae7f9ae525cf02ed14098a64ddb9c08f0ef18eac668479a3c1e93"
+          },
+          "BOOT-INF/lib/jaxen-2.0.1.jar": {
+            "size_bytes": 221966,
+            "sha256": "71d5c125bd1686de2f9ad8c95efbfb93896d39862cba2e69362d45112bc85d56"
+          },
+          "BOOT-INF/lib/jbcrypt-0.4.jar": {
+            "size_bytes": 17429,
+            "sha256": "e183f6f59404fc1e12073cfea4ace7ea103c900463cd21fb609a7c617ecdf624"
+          },
+          "BOOT-INF/lib/jboss-logging-3.6.3.Final.jar": {
+            "size_bytes": 62672,
+            "sha256": "7c12ee575508f81e22b1db9334b969d0ec54ef0fd1dcba24eeab1a44235fc366"
+          },
+          "BOOT-INF/lib/jcl-over-slf4j-2.0.17.jar": {
+            "size_bytes": 18423,
+            "sha256": "affd06771589ebfe454bb11315a4f466ecaa135b95f3e7939534cf1d2fd7064c"
+          },
+          "BOOT-INF/lib/jenetics-4.2.0.jar": {
+            "size_bytes": 330802,
+            "sha256": "5c0993974f92605dad8d0fffc447713c32155885f6ac87810ad737b1ca7a8fdd"
+          },
+          "BOOT-INF/lib/jmdns-3.4.1.jar": {
+            "size_bytes": 204950,
+            "sha256": "df3bd89d94994747954d9ac80b10fdbae35e3e6927e6409373b692ba0aee0305"
+          },
+          "BOOT-INF/lib/jna-5.12.1.jar": {
+            "size_bytes": 1866196,
+            "sha256": "91a814ac4f40d60dee91d842e1a8ad874c62197984403d0e3c30d39e55cf53b3"
+          },
+          "BOOT-INF/lib/joda-time-2.12.7.jar": {
+            "size_bytes": 638434,
+            "sha256": "385282b005818cfaccdbe8bd2429811e7e641782f2b88932a6b8ff51d668f616"
+          },
+          "BOOT-INF/lib/jsonschema-generator-4.37.0.jar": {
+            "size_bytes": 163512,
+            "sha256": "7206a85af9518ff66800ac733a6949d4916d984879dd38ae28c0ea1bd20af5c4"
+          },
+          "BOOT-INF/lib/jsonschema-module-jackson-4.37.0.jar": {
+            "size_bytes": 33870,
+            "sha256": "ea7876985e545fa86bed48a82e93d0cde1d70e97e734228d02a3d95fb1bc1359"
+          },
+          "BOOT-INF/lib/jsonschema-module-jakarta-validation-4.37.0.jar": {
+            "size_bytes": 11888,
+            "sha256": "2c171c94217199b3ff734c70b55c2d3425e2630acb9715c01605a80787c7405c"
+          },
+          "BOOT-INF/lib/jspecify-1.0.0.jar": {
+            "size_bytes": 3819,
+            "sha256": "1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab"
+          },
+          "BOOT-INF/lib/jsr305-3.0.2.jar": {
+            "size_bytes": 19936,
+            "sha256": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7"
+          },
+          "BOOT-INF/lib/jstun-0.7.4.jar": {
+            "size_bytes": 70975,
+            "sha256": "964dc970c92c3a4f79d648f0890791ad72f3ae393d1efb7fffdaf41afe2a8fba"
+          },
+          "BOOT-INF/lib/jul-to-slf4j-2.0.17.jar": {
+            "size_bytes": 6349,
+            "sha256": "a7afcd23b9cfd1475e55c94f943b808c5922035e7e2c2a5c65a487a4106bc538"
+          },
+          "BOOT-INF/lib/kotlin-stdlib-1.9.25.jar": {
+            "size_bytes": 1718956,
+            "sha256": "f9cdcdbff1f5de85380ae526977e683726c2aa42db1ed6e6e50ae89e496e95fd"
+          },
+          "BOOT-INF/lib/kotlin-stdlib-jdk7-1.9.25.jar": {
+            "size_bytes": 961,
+            "sha256": "fb5373dd761b4e93e3f538c5e853bba38a71143a181536e8f193ed6e4eddb3b8"
+          },
+          "BOOT-INF/lib/kotlin-stdlib-jdk8-1.9.25.jar": {
+            "size_bytes": 967,
+            "sha256": "f94fdf78390ce9be30383bf039c5a935caea33b11f037fc7f86bbcee19287e5a"
+          },
+          "BOOT-INF/lib/lazysodium-java-5.1.4.jar": {
+            "size_bytes": 2026046,
+            "sha256": "b3ace6a9fd09d7a1493200fd54670587b24bb6480211d9b83c7ece108c6986c0"
+          },
+          "BOOT-INF/lib/log4j-api-2.24.3.jar": {
+            "size_bytes": 348513,
+            "sha256": "5b4a0a0cd0e751ded431c162442bdbdd53328d1f8bb2bae5fc1bbeee0f66d80f"
+          },
+          "BOOT-INF/lib/log4j-to-slf4j-2.24.3.jar": {
+            "size_bytes": 23834,
+            "sha256": "c7f2b0c612a4eb05b1587d1c880eb4cf5f4f53850676a8ede8da2b8fabb4f73f"
+          },
+          "BOOT-INF/lib/logback-access-common-2.0.12.jar": {
+            "size_bytes": 95359,
+            "sha256": "10387da05103f64d9c606fb96ab54a1ebb68f1a4ee91fd54621cf941f13de676"
+          },
+          "BOOT-INF/lib/logback-access-tomcat-2.0.12.jar": {
+            "size_bytes": 14271,
+            "sha256": "e5d5bd104f3170b6a3cb7814a72a29b0df556d31854045194ea81d85bc7b5965"
+          },
+          "BOOT-INF/lib/logback-classic-1.5.32.jar": {
+            "size_bytes": 286451,
+            "sha256": "2d4cf592db78be2de4d6140434c2fec170dcb16a09e8c8b7b207dbf5e31b848a"
+          },
+          "BOOT-INF/lib/logback-core-1.5.32.jar": {
+            "size_bytes": 644407,
+            "sha256": "6a904d5778d0e361a9692f9cbe68b1b0620ae0f3eda2ec2ed09102755bf036c4"
+          },
+          "BOOT-INF/lib/mapstruct-1.6.2.jar": {
+            "size_bytes": 34067,
+            "sha256": "86dbdb6b9cb28f2b320202787b0efd5d5d93a50a4ef59a6298d65ca8b601d633"
+          },
+          "BOOT-INF/lib/micrometer-commons-1.15.11.jar": {
+            "size_bytes": 49154,
+            "sha256": "da0efba6ca0c4ea3f307b607ec513474f1a2c219ea12a72891122c8a89e04857"
+          },
+          "BOOT-INF/lib/micrometer-observation-1.15.11.jar": {
+            "size_bytes": 76266,
+            "sha256": "0c4320f3486d4528890a36d07776f2e71a6a91432d22d4822c45c033f81def56"
+          },
+          "BOOT-INF/lib/minimal-json-0.9.5.jar": {
+            "size_bytes": 34221,
+            "sha256": "69ff84463d1d7cc5cfdb8baf2b6e5f7af153d351bf0dbee3bbc8916247afac74"
+          },
+          "BOOT-INF/lib/mongodb-driver-core-5.1.4.jar": {
+            "size_bytes": 1706141,
+            "sha256": "ae3dbfd439d5afe9e0d6abbd61ef27d858ca2d38083bb7361f69e243aff31dec"
+          },
+          "BOOT-INF/lib/mongodb-driver-sync-5.1.4.jar": {
+            "size_bytes": 153556,
+            "sha256": "341880078296edd762756440e9d6b1d6d2bf4d6b91975c2638e3da611f28b1c2"
+          },
+          "BOOT-INF/lib/okio-jvm-3.4.0.jar": {
+            "size_bytes": 360090,
+            "sha256": "0139ec7a506dbbd54cad62291b019cb850534be097c8c66c1000d5fbe8edef3e"
+          },
+          "BOOT-INF/lib/openssh-1.0.jar": {
+            "size_bytes": 5722,
+            "sha256": "8f387c601bca8736478d324738f5df158053e744af92128ebf5b0ddc0c8dad93"
+          },
+          "BOOT-INF/lib/owasp-java-html-sanitizer-20240325.1.jar": {
+            "size_bytes": 241952,
+            "sha256": "f67d865cbd32d0ec7e2ee0ffa97f8b5c71e3f0f8e0a7e822254737c108f13579"
+          },
+          "BOOT-INF/lib/parsla-0.2.0.jar": {
+            "size_bytes": 77793,
+            "sha256": "e0aef25109faa80e2fd27a5918f92c01277aeebc59e0c11de61b34e19166bc97"
+          },
+          "BOOT-INF/lib/perfmark-api-0.27.0.jar": {
+            "size_bytes": 6954,
+            "sha256": "c7b478503ec524e55df19b424d46d27c8a68aeb801664fadd4f069b71f52d0f6"
+          },
+          "BOOT-INF/lib/postgresql-42.7.10.jar": {
+            "size_bytes": 1137016,
+            "sha256": "cab1cd67cfa25c25de4348e532298028288a877ba01c77d1619fe45416193387"
+          },
+          "BOOT-INF/lib/proto-google-common-protos-2.59.2.jar": {
+            "size_bytes": 2713811,
+            "sha256": "9407f50aef5d1cb12675c170fa64ee216023eefca49f8f5eac45124f23a6cb29"
+          },
+          "BOOT-INF/lib/protobuf-java-4.31.1.jar": {
+            "size_bytes": 1873183,
+            "sha256": "d60dfe7c68a0d38a248cca96924f289dc7e1966a887ee7cae397701af08575ae"
+          },
+          "BOOT-INF/lib/protobuf-java-util-4.31.1.jar": {
+            "size_bytes": 76523,
+            "sha256": "fcdc37cac8738ae7f3a3bb4bc76f01517d16358dd3095a14f1e007d0fcc12a8c"
+          },
+          "BOOT-INF/lib/pull-parser-2.1.10.jar": {
+            "size_bytes": 52636,
+            "sha256": "a1e450a6000a238079d263f7afc5f34e4bf4ca35f7acd9e635cfba2f3cf686c0"
+          },
+          "BOOT-INF/lib/radclient4.jar": {
+            "size_bytes": 326393,
+            "sha256": "769ad8818a8868a6c0f9b18e1e95cc5ee0858dce6ae5e4682b6c380bab044b80"
+          },
+          "BOOT-INF/lib/reactive-streams-1.0.4.jar": {
+            "size_bytes": 11640,
+            "sha256": "f75ca597789b3dac58f61857b9ac2e1034a68fa672db35055a8fb4509e325f28"
+          },
+          "BOOT-INF/lib/reactor-core-3.7.18.jar": {
+            "size_bytes": 1899418,
+            "sha256": "7d9b507c0d651de30a20dac634e7cb7ca908a7c23d57ce05e71bbb9bb79bf0c4"
+          },
+          "BOOT-INF/lib/relaxngDatatype-20020414.jar": {
+            "size_bytes": 19255,
+            "sha256": "2a2563efc911f431250214220570fac8ec3f43c3ec1e47328cee78062f81b218"
+          },
+          "BOOT-INF/lib/resource-loader-2.0.2.jar": {
+            "size_bytes": 26600,
+            "sha256": "b2b482975158a38162d7eecbc1c105f4f187fe6fded1784004906f9dc941ba11"
+          },
+          "BOOT-INF/lib/slf4j-api-2.0.17.jar": {
+            "size_bytes": 69908,
+            "sha256": "7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832"
+          },
+          "BOOT-INF/lib/snakeyaml-2.4.jar": {
+            "size_bytes": 339825,
+            "sha256": "ef779af5d29a9dde8cc70ce0341f5c6f7735e23edff9685ceaa9d35359b7bb7f"
+          },
+          "BOOT-INF/lib/snappy-java-1.1.10.8.jar": {
+            "size_bytes": 2445419,
+            "sha256": "50485d06037fea3d6e40c968386feeca6338cc9872e25549593ff3eb352cefcc"
+          },
+          "BOOT-INF/lib/spring-amqp-3.2.10.jar": {
+            "size_bytes": 162598,
+            "sha256": "7978791e9ad4c9efd906c7a5d74918b8b02f9b634d68e120903706b6f95fce5f"
+          },
+          "BOOT-INF/lib/spring-aop-6.2.18.jar": {
+            "size_bytes": 420221,
+            "sha256": "a07fbaacb1d740b9ec9797940765b0b37a134f36eed9319c641dab877d4b9af7"
+          },
+          "BOOT-INF/lib/spring-beans-6.2.18.jar": {
+            "size_bytes": 891562,
+            "sha256": "963524e5573becf2fb779c8f9b2fd6e86bbe5e3bd77a01c70559d37f9e4ebccb"
+          },
+          "BOOT-INF/lib/spring-boot-3.5.14.jar": {
+            "size_bytes": 1904310,
+            "sha256": "3f1d94101be1ad63fbd067432280e3ffd7fc6549cce43d11c87609843d46ed56"
+          },
+          "BOOT-INF/lib/spring-boot-autoconfigure-3.5.14.jar": {
+            "size_bytes": 2087353,
+            "sha256": "af850d1c416d329947dfcf2a145b91663f415aecf3bb1c73953283f03a708962"
+          },
+          "BOOT-INF/lib/spring-context-6.2.18.jar": {
+            "size_bytes": 1359919,
+            "sha256": "55739b239e91944554dda6eeb813e63986e80dfac23177a6608f32de3f813131"
+          },
+          "BOOT-INF/lib/spring-core-6.2.18.jar": {
+            "size_bytes": 1981491,
+            "sha256": "8f4e9f833b952c9af78e7aa1e38d742df4471648e39bc5696d2f03c0543208d5"
+          },
+          "BOOT-INF/lib/spring-data-commons-3.5.11.jar": {
+            "size_bytes": 1526489,
+            "sha256": "776aa3a4c981da1544ebd989de601422abde5566df99e21701f9872b301e7fb6"
+          },
+          "BOOT-INF/lib/spring-data-jdbc-3.5.11.jar": {
+            "size_bytes": 413778,
+            "sha256": "218a5c5409b626b85c6e7766e1a08fe6256c7b464f50899cada49836369c93ed"
+          },
+          "BOOT-INF/lib/spring-data-mongodb-4.5.11.jar": {
+            "size_bytes": 2475861,
+            "sha256": "caabe55ac34c2c5faef60c759df7fdd0f1258c2bd340710d0c812c9e3ecb8118"
+          },
+          "BOOT-INF/lib/spring-data-relational-3.5.11.jar": {
+            "size_bytes": 520562,
+            "sha256": "ffbd46d4f9209e21b8c7b2de19091c7645176c47f23ae8729b97afec55144347"
+          },
+          "BOOT-INF/lib/spring-expression-6.2.18.jar": {
+            "size_bytes": 317788,
+            "sha256": "12c772bb6ec3e4942db0f83b93fb20c30df830eabfd40157e2c696d14fe3f971"
+          },
+          "BOOT-INF/lib/spring-jdbc-6.2.18.jar": {
+            "size_bytes": 475809,
+            "sha256": "71aa0bdf41d01f19c7533ecd78ee8f8c9e2be7316ca838ce78ea1a2ae41068c6"
+          },
+          "BOOT-INF/lib/spring-messaging-6.2.18.jar": {
+            "size_bytes": 618789,
+            "sha256": "95a6d53da9bd850ad92b2b831a7c0f5fb0278e42e0de838cb011abd608c528b9"
+          },
+          "BOOT-INF/lib/spring-rabbit-3.2.10.jar": {
+            "size_bytes": 630521,
+            "sha256": "4a7ce7c9037ff6e9d18e98a009ab0a4159a8a9aca0f92369e412ec1935961490"
+          },
+          "BOOT-INF/lib/spring-retry-2.0.12.jar": {
+            "size_bytes": 156125,
+            "sha256": "15e5b238080e05b97d7603472887d658fc018340539b3f0777bc92445bf91dad"
+          },
+          "BOOT-INF/lib/spring-tx-6.2.18.jar": {
+            "size_bytes": 289958,
+            "sha256": "7267a0c23801972aa7f1548c840e062ebdec3dc8e26f326effb7d0091ff8083d"
+          },
+          "BOOT-INF/lib/spring-web-6.2.18.jar": {
+            "size_bytes": 2094948,
+            "sha256": "db5b1324a1aa1fa1782175375ce7dd858c946c02cad574cadd43ac6def5db9c7"
+          },
+          "BOOT-INF/lib/spring-webmvc-6.2.18.jar": {
+            "size_bytes": 1094202,
+            "sha256": "6c385b49fb1169fc66bdfa95548e40c611e6eac80ee2f904f653ac4b6a8880d1"
+          },
+          "BOOT-INF/lib/spring-websocket-6.2.18.jar": {
+            "size_bytes": 445415,
+            "sha256": "0340eca2961411b9be6583ff02ab94d74426731619c540caaa27ecb38c2853df"
+          },
+          "BOOT-INF/lib/sshj-0.39.0.jar": {
+            "size_bytes": 538786,
+            "sha256": "dde162d0137d3d69ef841e038b0686647cbecc339f7143ad3a6f556f1be66985"
+          },
+          "BOOT-INF/lib/stax-api-1.0-2.jar": {
+            "size_bytes": 23346,
+            "sha256": "e8c70ebd76f982c9582a82ef82cf6ce14a7d58a4a4dca5cb7b7fc988c80089b7"
+          },
+          "BOOT-INF/lib/tomcat-annotations-api-10.1.54.jar": {
+            "size_bytes": 14237,
+            "sha256": "dd21b122a5b6dcc3fcc689df0c7324a0ed48e923eec6924ddb971f15596d9b6e"
+          },
+          "BOOT-INF/lib/tomcat-embed-core-10.1.54.jar": {
+            "size_bytes": 3667209,
+            "sha256": "f9320888a7db9ffc36471c4154ca2ad6d1cdf39240f21afeca6263d11d793030"
+          },
+          "BOOT-INF/lib/tomcat-embed-el-10.1.54.jar": {
+            "size_bytes": 264327,
+            "sha256": "afab70634533bf64bb6776f4a35b6d0f50a3f104b84bcc29ed085342a2b19b5b"
+          },
+          "BOOT-INF/lib/tomcat-embed-websocket-10.1.54.jar": {
+            "size_bytes": 284038,
+            "sha256": "809cb3e6a373ad007ce63c4d78a7a0da5168b46f2f5de03bdd0bfbde1521eb4e"
+          },
+          "BOOT-INF/lib/urlrewritefilter-4.0.4.1-jakarta.jar": {
+            "size_bytes": 193569,
+            "sha256": "f003c836b5abe58a2f9464252fda358ceb9b535558fb4d4a47b7bbe84dd6f566"
+          },
+          "BOOT-INF/lib/value-annotations-2.10.1.jar": {
+            "size_bytes": 13467,
+            "sha256": "9ef9629d2b710d9d705aa154457e1ba33b8c12118129b7c400bf65d923b46f26"
+          },
+          "BOOT-INF/lib/xpp3-1.1.4c.jar": {
+            "size_bytes": 120069,
+            "sha256": "0341395a481bb887803957145a6a37879853dd625e9244c2ea2509d9bb7531b9"
+          },
+          "BOOT-INF/lib/xsdlib-2013.6.1.jar": {
+            "size_bytes": 230631,
+            "sha256": "62472a211e4b99c9a053cd656e9662852165b1eb232acc42585b7187eaad4575"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/BootLauncher$1.class": {
+            "size_bytes": 709,
+            "sha256": "8adb7faaa5a309fb40a1015d9d232cbce9996d8409721e34d920d71bc71c00b7"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/BootLauncher.class": {
+            "size_bytes": 4620,
+            "sha256": "c826f1fd032cf08e37007cad04f04603db0467c4ae97cb279e98b384627bfcab"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/EmbeddedDbMigratorLauncher.class": {
+            "size_bytes": 6327,
+            "sha256": "12b5815d0a8c4652fdcfd6858723255b74a50e4791311d31d01258bd0a80d58f"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/Launcher$1.class": {
+            "size_bytes": 883,
+            "sha256": "4d9a823f2fcd0e30a33ddc9e1688d3ea64f6651349c00c120f86f1f496ba55fc"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/Launcher$2.class": {
+            "size_bytes": 6620,
+            "sha256": "b19225e032ae2d2bd8d7b9e1a30cf97c4468067d962af7a966fc996ece7e70f0"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/Launcher$3.class": {
+            "size_bytes": 571,
+            "sha256": "d9f838976216a9413fe5a0f75ac76fdbf122b86a073f38be3b6ed747cd7013b0"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/Launcher$iCfGofYCumTdnmc.class": {
+            "size_bytes": 5997,
+            "sha256": "6fb21a2a0df95630fd037ae14d5e9a656b064609f2908cafb1ac0d7106ac5bb2"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/Launcher$oiFBAnX.class": {
+            "size_bytes": 2845,
+            "sha256": "fe513e9f8eb59112bfc049ec62243bcfd6514b06e1bcb066ae9729ec4feb4953"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/Launcher.class": {
+            "size_bytes": 12390,
+            "sha256": "9087174f9ff790ca6822579dddf8b413dd92a6c27caebee422c30a08a6731097"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/LauncherUI$1.class": {
+            "size_bytes": 762,
+            "sha256": "469ccb8e31d33b4a5594400582356b9f55c29e91972be9bec8a3ba5537e1c5a1"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/LauncherUI$10.class": {
+            "size_bytes": 4909,
+            "sha256": "f9685f8d6b7eb9b46d676c420fa9ded79949113159414e0c8a608f8608a0110b"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/LauncherUI$11.class": {
+            "size_bytes": 1894,
+            "sha256": "27f2b030675ac9fea4dc1b157d24c422150e35f28d3806b42ec03d1f4ea9d46d"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/LauncherUI$2.class": {
+            "size_bytes": 890,
+            "sha256": "633caffe0be10f602b40c9f328d3c3034567b916197f68026430fcd5feed0cdd"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/LauncherUI$3.class": {
+            "size_bytes": 1380,
+            "sha256": "4d9a33481ca68a19e491b37797e91244059cf0e84ffd2fb22f9423b7a4a43b3a"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/LauncherUI$4.class": {
+            "size_bytes": 652,
+            "sha256": "85fdad6ba070c01c1b7630c82476211e2691f96e95fd087d38a378d42eac857b"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/LauncherUI$5.class": {
+            "size_bytes": 1039,
+            "sha256": "46766e609415ebfb16997f0f3aec6ee9c2ec0e7e0335a9774e0c1c13a0b30810"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/LauncherUI$6.class": {
+            "size_bytes": 1695,
+            "sha256": "2ff9d79e4d7d4f5a22d0e528e227d7c902362fa176b283fbfe9b91b6ea12ce03"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/LauncherUI$7.class": {
+            "size_bytes": 1284,
+            "sha256": "ef31213f5cfe5a6aced6d9780308f4e5651d5b9fbd34df31f3c7c7aa0cc733dd"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/LauncherUI$8.class": {
+            "size_bytes": 1040,
+            "sha256": "c040c0d676d84a6d7114b5d96d2c3094f940594743f45fa12ffd974977403288"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/LauncherUI$9.class": {
+            "size_bytes": 747,
+            "sha256": "d351002d3909a037efde7c223e4a1f46b81347d18a124a07d2748aa5eece0f4b"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/LauncherUI$iCfGofYCumTdnmc.class": {
+            "size_bytes": 2261,
+            "sha256": "108a227660d388e1cc3d8792c609540ef23620d791952f292029b1e2949aaf19"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/LauncherUI$oiFBAnX.class": {
+            "size_bytes": 1635,
+            "sha256": "94f5d02ba8b6a9847fd631d9cdaeec569d7db91ac5bc40981c1d3f1c44e405e4"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/LauncherUI.class": {
+            "size_bytes": 11727,
+            "sha256": "40ec9eff02f88323704a9a1281df60c1335b6616c517d0d8873a7b2c039c4d03"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/oWfClw.class": {
+            "size_bytes": 1863,
+            "sha256": "afe9254a338d10ce3833d0e85971676b710c0f6282ab341bc0387a85e6f4a311"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/a/oiFBAnX.class": {
+            "size_bytes": 4691,
+            "sha256": "20a00d4f7c8c3343ea5789f046cf9a0e195f01367853565e73526601b79fa1c7"
+          },
+          "BOOT-INF/classes/com/ubnt/ace/aot/MigratorAotProcessor.class": {
+            "size_bytes": 3307,
+            "sha256": "ee486daddd53634b812953970c2251fcbd8f212b9f9b37289ba8b46e4d1f2ec0"
+          },
+          "BOOT-INF/lib/spring-boot-jarmode-tools-3.5.12.jar": {
+            "size_bytes": 53032,
+            "sha256": "9d7a4adde84942a79026e689b6b19ab819ec8df59fe07bad87f239393410d323"
+          },
+          "BOOT-INF/classpath.idx": {
+            "size_bytes": 6412,
+            "sha256": "8ebe57b6ccf5f84dca3c46d73d68e738b009f276fa130d9e19c8c837738368fb"
+          }
+        }
+      }
+    }
+  },
+  "wan_ports": [
+    8,
+    12
+  ],
+  "lan_ports": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    9,
+    10,
+    11,
+    13
+  ]
+}

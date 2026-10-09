@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "returncode": 0,
+  "reverse_pci_nic_order": true,
+  "nics": 14,
+  "total_elapsed_seconds": 108.508995,
+  "timeout_seconds": 300,
+  "snapshot_state": true,
+  "assets": "/home/luis/udm-release-final",
+  "initramfs_sha256": "ccff18466c8bbd099c692d77587a4ee789728ce223a0d653f86c4e752035937f",
+  "artifacts": {
+    "command": "command.json",
+    "serial": "serial.log",
+    "runner": "runner.log"
+  }
+}

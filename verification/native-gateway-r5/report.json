@@ -1,0 +1,440 @@
+{
+  "boot_scope": "first_boot_only",
+  "cleanup": {
+    "errors": [],
+    "namespaces_deleted": {
+      "lan": true,
+      "wan": true
+    },
+    "owned_namespace_count": 2,
+    "owned_worker_count": 2,
+    "ownership_source": "native-flow-resources.json",
+    "report_source": "native-flows.json",
+    "scope": "Successful helper cleanup with both namespace deletions recorded; no independent host process enumeration is embedded.",
+    "tap_lifetime": "Nonpersistent TAP descriptors belong to the owned workers."
+  },
+  "core_state": {
+    "authenticated_setup_session_used_for_read_only_status": true,
+    "deviceErrorCode": null,
+    "deviceState": "setup",
+    "interpretation": "setup is the normal completed Core state; settingUp is in progress and notSetup is unconfigured. The observed state does not require another completion request.",
+    "isSetup": true,
+    "source": "native-diagnostics.log",
+    "source_line": 11,
+    "static_original_source": {
+      "enum": {
+        "NOT_SETUP": "notSetup",
+        "SETTING_UP": "settingUp",
+        "SETUP": "setup"
+      },
+      "reference": "/home/luis/udm-analysis/usr/share/unifi-core/app/service.js",
+      "runtime_reducer_semantics": "KSt returns the dispatched device state unchanged; deviceErrorCode is null for non-error states.",
+      "scope": "Static interpretation of the original firmware source; no live guest Core-file digest was collected.",
+      "settings_reducer_semantics": "SETUP_COMPLETED and UPDATE_CONSOLE_STATE with state=setup both set isSetup:true.",
+      "sha256": "9def42c03b368a9434b1b3d5ee48f7a295bae616ae1060639f4c53c4e292fbb0",
+      "size_bytes": 1337995,
+      "zero_based_byte_offsets": {
+        "completed_log": 738055,
+        "device_state_reducer": 1319007,
+        "normal_completion_state": 737200,
+        "setting_up": 735627,
+        "settings_reducer": 80870,
+        "startup_restore_completed_state": 1294185,
+        "state_enum": 15862
+      }
+    }
+  },
+  "data_minimization": {
+    "cookies_or_session_tokens_embedded": false,
+    "host_pids_or_namespace_inodes_embedded": false,
+    "host_public_ip_embedded": false,
+    "html_page_contents_embedded": false,
+    "native_flow_random_run_identifier_embedded": false,
+    "raw_credentials_embedded": false,
+    "raw_logs_embedded": false,
+    "raw_management_configuration_embedded": false,
+    "raw_owner_responses_embedded": false,
+    "source_guest_or_server_contacted_during_curation": false,
+    "source_logs_retained_only_in_evidence_storage": true
+  },
+  "environment": {
+    "cores": 6,
+    "ethernet_ports": [
+      19000,
+      19008
+    ],
+    "guest_ethernet_exposure": "127.0.0.1 sockets for isolated owned peers; no public uplink",
+    "last_host_observation_utc": "2026-10-09T17:07:56.269732+00:00",
+    "memory_mib": 8192,
+    "platform": "Debian test server running QEMU AArch64 with TCG",
+    "qemu_owns_both_established_ethernet_connections": true,
+    "socket_ownership_observed_at_utc": "2026-10-09T16:56:48.993433+00:00",
+    "socket_ownership_source": "socket-ownership.json",
+    "started_at_utc": "2026-10-09T16:50:23.260048+00:00"
+  },
+  "first_boot_host_snapshot": {
+    "fatal_marker_counts": {
+      "Kernel panic": 0,
+      "SQUASHFS error:": 0,
+      "UDM_VIRTUAL_ADAPTATION_FAILED": 0
+    },
+    "host_reported_boot_log_bytes": 73839,
+    "host_reported_boot_log_sha256": "262c91c6a32ae59cddcf7b0bda0e8aea035e25862716a4e4b7582c0c96536bdb",
+    "marker_source_lines": {
+      "Started Local-only UDM research console": [
+        662
+      ],
+      "UDM_VIRTUAL_ADAPTATION_READY": [
+        567
+      ],
+      "UDM_VIRTUAL_CONTROLLER_READY": [
+        566
+      ],
+      "UDM_VIRTUAL_HAL_NATIVE_READY": [
+        564
+      ],
+      "UDM_VIRTUAL_LATE_BOOT_READY": [
+        565
+      ],
+      "systemd[1]: systemd 247": [
+        569
+      ]
+    },
+    "observed_at_utc": "2026-10-09T17:07:56.269732+00:00",
+    "raw_boot_log_downloaded": false,
+    "source": "host-proof.json"
+  },
+  "limits": [
+    "First boot only; reboot, restart persistence and cold-boot recovery have not been tested by this report.",
+    "HTTPS proves anonymous HTTP 200 HTML bearing a UniFi marker only. No browser login, configuration workflow or UI interaction is demonstrated.",
+    "WAN, DNS and NAT targets are isolated synthetic peers. Internet access is not tested.",
+    "IPv6, VLANs, throughput and deployment on real Proxmox are not tested.",
+    "Native policy attribution combines normal setup, the absent boot validation-policy request, selected live state and packet results; the selected rule projections do not establish equality of complete firewall configurations.",
+    "The research initramfs changes /init for diagnostics; the 20 udm-virtual payload entries match the product. A bit-identical product-initramfs boot is not claimed.",
+    "Cleanup is attested by the helper result and ownership manifest, not a separately downloaded process or namespace enumeration.",
+    "The host-provided boot-log snapshot hash and marker locations are preserved as attestation; the raw boot log was not downloaded or embedded."
+  ],
+  "native_flow_probe": {
+    "check_count": 7,
+    "checks": {
+      "dns_via_original_gateway": true,
+      "ethernet_pumps_healthy": true,
+      "original_https_gui_html": true,
+      "subsequent_tcp_udp_control": true,
+      "tcp_roundtrip_nat": true,
+      "udp_roundtrip_nat": true,
+      "unsolicited_wan_tcp_blocked": true
+    },
+    "completed_at_utc": "2026-10-09T17:05:30.464143+00:00",
+    "dns": {
+      "answers": [
+        "198.18.0.10"
+      ],
+      "passed": true,
+      "query_matched_owned_run": true,
+      "query_pattern": "native-flow-<per-run-random>.example.com",
+      "resolver": "192.168.1.1",
+      "synthetic_upstream_answers": 1,
+      "upstream_observed_sources": [
+        "198.18.0.2"
+      ]
+    },
+    "elapsed_seconds": 10.417,
+    "ethernet_pumps": {
+      "lan": {
+        "counts": {
+          "from_qemu": 35,
+          "to_qemu": 30,
+          "unsolicited_syn_from_qemu": 0,
+          "unsolicited_syn_to_qemu": 0
+        },
+        "error": null
+      },
+      "wan": {
+        "counts": {
+          "from_qemu": 32,
+          "to_qemu": 35,
+          "unsolicited_syn_from_qemu": 0,
+          "unsolicited_syn_to_qemu": 9
+        },
+        "error": null
+      }
+    },
+    "original_https_gui": {
+      "browser_configuration_or_ui_interaction_proved": false,
+      "content_type": "text/html",
+      "credentials_cookies_or_proxies_used": false,
+      "endpoint": "https://192.168.1.1:443/",
+      "html": true,
+      "maximum_body_bytes": 131072,
+      "maximum_relative_redirects": 3,
+      "operation": "Anonymous GET with bounded same-origin relative redirects",
+      "page_contents_not_embedded": true,
+      "passed": true,
+      "self_signed_test_certificate_explicitly_accepted": true,
+      "socket_timeout_seconds": 5,
+      "status": 200,
+      "total_deadline_seconds": 15,
+      "unifi_marker": true
+    },
+    "outbound_tcp": {
+      "observed_source": "198.18.0.2",
+      "passed": true
+    },
+    "outbound_udp": {
+      "observed_source": "198.18.0.2",
+      "passed": true
+    },
+    "passed": true,
+    "source": "native-flows.json",
+    "unsolicited_wan_tcp": {
+      "attempt_results": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ],
+      "later_tcp_udp_control": {
+        "tcp": {
+          "observed_source": "198.18.0.2",
+          "passed": true
+        },
+        "udp": {
+          "observed_source": "198.18.0.2",
+          "passed": true
+        }
+      },
+      "matching_syn_received_on_lan": 0,
+      "remote_lan_listener_accepts": 0,
+      "wan_syn_to_qemu_count": 9
+    }
+  },
+  "native_policy": {
+    "diagnostic_begin_source_line": 10,
+    "diagnostic_complete_source_line": 18,
+    "diagnostic_failed_sections": [],
+    "diagnostic_source": "native-diagnostics.log",
+    "native_network_service_enabled": true,
+    "observed_at_utc": "2026-10-09T17:02:39.177317+00:00",
+    "selected_forward_fields_match_factory_template": false,
+    "selected_forward_fields_match_temporary_validation_template": false,
+    "selected_iptables_projection": {
+      "forward": {
+        "present": true,
+        "rule_count": 27,
+        "source_line": 16,
+        "truncated": false
+      },
+      "nat": {
+        "present": true,
+        "rule_count": 26,
+        "source_line": 17,
+        "truncated": false
+      }
+    },
+    "services": [
+      {
+        "active_state": "active",
+        "reported_restarts": 0,
+        "sub_state": "running",
+        "unit": "unifi.service"
+      },
+      {
+        "active_state": "active",
+        "reported_restarts": 0,
+        "sub_state": "running",
+        "unit": "udapi-server.service"
+      },
+      {
+        "active_state": "active",
+        "reported_restarts": 0,
+        "sub_state": "running",
+        "unit": "unifi-core.service"
+      }
+    ],
+    "services_source_line": 13,
+    "template_comparison_scope": "Selected forward fields only; no complete rule/configuration equivalence claim.",
+    "udapi_configuration_source_line": 14,
+    "validation_policy_requested_at_boot": false
+  },
+  "network_state": {
+    "configuration_version_omitted": true,
+    "controllerStatus": "READY",
+    "isConfigured": true,
+    "isReadyForSetup": true,
+    "source": "native-diagnostics.log",
+    "source_line": 12
+  },
+  "normal_owner_setup": {
+    "endpoint": "/api/setup",
+    "http_status": 200,
+    "method": "POST",
+    "network_ready_before_setup": {
+      "controllerStatus": "READY",
+      "isReadyForSetup": true,
+      "isRunning": true,
+      "name": "network"
+    },
+    "network_ready_source_line": 32,
+    "normal_setup_success_marker_observed": true,
+    "raw_request_owner_response_and_session_not_embedded": true,
+    "source": "native-ready-setup.log",
+    "source_lines": {
+      "NATIVE_READINESS_CONFIRMED": [
+        33
+      ],
+      "NATIVE_SETUP_HTTP_SUCCESS": [
+        34
+      ],
+      "OWNER_SETUP_SUBMITTED": [
+        36
+      ],
+      "SETUP_HTTP_STATUS 200": [
+        35
+      ]
+    }
+  },
+  "packet_probe": {
+    "check_count": 6,
+    "checks": {
+      "lan_dhcp": true,
+      "lan_router_ping": true,
+      "outbound_nat": true,
+      "return_forwarding": true,
+      "unsolicited_wan_blocked": true,
+      "wan_dhcp": true
+    },
+    "completed_at_utc": "2026-10-09T17:02:19.861545+00:00",
+    "counts": {
+      "lan_received": 477,
+      "malformed_ignored": 0,
+      "unsolicited_leaked": 0,
+      "unsolicited_sent": 8,
+      "wan_received": 446
+    },
+    "drop_control_roundtrips": 5,
+    "elapsed_seconds_including_boot_wait": 716.295,
+    "passed": true,
+    "scope": "Isolated IPv4 DHCP, router ICMP, outbound NAT/return forwarding, and bounded unsolicited ICMP blocking with positive controls.",
+    "source": "native-packets.json"
+  },
+  "passed": true,
+  "provenance": {
+    "identical_udm_virtual_payload_entries": 20,
+    "matching_payload_comparison_reference": "verification/controller-migration/report.json",
+    "native_flow_source_reference": "work/native-flow-probe/native_flow.py",
+    "native_flow_source_sha256": "a003efa7297619b123bb6da4657659c4d2db8656100f88d8ea1c03ea4b03c819",
+    "pristine_base_state_sha256": "14ac5dd319d45387e70e36b05cded788617279175275f9f4f1da241bdcc0e9a5",
+    "product_initramfs_sha256": "ccff18466c8bbd099c692d77587a4ee789728ce223a0d653f86c4e752035937f",
+    "product_release": "R5 / firmware 5.1.33",
+    "release_artifacts": {
+      "Image": {
+        "sha256": "3953777d3682f6b08918bfd4e7b7a0a819d033b8c2117fd8ab95971ab5ce0814",
+        "size_bytes": 37210624
+      },
+      "initramfs.gz": {
+        "sha256": "ccff18466c8bbd099c692d77587a4ee789728ce223a0d653f86c4e752035937f",
+        "size_bytes": 42503633
+      },
+      "rootfs.qcow2": {
+        "sha256": "ebb9cf82d81cf0feb13392d0afb44d2a6c233827685879c90fc49fee57223ab2",
+        "size_bytes": 1034289152
+      },
+      "state.qcow2": {
+        "sha256": "14ac5dd319d45387e70e36b05cded788617279175275f9f4f1da241bdcc0e9a5",
+        "size_bytes": 7798784
+      }
+    },
+    "release_artifacts_unchanged": true,
+    "research_init_changes": [
+      "Local diagnostic serial console.",
+      "Read-only 9P research share.",
+      "Conditional relocation of two research-only unifi.service overrides, as documented in the matching controller-migration initramfs comparison."
+    ],
+    "research_initramfs_changed_entries": [
+      "init"
+    ],
+    "research_initramfs_sha256": "b072bfb3eb97ab63af14274348629f71c445583f426aa9ccc948abccec08810c",
+    "state_mode": "Fresh writable qcow2 overlay over the pristine release state image",
+    "tested_product_archive": {
+      "digest_basis": "Pinned by the remote unpack workflow and independently recomputed from the original local release archive during this curation.",
+      "filename": "udm-beast-proxmox-5.1.33.tar",
+      "sha256": "b422381b222b8adceb9b4aec42493e36b53cf31c71aa95b30ab163bc2b76a439",
+      "size_bytes": 1122734080
+    }
+  },
+  "schema_version": 1,
+  "source_integrity": {
+    "all_sources_match_download_manifest": true,
+    "download_manifest_reference": "work/debian-evidence-r5/download-manifest.json",
+    "download_manifest_sha256": "8d12353518686ff1f534fd424506f34176735328cf47d7ff3cb9a5dca67d2c59",
+    "source_count": 8,
+    "sources": {
+      "host-proof.json": {
+        "line_count": 42,
+        "matches_download_manifest": true,
+        "original_relative_reference": "native-r5/host-proof.json",
+        "reference": "work/debian-evidence-r5/host-proof.json",
+        "sha256": "595193a4d68cce3bd1cf98e776c1ae23a03ad9ec08008af388b25e89bdd75d05",
+        "size_bytes": 1349
+      },
+      "native-diagnostics.log": {
+        "line_count": 20,
+        "matches_download_manifest": true,
+        "original_relative_reference": "native-r5/console-4f3328a76dce4d2f87df8091d05e2ffc.log",
+        "reference": "work/debian-evidence-r5/native-diagnostics.log",
+        "sha256": "b1252d442b8ea92fbe71abbeea68a230811f5357745bf4acd7b27e08e0e3c035",
+        "size_bytes": 18407
+      },
+      "native-flow-resources.json": {
+        "line_count": 21,
+        "matches_download_manifest": true,
+        "original_relative_reference": "native-r5/native-flows-01/resources.json",
+        "reference": "work/debian-evidence-r5/native-flow-resources.json",
+        "sha256": "b85897b6e19a57be88378231185637a5421ada1be767495cf62170415a944bf5",
+        "size_bytes": 400
+      },
+      "native-flows.json": {
+        "line_count": 98,
+        "matches_download_manifest": true,
+        "original_relative_reference": "native-r5/native-flows-01/report.json",
+        "reference": "work/debian-evidence-r5/native-flows.json",
+        "sha256": "b1f9c722ac345fcf2264bcffcde567a852862a55a9f7e516cd2656201bc6f12e",
+        "size_bytes": 2378
+      },
+      "native-packets.json": {
+        "line_count": 87,
+        "matches_download_manifest": true,
+        "original_relative_reference": "native-r5/native-packets.json",
+        "reference": "work/debian-evidence-r5/native-packets.json",
+        "sha256": "1d2fdc7b64501a0088ca3ee0ebd7ed9fa4eb0ca1e48c9b19e53be29f0571762b",
+        "size_bytes": 2150
+      },
+      "native-ready-setup.log": {
+        "line_count": 38,
+        "matches_download_manifest": true,
+        "original_relative_reference": "native-r5/console-edd80f62c67f49e8951542e5654602eb.log",
+        "reference": "work/debian-evidence-r5/native-ready-setup.log",
+        "sha256": "a8a1778d9f673277ab283da10cd9e017aedfb155fa28b71377d574fd6257929e",
+        "size_bytes": 1397
+      },
+      "provenance.json": {
+        "line_count": 25,
+        "matches_download_manifest": true,
+        "original_relative_reference": "native-r5/provenance.json",
+        "reference": "work/debian-evidence-r5/provenance.json",
+        "sha256": "1f12c56297df6351e4fab2dcf8d955fa60d3aa1aa085b68e46d80c1196e4e996",
+        "size_bytes": 945
+      },
+      "socket-ownership.json": {
+        "line_count": 27,
+        "matches_download_manifest": true,
+        "original_relative_reference": "native-r5/socket-ownership.json",
+        "reference": "work/debian-evidence-r5/socket-ownership.json",
+        "sha256": "a59379d19388d8466dc7906edaccf3ff6ac7d20ae4a6742a2da50ebffafea285",
+        "size_bytes": 455
+      }
+    }
+  },
+  "status": "passed_first_boot_native_gateway",
+  "summary": "Normal native owner setup completed, Network reported READY, all six isolated packet checks and all seven native flow checks passed, and helper cleanup completed."
+}

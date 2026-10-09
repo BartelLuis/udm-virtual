@@ -1,0 +1,621 @@
+qemu-system-aarch64: warning: hub 13 is not connected to host network
+qemu-system-aarch64: warning: hub 12 is not connected to host network
+qemu-system-aarch64: warning: hub 11 is not connected to host network
+qemu-system-aarch64: warning: hub 10 is not connected to host network
+qemu-system-aarch64: warning: hub 9 is not connected to host network
+qemu-system-aarch64: warning: hub 8 is not connected to host network
+qemu-system-aarch64: warning: hub 7 is not connected to host network
+qemu-system-aarch64: warning: hub 6 is not connected to host network
+qemu-system-aarch64: warning: hub 5 is not connected to host network
+qemu-system-aarch64: warning: hub 4 is not connected to host network
+qemu-system-aarch64: warning: hub 3 is not connected to host network
+qemu-system-aarch64: warning: hub 2 is not connected to host network
+qemu-system-aarch64: warning: hub 1 is not connected to host network
+qemu-system-aarch64: warning: hub 0 is not connected to host network
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x000f0510]
+[    0.000000] Linux version 6.6.46-ui-cn10k (bdd@builder) (gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2) #1 SMP PREEMPT Wed Sep  9 00:32:28 CST 2026
+[    0.000000] random: crng init done
+[    0.000000] Machine model: linux,dummy-virt
+[    0.000000] efi: UEFI not found.
+[    0.000000] earlycon: pl11 at MMIO 0x0000000009000000 (options '')
+[    0.000000] printk: bootconsole [pl11] enabled
+[    0.000000] NUMA: No NUMA configuration found
+[    0.000000] NUMA: Faking a node at [mem 0x0000000040000000-0x00000000bfffffff]
+[    0.000000] NUMA: NODE_DATA [mem 0xbff63840-0xbff65b3f]
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x0000000040000000-0x00000000bfffffff]
+[    0.000000]   DMA32    empty
+[    0.000000]   Normal   empty
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000040000000-0x00000000bfffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000040000000-0x00000000bfffffff]
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] psci: Trusted OS migration not required
+[    0.000000] psci: SMC Calling Convention v1.0
+[    0.000000] percpu: Embedded 10 pages/cpu s587112 r8192 d60056 u655360
+[    0.000000] Detected PIPT I-cache on CPU0
+[    0.000000] CPU features: detected: Address authentication (IMP DEF algorithm)
+[    0.000000] CPU features: detected: GIC system register CPU interface
+[    0.000000] CPU features: detected: Hardware dirty bit management
+[    0.000000] CPU features: detected: Spectre-v4
+[    0.000000] alternatives: applying boot alternatives
+[    0.000000] Kernel command line: console=ttyAMA0 earlycon root=/dev/vda state=/dev/vdb udm.mode=selftest udm.nics=14 net.ifnames=0 panic=-1 initcall_blacklist=mrvl_swup_init,uart_redirect_init,mub_gen_init,portm_boot_cfg_init module_blacklist=phy_diag
+[    0.000000] Unknown kernel command line parameters "state=/dev/vdb", will be passed to user space.
+[    0.000000] Dentry cache hash table entries: 262144 (order: 5, 2097152 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 131072 (order: 4, 1048576 bytes, linear)
+[    0.000000] Fallback order for Node 0: 0 
+[    0.000000] Built 1 zonelists, mobility grouping off.  Total pages: 32736
+[    0.000000] Policy zone: DMA
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] stackdepot: allocating hash table via alloc_large_system_hash
+[    0.000000] stackdepot hash table entries: 131072 (order: 4, 1048576 bytes, linear)
+[    0.000000] software IO TLB: area num 2.
+[    0.000000] software IO TLB: mapped [mem 0x00000000bb7d0000-0x00000000bf7d0000] (64MB)
+[    0.000000] Memory: 1940032K/2097152K available (20160K kernel code, 2994K rwdata, 6912K rodata, 5760K init, 3718K bss, 157120K reserved, 0K cma-reserved)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=2, Nodes=1
+[    0.000000] trace event string verifier disabled
+[    0.000000] rcu: Preemptible hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU event tracing is enabled.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=96 to nr_cpu_ids=2.
+[    0.000000] 	Trampoline variant of Tasks RCU enabled.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=2
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    0.000000] GICv3: 256 SPIs implemented
+[    0.000000] GICv3: 0 Extended SPIs implemented
+[    0.000000] Root IRQ handler: gic_handle_irq
+[    0.000000] GICv3: GICv3 features: 16 PPIs
+[    0.000000] GICv3: CPU0: found redistributor 0 region 0:0x00000000080a0000
+[    0.000000] ITS [mem 0x08080000-0x0809ffff]
+[    0.000000] ITS@0x0000000008080000: allocated 8192 Devices @60540000 (indirect, esz 8, psz 64K, shr 1)
+[    0.000000] ITS@0x0000000008080000: allocated 8192 Interrupt Collections @60550000 (flat, esz 8, psz 64K, shr 1)
+[    0.000000] GICv3: using LPI property table @0x0000000060560000
+[    0.000000] GICv3: CPU0: using allocated LPI pending table @0x0000000060570000
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] arch_timer: cp15 timer(s) running at 1000.00MHz (virt).
+[    0.000000] clocksource: arch_sys_counter: mask: 0x1fffffffffffffff max_cycles: 0x1cd42e4dffb, max_idle_ns: 881590591483 ns
+[    0.000276] sched_clock: 61 bits at 1000MHz, resolution 1ns, wraps every 4398046511103ns
+[    0.145109] Console: colour dummy device 80x25
+[    0.212708] Calibrating delay loop (skipped), value calculated using timer frequency.. 2000.00 BogoMIPS (lpj=4000000)
+[    0.339907] pid_max: default: 32768 minimum: 301
+[    0.417484] LSM: initializing lsm=capability,integrity
+[    0.489713] Mount-cache hash table entries: 8192 (order: 0, 65536 bytes, linear)
+[    0.571783] Mountpoint-cache hash table entries: 8192 (order: 0, 65536 bytes, linear)
+[    0.804330] cacheinfo: Unable to detect cache hierarchy for CPU 0
+[    0.900785] RCU Tasks: Setting shift to 1 and lim to 1 rcu_task_cb_adjust=1.
+[    0.983591] RCU Tasks Trace: Setting shift to 1 and lim to 1 rcu_task_cb_adjust=1.
+[    1.075518] rcu: Hierarchical SRCU implementation.
+[    1.139738] rcu: 	Max phase no-delay instances is 1000.
+[    1.273096] Platform MSI: its@8080000 domain created
+[    1.353602] PCI/MSI: /intc@8000000/its@8080000 domain created
+[    1.430332] EFI services will not be available.
+[    1.490348] smp: Bringing up secondary CPUs ...
+[    1.579594] Detected PIPT I-cache on CPU1
+[    1.589463] GICv3: CPU1: found redistributor 1 region 0:0x00000000080c0000
+[    1.591750] GICv3: CPU1: using allocated LPI pending table @0x0000000060580000
+[    1.596925] CPU1: Booted secondary processor 0x0000000001 [0x000f0510]
+[    1.608935] smp: Brought up 1 node, 2 CPUs
+[    2.072700] SMP: Total of 2 processors activated.
+[    2.134206] CPU features: detected: Branch Target Identification
+[    2.215148] CPU features: detected: 32-bit EL0 Support
+[    2.288018] CPU features: detected: ARMv8.4 Translation Table Level
+[    2.374737] CPU features: detected: Instruction cache invalidation not required for I/D coherence
+[    2.501822] CPU features: detected: Data cache clean to the PoU not required for I/D coherence
+[    2.701746] CPU features: detected: Common not Private translations
+[    2.808060] CPU features: detected: CRC32 instructions
+[    2.867421] CPU features: detected: Data cache clean to Point of Deep Persistence
+[    2.956135] CPU features: detected: Data cache clean to Point of Persistence
+[    3.048937] CPU features: detected: Data independent timing control (DIT)
+[    3.181364] CPU features: detected: E0PD
+[    3.232965] CPU features: detected: Enhanced Counter Virtualization
+[    3.306243] CPU features: detected: Enhanced Counter Virtualization (CNTPOFF)
+[    3.415317] CPU features: detected: Enhanced Privileged Access Never
+[    3.512959] CPU features: detected: Enhanced Virtualization Traps
+[    3.592961] CPU features: detected: Fine Grained Traps
+[    3.663400] CPU features: detected: Generic authentication (IMP DEF algorithm)
+[    3.775641] CPU features: detected: RCpc load-acquire (LDAPR)
+[    3.844375] CPU features: detected: LSE atomic instructions
+[    3.971014] CPU features: detected: Memory Copy and Memory Set instructions
+[    4.099931] CPU features: detected: Privileged Access Never
+[    4.209432] CPU features: detected: RAS Extension Support
+[    4.327114] CPU features: detected: Random Number Generator
+[    4.385870] CPU features: detected: Speculation barrier (SB)
+[    4.453006] CPU features: detected: Stage-2 Force Write-Back
+[    4.566568] CPU features: detected: Trap EL0 IMPLEMENTATION DEFINED functionality
+[    4.658529] CPU features: detected: TLB range maintenance instructions
+[    4.757034] CPU features: detected: WFx with timeout
+[    4.814768] CPU features: detected: Scalable Matrix Extension
+[    4.880827] CPU features: detected: FA64
+[    4.929630] CPU features: detected: Speculative Store Bypassing Safe (SSBS)
+[    5.030831] CPU features: detected: Scalable Vector Extension
+[    5.126446] SVE: maximum available vector length 256 bytes per vector
+[    5.213375] SVE: default vector length 64 bytes per vector
+[    5.285822] SME: minimum available vector length 16 bytes per vector
+[    5.365116] SME: maximum available vector length 256 bytes per vector
+[    5.450770] SME: default vector length 32 bytes per vector
+[    5.518080] CPU: All CPU(s) started at EL1
+[    5.569993] alternatives: applying system-wide alternatives
+[    5.851974] devtmpfs: initialized
+[    5.993946] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    6.119385] futex hash table entries: 512 (order: -1, 32768 bytes, linear)
+[    6.208259] pinctrl core: initialized pinctrl subsystem
+[    6.294799] DMI not present or invalid.
+[    6.429926] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    6.539660] DMA: preallocated 256 KiB GFP_KERNEL pool for atomic allocations
+[    6.625115] DMA: preallocated 256 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+[    6.733386] DMA: preallocated 256 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
+[    6.882562] audit: initializing netlink subsys (disabled)
+[    6.983819] audit: type=2000 audit(0.820:1): state=initialized audit_enabled=0 res=1
+[    7.135422] thermal_sys: Registered thermal governor 'step_wise'
+[    7.139165] cpuidle: using governor ladder
+[    7.393894] cpuidle: using governor menu
+[    7.476930] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+[    7.610952] ASID allocator initialised with 65536 entries
+[    7.732653] Serial: AMBA PL011 UART driver
+[    8.017359] 9000000.pl011: ttyAMA0 at MMIO 0x9000000 (irq = 13, base_baud = 0) is a PL011 rev1
+[    8.153019] printk: console [ttyAMA0] enabled
+[    8.153019] printk: console [ttyAMA0] enabled
+[    8.295251] printk: bootconsole [pl11] disabled
+[    8.295251] printk: bootconsole [pl11] disabled
+[    8.470475] Modules: 1419 pages in range for non-PLT usage
+[    8.470601] Modules: 32139 pages in range for PLT usage
+[    8.568343] HugeTLB: registered 16.0 GiB page size, pre-allocated 0 pages
+[    8.732201] HugeTLB: 0 KiB vmemmap can be freed for a 16.0 GiB page
+[    8.803088] HugeTLB: registered 512 MiB page size, pre-allocated 0 pages
+[    8.880629] HugeTLB: 0 KiB vmemmap can be freed for a 512 MiB page
+[    8.954509] HugeTLB: registered 2.00 MiB page size, pre-allocated 0 pages
+[    9.043362] HugeTLB: 0 KiB vmemmap can be freed for a 2.00 MiB page
+[    9.262606] raid6: neonx8   gen()  1552 MB/s
+[    9.499076] raid6: neonx4   gen()  1142 MB/s
+[    9.780195] raid6: neonx2   gen()  1007 MB/s
+[    9.904264] raid6: neonx1   gen()   691 MB/s
+[   10.096129] raid6: int64x8  gen()   867 MB/s
+[   10.246628] raid6: int64x4  gen()   937 MB/s
+[   10.370170] raid6: int64x2  gen()   867 MB/s
+[   10.509193] raid6: int64x1  gen()   779 MB/s
+[   10.567567] raid6: using algorithm neonx8 gen() 1552 MB/s
+[   10.706961] raid6: .... xor() 559 MB/s, rmw enabled
+[   10.772783] raid6: using neon recovery algorithm
+[   10.831728] ACPI: Interpreter disabled.
+[   10.880105] iommu: Default domain type: Translated
+[   10.939345] iommu: DMA domain TLB invalidation policy: strict mode
+[   11.019592] SCSI subsystem initialized
+[   11.077200] usbcore: registered new interface driver usbfs
+[   11.143317] usbcore: registered new interface driver hub
+[   11.206340] usbcore: registered new device driver usb
+[   11.281227] pps_core: LinuxPPS API ver. 1 registered
+[   11.386794] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[   11.541055] PTP clock support registered
+[   11.595463] EDAC MC: Ver: 3.0.0
+[   11.635879] scmi_core: SCMI protocol bus registered
+[   11.729366] Bluetooth: Core ver 2.22
+[   11.775295] NET: Registered PF_BLUETOOTH protocol family
+[   11.846287] Bluetooth: HCI device and connection manager initialized
+[   11.959069] Bluetooth: HCI socket layer initialized
+[   12.029527] Bluetooth: L2CAP socket layer initialized
+[   12.100895] Bluetooth: SCO socket layer initialized
+[   12.168666] vgaarb: loaded
+[   12.211849] clocksource: Switched to clocksource arch_sys_counter
+[   12.538829] VFS: Disk quotas dquot_6.6.0
+[   12.604958] VFS: Dquot-cache hash table entries: 8192 (order 0, 65536 bytes)
+[   12.733525] pnp: PnP ACPI: disabled
+[   12.934669] NET: Registered PF_INET protocol family
+[   13.021581] IP idents hash table entries: 32768 (order: 2, 262144 bytes, linear)
+[   13.187797] tcp_listen_portaddr_hash hash table entries: 4096 (order: 0, 65536 bytes, linear)
+[   13.246410] hrtimer: interrupt took 23381165 ns
+[   13.454240] Table-perturb hash table entries: 65536 (order: 2, 262144 bytes, linear)
+[   13.563981] TCP established hash table entries: 16384 (order: 1, 131072 bytes, linear)
+[   13.680203] TCP bind hash table entries: 16384 (order: 3, 524288 bytes, linear)
+[   13.795519] TCP: Hash tables configured (established 16384 bind 16384)
+[   13.876694] UDP hash table entries: 2048 (order: 0, 65536 bytes, linear)
+[   13.964829] UDP-Lite hash table entries: 2048 (order: 0, 65536 bytes, linear)
+[   14.079559] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   14.158308] RPC: Registered named UNIX socket transport module.
+[   14.220303] RPC: Registered udp transport module.
+[   14.275379] RPC: Registered tcp transport module.
+[   14.326709] RPC: Registered tcp-with-tls transport module.
+[   14.399685] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[   14.492335] PCI: CLS 0 bytes, default 64
+[   14.560659] Trying to unpack rootfs image as initramfs...
+[   14.644694] Initialise system trusted keyrings
+[   14.710298] workingset: timestamp_bits=42 max_order=15 bucket_order=0
+[   14.797649] zbud: loaded
+[   14.838818] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[   14.918034] NFS: Registering the id_resolver key type
+[   14.988617] Key type id_resolver registered
+[   15.051966] Key type id_legacy registered
+[   15.108575] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+[   15.190711] nfs4flexfilelayout_init: NFSv4 Flexfile Layout Driver Registering...
+[   15.298077] jffs2: version 2.2. (NAND) © 2001-2006 Red Hat, Inc.
+[   15.376109] 9p: Installing v9fs 9p2000 file system support
+[   15.674374] NET: Registered PF_ALG protocol family
+[   15.739972] xor: measuring software checksum speed
+[   15.802740]    8regs           :  2534 MB/sec
+[   15.861041]    32regs          :  2491 MB/sec
+[   15.923800]    arm64_neon      :  1108 MB/sec
+[   15.977773] xor: using function: 8regs (2534 MB/sec)
+[   16.039920] async_tx: api initialized (async)
+[   16.094302] Key type asymmetric registered
+[   16.145683] Asymmetric key parser 'x509' registered
+[   16.206393] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 246)
+[   16.297345] io scheduler mq-deadline registered
+[   16.353896] io scheduler kyber registered
+[   16.438048] pl061_gpio 9030000.pl061: PL061 GPIO chip registered
+[   16.518420] pci-host-generic 4010000000.pcie: host bridge /pcie@10000000 ranges:
+[   16.624313] pci-host-generic 4010000000.pcie:       IO 0x003eff0000..0x003effffff -> 0x0000000000
+[   16.757602] pci-host-generic 4010000000.pcie:      MEM 0x0010000000..0x003efeffff -> 0x0010000000
+[   16.889352] pci-host-generic 4010000000.pcie:      MEM 0x8000000000..0xffffffffff -> 0x8000000000
+[   17.014368] pci-host-generic 4010000000.pcie: Memory resource size exceeds max for 32 bits
+[   17.121075] pci-host-generic 4010000000.pcie: ECAM at [mem 0x4010000000-0x401fffffff] for [bus 00-ff]
+[   17.234517] pci-host-generic 4010000000.pcie: PCI host bridge to bus 0000:00
+[   17.321041] pci_bus 0000:00: root bus resource [bus 00-ff]
+[   17.388874] pci_bus 0000:00: root bus resource [io  0x0000-0xffff]
+[   17.466468] pci_bus 0000:00: root bus resource [mem 0x10000000-0x3efeffff]
+[   17.550606] pci_bus 0000:00: root bus resource [mem 0x8000000000-0xffffffffff]
+[   17.642411] pci 0000:00:00.0: [1b36:0008] type 00 class 0x060000
+[   17.748926] pci 0000:00:01.0: [1af4:1001] type 00 class 0x010000
+[   17.824665] pci 0000:00:01.0: reg 0x10: [io  0x0000-0x007f]
+[   17.894250] pci 0000:00:01.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   17.982062] pci 0000:00:01.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   18.076423] pci 0000:00:02.0: [1af4:1001] type 00 class 0x010000
+[   18.186055] pci 0000:00:02.0: reg 0x10: [io  0x0000-0x007f]
+[   18.252607] pci 0000:00:02.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   18.335550] pci 0000:00:02.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   18.434840] pci 0000:00:03.0: [1af4:1002] type 00 class 0x00ff00
+[   18.518921] pci 0000:00:03.0: reg 0x10: [io  0x0000-0x003f]
+[   18.598562] pci 0000:00:03.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   18.722808] pci 0000:00:03.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   18.902832] pci 0000:00:04.0: [1af4:1000] type 00 class 0x020000
+[   18.991256] pci 0000:00:04.0: reg 0x10: [io  0x0000-0x001f]
+[   19.084502] pci 0000:00:04.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   19.343688] pci 0000:00:04.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   19.600074] pci 0000:00:04.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   19.786914] pci 0000:00:05.0: [1af4:1000] type 00 class 0x020000
+[   20.032671] pci 0000:00:05.0: reg 0x10: [io  0x0000-0x001f]
+[   20.131806] pci 0000:00:05.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   20.207308] pci 0000:00:05.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   20.295382] pci 0000:00:05.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   20.377696] pci 0000:00:06.0: [1af4:1000] type 00 class 0x020000
+[   20.450724] pci 0000:00:06.0: reg 0x10: [io  0x0000-0x001f]
+[   20.516827] pci 0000:00:06.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   20.591864] pci 0000:00:06.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   20.684769] pci 0000:00:06.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   20.775944] pci 0000:00:07.0: [1af4:1000] type 00 class 0x020000
+[   20.891657] pci 0000:00:07.0: reg 0x10: [io  0x0000-0x001f]
+[   20.961138] pci 0000:00:07.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   21.043632] pci 0000:00:07.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   21.138846] pci 0000:00:07.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   21.221162] pci 0000:00:08.0: [1af4:1000] type 00 class 0x020000
+[   21.294609] pci 0000:00:08.0: reg 0x10: [io  0x0000-0x001f]
+[   21.371449] pci 0000:00:08.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   21.452638] pci 0000:00:08.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   21.550738] pci 0000:00:08.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   21.637597] pci 0000:00:09.0: [1af4:1000] type 00 class 0x020000
+[   21.723506] pci 0000:00:09.0: reg 0x10: [io  0x0000-0x001f]
+[   21.799407] pci 0000:00:09.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   21.877984] pci 0000:00:09.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   21.966405] pci 0000:00:09.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   22.042606] pci 0000:00:0a.0: [1af4:1000] type 00 class 0x020000
+[   22.132627] pci 0000:00:0a.0: reg 0x10: [io  0x0000-0x001f]
+[   22.205775] pci 0000:00:0a.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   22.281394] pci 0000:00:0a.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   22.367392] pci 0000:00:0a.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   22.450539] pci 0000:00:0b.0: [1af4:1000] type 00 class 0x020000
+[   22.523689] pci 0000:00:0b.0: reg 0x10: [io  0x0000-0x001f]
+[   22.590280] pci 0000:00:0b.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   22.668205] pci 0000:00:0b.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   22.762716] pci 0000:00:0b.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   22.844906] pci 0000:00:0c.0: [1af4:1000] type 00 class 0x020000
+[   22.921490] pci 0000:00:0c.0: reg 0x10: [io  0x0000-0x001f]
+[   22.991979] pci 0000:00:0c.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   23.068264] pci 0000:00:0c.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   23.156684] pci 0000:00:0c.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   23.249956] pci 0000:00:0d.0: [1af4:1000] type 00 class 0x020000
+[   23.322275] pci 0000:00:0d.0: reg 0x10: [io  0x0000-0x001f]
+[   23.395624] pci 0000:00:0d.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   23.474670] pci 0000:00:0d.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   23.571982] pci 0000:00:0d.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   23.659848] pci 0000:00:0e.0: [1af4:1000] type 00 class 0x020000
+[   23.740763] pci 0000:00:0e.0: reg 0x10: [io  0x0000-0x001f]
+[   23.812688] pci 0000:00:0e.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   23.892744] pci 0000:00:0e.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   23.979668] pci 0000:00:0e.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   24.054004] pci 0000:00:0f.0: [1af4:1000] type 00 class 0x020000
+[   24.115718] pci 0000:00:0f.0: reg 0x10: [io  0x0000-0x001f]
+[   24.173916] pci 0000:00:0f.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   24.241140] pci 0000:00:0f.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   24.346411] pci 0000:00:0f.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   24.428691] pci 0000:00:10.0: [1af4:1000] type 00 class 0x020000
+[   24.499725] pci 0000:00:10.0: reg 0x10: [io  0x0000-0x001f]
+[   24.567476] pci 0000:00:10.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   24.638220] pci 0000:00:10.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   24.737495] pci 0000:00:10.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   24.822966] pci 0000:00:11.0: [1af4:1000] type 00 class 0x020000
+[   24.899579] pci 0000:00:11.0: reg 0x10: [io  0x0000-0x001f]
+[   24.987730] pci 0000:00:11.0: reg 0x14: [mem 0x00000000-0x00000fff]
+[   25.058869] pci 0000:00:11.0: reg 0x20: [mem 0x00000000-0x00003fff 64bit pref]
+[   25.140674] pci 0000:00:11.0: reg 0x30: [mem 0x00000000-0x0003ffff pref]
+[   25.229922] pci 0000:00:04.0: BAR 6: assigned [mem 0x10000000-0x1003ffff pref]
+[   25.315664] pci 0000:00:05.0: BAR 6: assigned [mem 0x10040000-0x1007ffff pref]
+[   25.412228] pci 0000:00:06.0: BAR 6: assigned [mem 0x10080000-0x100bffff pref]
+[   25.501942] pci 0000:00:07.0: BAR 6: assigned [mem 0x100c0000-0x100fffff pref]
+[   25.592773] pci 0000:00:08.0: BAR 6: assigned [mem 0x10100000-0x1013ffff pref]
+[   25.697395] pci 0000:00:09.0: BAR 6: assigned [mem 0x10140000-0x1017ffff pref]
+[   25.803709] pci 0000:00:0a.0: BAR 6: assigned [mem 0x10180000-0x101bffff pref]
+[   25.893834] pci 0000:00:0b.0: BAR 6: assigned [mem 0x101c0000-0x101fffff pref]
+[   25.983376] pci 0000:00:0c.0: BAR 6: assigned [mem 0x10200000-0x1023ffff pref]
+[   26.069166] pci 0000:00:0d.0: BAR 6: assigned [mem 0x10240000-0x1027ffff pref]
+[   26.156657] pci 0000:00:0e.0: BAR 6: assigned [mem 0x10280000-0x102bffff pref]
+[   26.214316] Freeing initrd memory: 41472K
+[   26.313851] pci 0000:00:0f.0: BAR 6: assigned [mem 0x102c0000-0x102fffff pref]
+[   26.421613] pci 0000:00:10.0: BAR 6: assigned [mem 0x10300000-0x1033ffff pref]
+[   26.527842] pci 0000:00:11.0: BAR 6: assigned [mem 0x10340000-0x1037ffff pref]
+[   26.613841] pci 0000:00:01.0: BAR 4: assigned [mem 0x8000000000-0x8000003fff 64bit pref]
+[   26.734208] pci 0000:00:02.0: BAR 4: assigned [mem 0x8000004000-0x8000007fff 64bit pref]
+[   26.835744] pci 0000:00:03.0: BAR 4: assigned [mem 0x8000008000-0x800000bfff 64bit pref]
+[   26.942298] pci 0000:00:04.0: BAR 4: assigned [mem 0x800000c000-0x800000ffff 64bit pref]
+[   27.058519] pci 0000:00:05.0: BAR 4: assigned [mem 0x8000010000-0x8000013fff 64bit pref]
+[   27.165747] pci 0000:00:06.0: BAR 4: assigned [mem 0x8000014000-0x8000017fff 64bit pref]
+[   27.280396] pci 0000:00:07.0: BAR 4: assigned [mem 0x8000018000-0x800001bfff 64bit pref]
+[   27.387898] pci 0000:00:08.0: BAR 4: assigned [mem 0x800001c000-0x800001ffff 64bit pref]
+[   27.493489] pci 0000:00:09.0: BAR 4: assigned [mem 0x8000020000-0x8000023fff 64bit pref]
+[   27.618337] pci 0000:00:0a.0: BAR 4: assigned [mem 0x8000024000-0x8000027fff 64bit pref]
+[   27.787333] pci 0000:00:0b.0: BAR 4: assigned [mem 0x8000028000-0x800002bfff 64bit pref]
+[   27.905557] pci 0000:00:0c.0: BAR 4: assigned [mem 0x800002c000-0x800002ffff 64bit pref]
+[   28.028187] pci 0000:00:0d.0: BAR 4: assigned [mem 0x8000030000-0x8000033fff 64bit pref]
+[   28.292684] pci 0000:00:0e.0: BAR 4: assigned [mem 0x8000034000-0x8000037fff 64bit pref]
+[   28.511672] pci 0000:00:0f.0: BAR 4: assigned [mem 0x8000038000-0x800003bfff 64bit pref]
+[   28.725279] pci 0000:00:10.0: BAR 4: assigned [mem 0x800003c000-0x800003ffff 64bit pref]
+[   28.880193] pci 0000:00:11.0: BAR 4: assigned [mem 0x8000040000-0x8000043fff 64bit pref]
+[   29.143673] pci 0000:00:01.0: BAR 1: assigned [mem 0x10380000-0x10380fff]
+[   29.221876] pci 0000:00:02.0: BAR 1: assigned [mem 0x10381000-0x10381fff]
+[   29.299773] pci 0000:00:03.0: BAR 1: assigned [mem 0x10382000-0x10382fff]
+[   29.376833] pci 0000:00:04.0: BAR 1: assigned [mem 0x10383000-0x10383fff]
+[   29.453394] pci 0000:00:05.0: BAR 1: assigned [mem 0x10384000-0x10384fff]
+[   29.533845] pci 0000:00:06.0: BAR 1: assigned [mem 0x10385000-0x10385fff]
+[   29.604437] pci 0000:00:07.0: BAR 1: assigned [mem 0x10386000-0x10386fff]
+[   29.690379] pci 0000:00:08.0: BAR 1: assigned [mem 0x10387000-0x10387fff]
+[   29.794678] pci 0000:00:09.0: BAR 1: assigned [mem 0x10388000-0x10388fff]
+[   29.874634] pci 0000:00:0a.0: BAR 1: assigned [mem 0x10389000-0x10389fff]
+[   29.962794] pci 0000:00:0b.0: BAR 1: assigned [mem 0x1038a000-0x1038afff]
+[   30.057137] pci 0000:00:0c.0: BAR 1: assigned [mem 0x1038b000-0x1038bfff]
+[   30.170647] pci 0000:00:0d.0: BAR 1: assigned [mem 0x1038c000-0x1038cfff]
+[   30.289630] pci 0000:00:0e.0: BAR 1: assigned [mem 0x1038d000-0x1038dfff]
+[   30.380556] pci 0000:00:0f.0: BAR 1: assigned [mem 0x1038e000-0x1038efff]
+[   30.557440] pci 0000:00:10.0: BAR 1: assigned [mem 0x1038f000-0x1038ffff]
+[   30.635603] pci 0000:00:11.0: BAR 1: assigned [mem 0x10390000-0x10390fff]
+[   30.726307] pci 0000:00:01.0: BAR 0: assigned [io  0x1000-0x107f]
+[   30.812934] pci 0000:00:02.0: BAR 0: assigned [io  0x1080-0x10ff]
+[   30.899536] pci 0000:00:03.0: BAR 0: assigned [io  0x1100-0x113f]
+[   30.971725] pci 0000:00:04.0: BAR 0: assigned [io  0x1140-0x115f]
+[   31.042887] pci 0000:00:05.0: BAR 0: assigned [io  0x1160-0x117f]
+[   31.115238] pci 0000:00:06.0: BAR 0: assigned [io  0x1180-0x119f]
+[   31.187539] pci 0000:00:07.0: BAR 0: assigned [io  0x11a0-0x11bf]
+[   31.259556] pci 0000:00:08.0: BAR 0: assigned [io  0x11c0-0x11df]
+[   31.330874] pci 0000:00:09.0: BAR 0: assigned [io  0x11e0-0x11ff]
+[   31.401992] pci 0000:00:0a.0: BAR 0: assigned [io  0x1200-0x121f]
+[   31.472115] pci 0000:00:0b.0: BAR 0: assigned [io  0x1220-0x123f]
+[   31.538284] pci 0000:00:0c.0: BAR 0: assigned [io  0x1240-0x125f]
+[   31.603633] pci 0000:00:0d.0: BAR 0: assigned [io  0x1260-0x127f]
+[   31.688093] pci 0000:00:0e.0: BAR 0: assigned [io  0x1280-0x129f]
+[   31.777792] pci 0000:00:0f.0: BAR 0: assigned [io  0x12a0-0x12bf]
+[   31.847241] pci 0000:00:10.0: BAR 0: assigned [io  0x12c0-0x12df]
+[   31.928532] pci 0000:00:11.0: BAR 0: assigned [io  0x12e0-0x12ff]
+[   32.037396] octeontx2-dpi: Marvell OcteonTX2 DPI-DMA Driver
+[   32.112919] octeontx2-sdp
+[   32.185759] octtx_info: No board info available!
+[   32.295916] virtio-pci 0000:00:01.0: enabling device (0000 -> 0003)
+[   32.445485] virtio-pci 0000:00:02.0: enabling device (0000 -> 0003)
+[   32.589949] virtio-pci 0000:00:03.0: enabling device (0000 -> 0003)
+[   32.736591] virtio-pci 0000:00:04.0: enabling device (0000 -> 0003)
+[   32.877284] virtio-pci 0000:00:05.0: enabling device (0000 -> 0003)
+[   33.023759] virtio-pci 0000:00:06.0: enabling device (0000 -> 0003)
+[   33.158964] virtio-pci 0000:00:07.0: enabling device (0000 -> 0003)
+[   33.290319] virtio-pci 0000:00:08.0: enabling device (0000 -> 0003)
+[   33.423949] virtio-pci 0000:00:09.0: enabling device (0000 -> 0003)
+[   33.557938] virtio-pci 0000:00:0a.0: enabling device (0000 -> 0003)
+[   33.695850] virtio-pci 0000:00:0b.0: enabling device (0000 -> 0003)
+[   33.794043] virtio-pci 0000:00:0c.0: enabling device (0000 -> 0003)
+[   33.890565] virtio-pci 0000:00:0d.0: enabling device (0000 -> 0003)
+[   33.981841] virtio-pci 0000:00:0e.0: enabling device (0000 -> 0003)
+[   34.073542] virtio-pci 0000:00:0f.0: enabling device (0000 -> 0003)
+[   34.178860] virtio-pci 0000:00:10.0: enabling device (0000 -> 0003)
+[   34.284271] virtio-pci 0000:00:11.0: enabling device (0000 -> 0003)
+[   34.431549] Free page reporting enabled
+[   34.583947] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[   34.981223] brd: module loaded
+[   35.120115] loop: module loaded
+[   35.575569] virtio_blk virtio0: 2/0/0 default/read/poll queues
+[   35.676356] virtio_blk virtio0: [vda] 2019264 512-byte logical blocks (1.03 GB/986 MiB)
+[   35.853147] virtio_blk virtio1: 2/0/0 default/read/poll queues
+[   35.950234] virtio_blk virtio1: [vdb] 67108864 512-byte logical blocks (34.4 GB/32.0 GiB)
+[   36.124245] Couldn't find BPHY device a089
+[   36.208585] megaraid cmm: 2.20.2.7 (Release Date: Sun Jul 16 00:01:03 EST 2006)
+[   36.366588] megaraid: 2.20.5.1 (Release Date: Thu Nov 16 15:32:35 EST 2006)
+[   36.509653] megasas: 07.725.01.00-rc1
+[   36.585474] mpt3sas version 43.100.00.00 loaded
+[   36.726229] mtd device must be supplied (device name is empty)
+[   36.844440] MACsec IEEE 802.1AE
+[   36.930491] tun: Universal TUN/TAP device driver, 1.6
+[   37.310557] sky2: driver version 1.30
+[   37.361486] rvu_af: Marvell OcteonTX2 RVU Admin Function Driver
+[   37.447394] rvu_nicpf: Marvell RVU NIC Physical Function Driver
+[   37.520251] rvu_nicvf: Marvell RVU NIC Virtual Function Driver
+[   37.592135] octeontx2-bphy-netdev: Marvell OcteonTX2 BPHY Ethernet Driver
+[   37.680696] usbcore: registered new interface driver rtl8150
+[   37.760393] usbcore: registered new device driver r8152-cfgselector
+[   37.835944] usbcore: registered new interface driver r8152
+[   37.902694] usbcore: registered new interface driver asix
+[   37.968055] usbcore: registered new interface driver ax88179_178a
+[   38.043916] usbcore: registered new interface driver dm9601
+[   38.112008] usbcore: registered new interface driver CoreChips
+[   38.185910] usbcore: registered new interface driver smsc75xx
+[   38.257024] usbcore: registered new interface driver smsc95xx
+[   38.329071] usbcore: registered new interface driver net1080
+[   38.395722] usbcore: registered new interface driver plusb
+[   38.461835] usbcore: registered new interface driver MOSCHIP usb-ethernet driver
+[   38.626799] VFIO - User Level meta-driver version: 0.3
+[   38.740613] usbcore: registered new interface driver cdc_acm
+[   38.812368] cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+[   38.923720] usbcore: registered new interface driver usb-storage
+[   39.053565] rtc-pl031 9010000.pl031: registered as rtc0
+[   39.133299] rtc-pl031 9010000.pl031: setting system clock to 2026-10-09T15:33:48 UTC (1791560028)
+[   39.262920] i2c_dev: i2c /dev entries driver
+[   39.510198] device-mapper: ioctl: 4.48.0-ioctl (2023-03-01) initialised: dm-devel@redhat.com
+[   39.812742] Bluetooth: HCI UART driver ver 2.3
+[   39.933242] Bluetooth: HCI UART protocol H4 registered
+[   40.072315] Bluetooth: HCI UART protocol BCSP registered
+[   40.137364] Bluetooth: HCI UART protocol LL registered
+[   40.210800] Bluetooth: HCI UART protocol Broadcom registered
+[   40.292695] usbcore: registered new interface driver btusb
+[   40.361954] sdhci: Secure Digital Host Controller Interface driver
+[   40.435867] sdhci: Copyright(c) Pierre Ossman
+[   40.488465] Synopsys Designware Multimedia Card Interface Driver
+[   40.557339] sdhci-pltfm: SDHCI platform and OF driver helper
+[   40.640480] usbcore: registered new interface driver usbhid
+[   40.734777] usbhid: USB HID core driver
+[   40.800511] hw perfevents: enabled with armv8_pmuv3 PMU driver, 7 counters available
+[   40.893432] watchdog: Delayed init of the lockup detector failed: -19
+[   40.982653] watchdog: Hard watchdog permanently disabled
+[   41.068542]  cs_system_cfg: CoreSight Configuration manager initialised
+[   41.160193] GACT probability NOT on
+[   41.208788] Mirror/redirect action on
+[   41.257305] u32 classifier
+[   41.289902]     input device check on
+[   41.362353]     Actions configured
+[   41.423829] IPVS: Registered protocols ()
+[   41.478058] IPVS: Connection hash table configured (size=4096, memory=32Kbytes)
+[   41.574379] IPVS: ipvs loaded.
+[   41.610630] gre: GRE over IPv4 demultiplexor driver
+[   41.665865] IPv4 over IPsec tunneling driver
+[   41.745194] Initializing XFRM netlink socket
+[   41.806013] NET: Registered PF_INET6 protocol family
+[   42.281430] Segment Routing with IPv6
+[   42.336411] In-situ OAM (IOAM) with IPv6
+[   42.410922] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[   42.513789] ip6_gre: GRE over IPv6 tunneling driver
+[   42.584358] NET: Registered PF_PACKET protocol family
+[   42.649001] NET: Registered PF_KEY protocol family
+[   42.711828] bridge: filtering via arp/ip/ip6tables is no longer available by default. Update your scripts to load br_netfilter if you need this.
+[   42.882350] Bluetooth: RFCOMM TTY layer initialized
+[   42.948971] Bluetooth: RFCOMM socket layer initialized
+[   43.026788] Bluetooth: RFCOMM ver 1.11
+[   43.084949] Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+[   43.147027] Bluetooth: BNEP filters: protocol multicast
+[   43.209414] Bluetooth: BNEP socket layer initialized
+[   43.261187] Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+[   43.322360] Bluetooth: HIDP socket layer initialized
+[   43.376642] 8021q: 802.1Q VLAN Support v1.8
+[   43.425899] 9pnet: Installing 9P2000 support
+[   43.472858] Key type dns_resolver registered
+[   43.523453] mpls_gso: MPLS GSO support
+[   43.852406] registered taskstats version 1
+[   43.905160] Loading compiled-in X.509 certificates
+[   43.995748] zswap: loaded using pool zstd/zbud
+[   44.250466] kmemleak: Kernel memory leak detector initialized (mem pool available: 15645)
+[   44.250530] kmemleak: Automatic memory scanning thread started
+[   44.462024] Btrfs loaded, zoned=no, fsverity=no
+[   44.558162] input: gpio-keys as /devices/platform/gpio-keys/input/input0
+[   44.716937] cfg80211: Loading compiled-in X.509 certificates for regulatory database
+[   44.922448] Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+[   45.001877] Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+[   45.117396] clk: Disabling unused clocks
+[   45.117494] platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
+[   45.266952] cfg80211: failed to load regulatory.db
+[   45.338185] uart-pl011 9000000.pl011: no DMA platform data
+[   45.545146] Freeing unused kernel memory: 5760K
+[   45.604082] Run /init as init process
+UDM_LAB_INIT_BEGIN mode=selftest
+Experimental ARM guest: this boot does not establish a working UniFi firewall.
+[   46.301209] EXT4-fs (vdb): mounted filesystem 7a48b9da-17ec-4bc6-a4d4-7a19e928521f r/w with ordered data mode. Quota mode: none.
+[   55.029976] virtio_net virtio16 udmvtmp0: renamed from eth13
+[   55.156361] virtio_net virtio15 udmvtmp1: renamed from eth12
+[   55.264840] virtio_net virtio14 udmvtmp2: renamed from eth11
+[   55.438400] virtio_net virtio13 udmvtmp3: renamed from eth10
+[   55.610901] virtio_net virtio12 udmvtmp4: renamed from eth9
+[   55.826139] virtio_net virtio11 udmvtmp5: renamed from eth8
+[   55.950938] virtio_net virtio10 udmvtmp6: renamed from eth7
+[   56.093077] virtio_net virtio9 udmvtmp7: renamed from eth6
+[   56.244488] virtio_net virtio8 udmvtmp8: renamed from eth5
+[   56.484298] virtio_net virtio7 udmvtmp9: renamed from eth4
+[   56.721190] virtio_net virtio6 udmvtmp10: renamed from eth3
+[   56.906527] virtio_net virtio5 udmvtmp11: renamed from eth2
+[   57.127239] virtio_net virtio4 udmvtmp12: renamed from eth1
+[   57.482082] virtio_net virtio3 udmvtmp13: renamed from eth0
+[   57.776017] virtio_net virtio16 eth0: renamed from udmvtmp0
+[   57.961619] virtio_net virtio15 eth1: renamed from udmvtmp1
+[   58.117424] virtio_net virtio14 eth2: renamed from udmvtmp2
+[   58.283681] virtio_net virtio13 eth3: renamed from udmvtmp3
+[   58.521623] virtio_net virtio12 eth4: renamed from udmvtmp4
+[   58.726859] virtio_net virtio11 eth5: renamed from udmvtmp5
+[   58.952816] virtio_net virtio10 eth6: renamed from udmvtmp6
+[   59.213753] virtio_net virtio9 eth7: renamed from udmvtmp7
+[   59.369950] virtio_net virtio8 eth8: renamed from udmvtmp8
+[   59.656346] virtio_net virtio7 eth9: renamed from udmvtmp9
+[   59.919049] virtio_net virtio6 eth10: renamed from udmvtmp10
+[   60.157613] virtio_net virtio5 eth11: renamed from udmvtmp11
+[   60.400477] virtio_net virtio4 eth12: renamed from udmvtmp12
+[   60.651155] virtio_net virtio3 eth13: renamed from udmvtmp13
+UDM_VIRTUAL_PORTS_ORDERED: MAC-derived eth0..eth13
+[   63.200448] ubnt_common: loading out-of-tree module taints kernel.
+[   63.278233] ubnt_common: module license 'Proprietary' taints kernel.
+[   63.366455] Disabling lock debugging due to kernel taint
+[   63.430965] ubnt_common: module license taints kernel.
+[   63.712331] ubnthal: Ubiquiti UniFi Dream Machine Beast
+[   63.788477] Unable to find 'ubnthal,write-protect' dts node.
+board.sysid=0xea4c
+board.name=UniFi Dream Machine Beast
+board.shortname=UDMEA4C
+board.storename=UDMEA4C
+board.subtype=
+board.reboot=30
+board.upgrade=310
+board.cpu.id=410fd490-00000000
+board.uuid=8fbe11ad-3445-51b9-998d-920da3cd7301
+board.bom=113-00000-01
+board.hwrev=0x0001
+board.serialno=0255444d0000
+board.qrid=000000
+UDM_VIRTUAL_HAL_NATIVE_READY
+UDM_VIRTUAL_LATE_BOOT_READY: physical PHY diagnostic disabled
+UDM_VIRTUAL_CONTROLLER_READY: installed
+UDM_VIRTUAL_ADAPTATION_READY
+UDM_LAB_SELFTEST_BEGIN
+Linux (none) 6.6.46-ui-cn10k #1 SMP PREEMPT Wed Sep  9 00:32:28 CST 2026 aarch64 GNU/Linux
+Linux version 6.6.46-ui-cn10k (bdd@builder) (gcc (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2) #1 SMP PREEMPT Wed Sep  9 00:32:28 CST 2026
+UDM_LAB_ROOTFS_VERSION
+UDMEA4C.cn10k.v5.1.33.44ce47b.260909.0025
+
+UDM_LAB_LINKS_BEGIN
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: dummy0: <BROADCAST,NOARP> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ether 06:4b:22:6e:f9:4e brd ff:ff:ff:ff:ff:ff
+3: eth13: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ether 02:55:44:4d:00:0d brd ff:ff:ff:ff:ff:ff
+4: eth12: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ether 02:55:44:4d:00:0c brd ff:ff:ff:ff:ff:ff
+5: eth11: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ether 02:55:44:4d:00:0b brd ff:ff:ff:ff:ff:ff
+6: eth10: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ether 02:55:44:4d:00:0a brd ff:ff:ff:ff:ff:ff
+7: eth9: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ether 02:55:44:4d:00:09 brd ff:ff:ff:ff:ff:ff
+8: eth8: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ether 02:55:44:4d:00:08 brd ff:ff:ff:ff:ff:ff
+9: eth7: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ether 02:55:44:4d:00:07 brd ff:ff:ff:ff:ff:ff
+10: eth6: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ether 02:55:44:4d:00:06 brd ff:ff:ff:ff:ff:ff
+11: eth5: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ether 02:55:44:4d:00:05 brd ff:ff:ff:ff:ff:ff
+12: eth4: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ether 02:55:44:4d:00:04 brd ff:ff:ff:ff:ff:ff
+13: eth3: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ether 02:55:44:4d:00:03 brd ff:ff:ff:ff:ff:ff
+14: eth2: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ether 02:55:44:4d:00:02 brd ff:ff:ff:ff:ff:ff
+15: eth1: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ether 02:55:44:4d:00:01 brd ff:ff:ff:ff:ff:ff
+16: eth0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ether 02:55:44:4d:00:00 brd ff:ff:ff:ff:ff:ff
+17: ip_vti0@NONE: <NOARP> mtu 1480 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/ipip 0.0.0.0 brd 0.0.0.0
+18: ip6_vti0@NONE: <NOARP> mtu 1428 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/tunnel6 :: brd :: permaddr b6e4:728:f7e6::
+19: sit0@NONE: <NOARP> mtu 1480 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/sit 0.0.0.0 brd 0.0.0.0
+20: ip6tnl0@NONE: <NOARP> mtu 1452 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/tunnel6 :: brd :: permaddr 7ab2:3eec:6c99::
+21: ip6gre0@NONE: <NOARP> mtu 1448 qdisc noop state DOWN mode DEFAULT group default qlen 1000\    link/gre6 :: brd :: permaddr 4edd:b94b:fb5d::
+UDM_LAB_LINKS_END
+UDM_LAB_EXPECTED_VIRTIO_PORTS=14
+UDM_LAB_MOUNT_AND_WRITE_CHECK_COMPLETE
+UDM_LAB_DISKS_PRESENT
+UDM_LAB_SELFTEST_PASS
+Gateway services and firewall forwarding were not tested or started.
+[  100.174372] reboot: Power down
