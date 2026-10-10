@@ -1,6 +1,7 @@
 *.bin
 build/
 build-virtual/
+build-uxg/
 release/
 validation-runs/
 work/

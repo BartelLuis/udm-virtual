@@ -38,6 +38,14 @@ class RunLabTests(unittest.TestCase):
     def options(command, name):
         return [command[index + 1] for index, value in enumerate(command[:-1]) if value == name]
 
+    def use_uxg_manifest(self, **overrides):
+        self.manifest.update(
+            status="experimental-virtual-gateway", profile="virtual", model="UXGENT", nics=6,
+            firmware_sha256="bedeac0a67329ec135025da352e490844be5aafd91a9c303ceba8fd8e424b4f0",
+        )
+        self.manifest.update(overrides)
+        (self.assets / "manifest.json").write_text(json.dumps(self.manifest))
+
     def mock_selftest(self, output, returncode=0, timed_out=False):
         process = Mock(returncode=returncode)
         process.poll.return_value = None if timed_out else returncode
@@ -185,6 +193,7 @@ class RunLabTests(unittest.TestCase):
         self.assertEqual(self.options(command, "-machine"), ["virt,gic-version=3"])
         self.assertEqual(self.options(command, "-accel"), ["tcg"])
         self.assertEqual(self.options(command, "-cpu"), ["max"])
+        self.assertEqual(self.options(command, "-global"), [])
         self.assertEqual(self.options(command, "-m"), ["8192"])
         self.assertEqual(self.options(command, "-smp"), ["4"])
         self.assertEqual(self.options(command, "-device").count(
@@ -226,6 +235,135 @@ class RunLabTests(unittest.TestCase):
                 self.assertEqual(len(self.options(command, "-netdev")), 14)
                 state = next(item for item in self.options(command, "-drive") if ",id=state," in item)
                 self.assertEqual("snapshot=on" in state.split(","), mode == "selftest")
+
+    def test_uxg_cli_defaults_to_six_isolated_ports_with_confirmed_cn9670_blacklist(self):
+        self.use_uxg_manifest()
+        with patch.object(run_lab.sys, "argv", ["run-lab.py", "--assets", str(self.assets)]):
+            with patch.object(run_lab.subprocess, "call", return_value=0) as launch:
+                self.assertEqual(run_lab.main(), 0)
+        launch.assert_called_once()
+        command = launch.call_args.args[0]
+        self.assertEqual(command[0], "qemu-system-aarch64")
+        self.assertEqual(self.options(command, "-machine"), ["virt,gic-version=3"])
+        self.assertEqual(self.options(command, "-accel"), ["tcg"])
+        self.assertEqual(self.options(command, "-cpu"), ["max"])
+        boot_options = self.options(command, "-append")[0].split()
+        self.assertTrue({"console=ttyAMA0", "root=/dev/vda", "state=/dev/vdb",
+                         "udm.mode=systemd", "udm.nics=6", "net.ifnames=0"}.issubset(boot_options))
+        self.assertEqual([option for option in boot_options if option.startswith("initcall_blacklist=")],
+                         ["initcall_blacklist=mrvl_swup_init,mub_gen_init,cpu_debug_init"])
+        self.assertFalse(any(option.startswith("module_blacklist=") for option in boot_options))
+        self.assertEqual(self.options(command, "-netdev"),
+                         [f"hubport,id=port{i},hubid={i}" for i in range(6)])
+        devices = [value for value in self.options(command, "-device")
+                   if value.startswith("virtio-net-pci,")]
+        self.assertEqual(devices, [f"virtio-net-pci,netdev=port{i},mac=02:55:44:4d:00:{i:02x}"
+                                   for i in range(6)])
+
+    def test_uxg_all_modes_keep_six_ports_and_disk_protection(self):
+        self.use_uxg_manifest()
+        for mode in ("shell", "selftest", "systemd"):
+            for nics in (None, 6):
+                with self.subTest(mode=mode, nics=nics):
+                    command = run_lab.command(self.assets, mode, nics=nics)
+                    self.assertEqual(self.options(command, "-cpu"), ["max"])
+                    self.assertEqual(self.options(command, "-global"), ["max-arm-cpu.pauth=off"])
+                    options = self.options(command, "-append")[0].split()
+                    self.assertIn(f"udm.mode={mode}", options)
+                    self.assertEqual([item for item in options if item.startswith("initcall_blacklist=")],
+                                     ["initcall_blacklist=mrvl_swup_init,mub_gen_init,cpu_debug_init"])
+                    self.assertFalse(any(item.startswith("module_blacklist=") for item in options))
+                    self.assertEqual(len(self.options(command, "-netdev")), 6)
+                    drives = self.options(command, "-drive")
+                    root = next(item for item in drives if ",id=root," in item)
+                    state = next(item for item in drives if ",id=state," in item)
+                    self.assertIn("readonly=on", root.split(","))
+                    self.assertEqual("snapshot=on" in state.split(","), mode == "selftest")
+
+    def test_uxg_cli_provider_wan_mac_changes_only_port0_and_guest_option(self):
+        self.use_uxg_manifest()
+        with patch.object(run_lab.sys, "argv", ["run-lab.py", "--assets", str(self.assets),
+                                               "--wan-mac", "00:50:56:01:1E:69"]):
+            with patch.object(run_lab.subprocess, "call", return_value=0) as launch:
+                self.assertEqual(run_lab.main(), 0)
+        command = launch.call_args.args[0]
+        options = self.options(command, "-append")[0].split()
+        self.assertEqual([item for item in options if item.startswith("udm.wan_mac=")],
+                         ["udm.wan_mac=00:50:56:01:1e:69"])
+        devices = [item for item in self.options(command, "-device") if item.startswith("virtio-net-pci,")]
+        self.assertEqual(devices[0], "virtio-net-pci,netdev=port0,mac=00:50:56:01:1e:69")
+        self.assertEqual(devices[1:], [f"virtio-net-pci,netdev=port{i},mac=02:55:44:4d:00:{i:02x}"
+                                      for i in range(1, 6)])
+        default = run_lab.command(self.assets)
+        self.assertFalse(any(item.startswith("udm.wan_mac=") for item in self.options(default, "-append")[0].split()))
+
+    def test_uxg_invalid_or_colliding_wan_mac_is_rejected(self):
+        self.use_uxg_manifest()
+        for mac in ("00:00:00:00:00:00", "ff:ff:ff:ff:ff:ff", "01:50:56:01:1e:69",
+                    "00:50:56:01:1e", "00-50-56-01-1e-69", "0:50:56:01:1e:69",
+                    "00:50:56:01:1e:69,bridge=vmbr0", "", True, "02:55:44:4d:00:03"):
+            with self.subTest(mac=mac), self.assertRaises(ValueError):
+                run_lab.command(self.assets, wan_mac=mac)
+
+    def test_wan_mac_is_only_supported_for_uxg(self):
+        for status in ("experimental-boot-lab", "experimental-virtual-gateway"):
+            self.manifest["status"] = status
+            (self.assets / "manifest.json").write_text(json.dumps(self.manifest))
+            with self.subTest(status=status), self.assertRaisesRegex(ValueError, "only for UXGENT"):
+                run_lab.command(self.assets, wan_mac="00:50:56:01:1e:69")
+
+    def test_uxg_wrong_requested_port_count_refuses_before_launch(self):
+        self.use_uxg_manifest()
+        for nics in (2, 5, 7, 14):
+            with self.subTest(nics=nics):
+                with patch.object(run_lab.sys, "argv", ["run-lab.py", "--assets", str(self.assets),
+                                                       "--nics", str(nics)]):
+                    with patch.object(run_lab.subprocess, "call") as launch:
+                        with contextlib.redirect_stderr(io.StringIO()) as error:
+                            with self.assertRaises(SystemExit):
+                                run_lab.main()
+                        self.assertIn("requires --nics 6", error.getvalue())
+                        launch.assert_not_called()
+
+    def test_uxg_missing_or_wrong_manifest_port_count_is_rejected(self):
+        for count in (None, 2, 14, "6", 6.0, True):
+            with self.subTest(count=count):
+                self.use_uxg_manifest(nics=count)
+                if count is None:
+                    self.manifest.pop("nics")
+                    (self.assets / "manifest.json").write_text(json.dumps(self.manifest))
+                with self.assertRaisesRegex(ValueError, "manifest requires nics 6"):
+                    run_lab.command(self.assets)
+
+    def test_uxg_requires_virtual_status_and_profile(self):
+        for status, profile in (("experimental-boot-lab", "virtual"),
+                                ("experimental-virtual-gateway", None),
+                                ("experimental-virtual-gateway", "lab")):
+            with self.subTest(status=status, profile=profile):
+                self.use_uxg_manifest(status=status, profile=profile)
+                with self.assertRaisesRegex(ValueError, "requires a virtual build manifest"):
+                    run_lab.command(self.assets)
+
+    def test_explicit_udm_model_preserves_legacy_command_for_both_statuses(self):
+        for status in ("experimental-boot-lab", "experimental-virtual-gateway"):
+            with self.subTest(status=status):
+                self.manifest["status"] = status
+                self.manifest.pop("model", None)
+                (self.assets / "manifest.json").write_text(json.dumps(self.manifest))
+                legacy = run_lab.command(self.assets)
+                self.manifest["model"] = "UDMEA4C"
+                (self.assets / "manifest.json").write_text(json.dumps(self.manifest))
+                self.assertEqual(run_lab.command(self.assets), legacy)
+
+    def test_unknown_model_is_rejected_before_artifact_access(self):
+        # A model typo must not silently select UDM defaults or begin preparing a launch.
+        (self.assets / "Image").unlink()
+        for model in ("other", "uxgent", "", None, ["UXGENT"]):
+            with self.subTest(model=model):
+                self.manifest["model"] = model
+                (self.assets / "manifest.json").write_text(json.dumps(self.manifest))
+                with self.assertRaisesRegex(ValueError, "Unsupported virtual model"):
+                    run_lab.command(self.assets)
 
     def test_modified_build_artifacts_are_rejected_before_launch(self):
         for name in ("Image", "initramfs.gz", "rootfs.qcow2"):

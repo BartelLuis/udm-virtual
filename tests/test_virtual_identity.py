@@ -6,9 +6,11 @@ import struct
 import tempfile
 import unittest
 import uuid
+from types import SimpleNamespace
+from unittest.mock import patch
 
 from virtualization.hal_eeprom import cyg_crc32, inspect_eeprom, make_eeprom, make_payload, spi_identity
-from virtualization.hal_guest import install_spi_view, local_identity, validate_cli_identity
+from virtualization.hal_guest import install_spi_view, local_identity, validate_cli_identity, require_guest, interface_order
 
 
 class EepromTests(unittest.TestCase):
@@ -114,6 +116,64 @@ class CliIdentityTests(unittest.TestCase):
                 validate_cli_identity(bad, self.identity)
 
 
+class UxgProfileTests(unittest.TestCase):
+    def test_all_public_board_views_agree_and_keep_credentials_absent(self):
+        payload = make_payload(nics=6, model="UXGENT", vm_uuid=uuid.UUID(int=1))
+        raw = payload["eeprom.bin"]
+        self.assertEqual(struct.unpack_from(">HHI", raw, 12), (0xea3e, 0x0777, 1))
+        self.assertEqual(struct.unpack_from(">IHHHHI", raw, 0x8008), (100, 2, 1, 0x0777, 0xea3e, 1))
+        self.assertEqual(struct.unpack_from(">H", raw, 0xa01e)[0], 0xea3e)
+        self.assertEqual(raw[0x801e], 6)
+        self.assertEqual(payload["proc-cpumidr"], b"0x432f0b21\n")
+        report = inspect_eeprom(raw, "UXGENT")
+        self.assertEqual((report["model"], report["boardid"], report["credentials"]),
+                         ("UXGENT", "ea3e", "absent"))
+        with self.assertRaises(ValueError):
+            inspect_eeprom(raw)
+        for count in (2, 5, 7, 14):
+            with self.subTest(count=count), self.assertRaises(ValueError):
+                make_eeprom(nics=count, model="UXGENT")
+        with self.assertRaisesRegex(ValueError, "Unsupported"):
+            make_eeprom(model="unknown")
+
+    def test_native_cli_identity_is_bound_to_model(self):
+        output = "board.sysid=0xea3e\nboard.shortname=UXGENT\nboard.serialno=0255444d0000\n"
+        identity = {"mac": "02:55:44:4d:00:00", "model": "UXGENT"}
+        validate_cli_identity(output, identity)
+        for bad in (output.replace("ea3e", "ea4c"), output.replace("UXGENT", "UDMEA4C")):
+            with self.assertRaises(ValueError):
+                validate_cli_identity(bad, identity)
+
+    def test_six_ports_are_ordered_by_local_mac(self):
+        ports = [{"name": f"eth{5-index}", "driver": "virtio_net",
+                  "mac": f"02:55:44:4d:00:{index:02x}"} for index in range(6)]
+        self.assertEqual([port["name"] for port in interface_order(ports, 6)],
+                         [f"eth{index}" for index in reversed(range(6))])
+        with self.assertRaises(ValueError):
+            interface_order(ports)
+        ports[-1]["mac"] = ports[0]["mac"]
+        with self.assertRaises(ValueError):
+            interface_order(ports, 6)
+
+    def test_guest_guard_allows_exact_kernel_but_rejects_cross_model(self):
+        with patch("virtualization.hal_guest.os.geteuid", return_value=0, create=True), \
+                patch("virtualization.hal_guest.os.uname", return_value=SimpleNamespace(release="5.15.72-ui-cn9670"), create=True), \
+                patch.object(Path, "read_text", return_value="udm.mode=systemd udm.nics=6"), \
+                patch.object(Path, "read_bytes", return_value=b"linux,dummy-virt\0"):
+            self.assertIn("udm.nics=6", require_guest())
+            require_guest("UXGENT")
+            with self.assertRaises(ValueError):
+                require_guest("UDMEA4C")
+
+    def test_supported_kernel_does_not_bypass_machine_guard(self):
+        with patch("virtualization.hal_guest.os.geteuid", return_value=0, create=True), \
+                patch("virtualization.hal_guest.os.uname", return_value=SimpleNamespace(release="5.15.72-ui-cn9670"), create=True), \
+                patch.object(Path, "read_text", return_value="udm.mode=systemd"), \
+                patch.object(Path, "read_bytes", return_value=b"vendor,physical-board\0"):
+            with self.assertRaisesRegex(ValueError, "QEMU"):
+                require_guest()
+
+
 class SpiViewTests(unittest.TestCase):
     def test_only_empty_spi_class_gets_readonly_metadata_view(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -151,6 +211,26 @@ class SpiViewTests(unittest.TestCase):
 
 @unittest.skipIf(os.name == "nt", "Guest persistence semantics require Linux directory fsync")
 class GuestIdentityTests(unittest.TestCase):
+    def test_persistent_identity_cannot_cross_models(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "identity.json"
+            first = local_identity("02:55:44:4d:00:00", 6, path, model="UXGENT")
+            self.assertEqual(first, local_identity("02:55:44:4d:00:00", 6, path, model="UXGENT"))
+            before = path.read_bytes()
+            with self.assertRaisesRegex(ValueError, "different hardware model"):
+                local_identity("02:55:44:4d:00:00", 6, path, model="UDMEA4C")
+            self.assertEqual(before, path.read_bytes())
+
+    def test_legacy_identity_without_model_remains_udm_only(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "identity.json"
+            original = local_identity("02:55:44:4d:00:00", 6, path)
+            del original["model"]
+            path.write_text(json.dumps(original))
+            self.assertEqual(original, local_identity("02:55:44:4d:00:00", 6, path))
+            with self.assertRaisesRegex(ValueError, "different hardware model"):
+                local_identity("02:55:44:4d:00:00", 6, path, model="UXGENT")
+
     def test_identity_persists_uuid_across_reboots(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "virtual" / "identity.json"

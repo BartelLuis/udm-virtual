@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-10",
+  "status": "experimental-gateway-partial-runtime-verification",
+  "model": "UXGENT",
+  "firmware_version": "UXGENT.cn9670.v5.1.26.0bc0fe4.260716.1128",
+  "firmware_sha256": "bedeac0a67329ec135025da352e490844be5aafd91a9c303ceba8fd8e424b4f0",
+  "kernel": "5.15.72-ui-cn9670",
+  "architecture": "aarch64",
+  "machine": "QEMU virt",
+  "acceleration": "TCG",
+  "cpu_model": "max",
+  "cpu_properties": {
+    "pauth": false
+  },
+  "nics": 6,
+  "original_kernel_bytes_unchanged": true,
+  "original_readonly_squashfs_preserved": true,
+  "artifacts": {
+    "Image": {
+      "sha256": "eb14ba4ba291bde2848f113cf303136bdedc5ff7ace5918815207d3eaf0b0b96",
+      "size_bytes": 28811776
+    },
+    "initramfs.gz": {
+      "sha256": "19b8473a1926386bb0db23af5c44ef7258d492561f95c62a5c3b6a39970f2955",
+      "size_bytes": 12382208
+    },
+    "rootfs.qcow2": {
+      "sha256": "10b0d00d41566e9715ca2a33c2be16636c7f6729e24ace9941b086c6e6f69130",
+      "size_bytes": 335937536
+    }
+  },
+  "artifact_hash_scope": "Build artifacts; the persistent adopted guest overlay and its private configuration are not published.",
+  "final_normal_reboot_verified": true,
+  "final_normal_reboot": {
+    "scope": "Separate graceful reboot using the final normal initrd, after the transient diagnostic boot.",
+    "normal_initrd_sha256": "19b8473a1926386bb0db23af5c44ef7258d492561f95c62a5c3b6a39970f2955",
+    "guest_running": true,
+    "kernel_start_count_in_capture": 1,
+    "panic_count_in_capture": 0,
+    "transient_diagnostic_markers_absent": true,
+    "requested_wan_bridge_and_network_mac_verified": true,
+    "isolated_lan_bridge_verified": true,
+    "qemu_pauth_false_verified_on_all_four_cpus": true,
+    "independent_lan_dhcp_repeated": "passed",
+    "independent_lan_dns_repeated": "passed",
+    "controlled_tcp_source_nat_and_return_connection_repeated": "passed",
+    "native_http_redirect_to_https_repeated": true,
+    "native_https_status": 200,
+    "native_https_body_size_bytes": 641,
+    "native_mca_status_rechecked_after_this_reboot": false
+  },
+  "controller_adoption": {
+    "user_confirmed_adopted": true,
+    "native_mca_reported_connected": true,
+    "native_mca_evidence_scope": "The prior transient diagnostic boot, not the subsequent normal-initrd reboot.",
+    "connected_sample_kernel_uptime_seconds": [
+      100,
+      190
+    ],
+    "controller": "External UniFi Network controller; endpoint omitted."
+  },
+  "runtime": {
+    "evidence": "transient-diagnostic.json",
+    "last_sample_kernel_uptime_seconds": 190,
+    "kernel_start_count_in_capture": 1,
+    "panic_count_in_capture": 0,
+    "verified_active_services_with_zero_restarts": [
+      "uxgpro-setup.service",
+      "udapi-server.service",
+      "udapi-bridge.service",
+      "mcagent.service",
+      "freeradius.service",
+      "ssh.service"
+    ],
+    "native_hal_modules_live": [
+      "ubnt_common",
+      "ubnthal"
+    ],
+    "qemu_pauth_false_verified_on_all_four_cpus": true,
+    "guest_paca_and_pacg_absent": true
+  },
+  "network_verification": {
+    "evidence_scope": "Independent LAN probe and controlled WAN tap capture on the remote guest; network and web checks repeated after the final normal-initrd reboot.",
+    "independent_lan_dhcp": "passed",
+    "independent_lan_dns": "passed",
+    "tcp_connection_to_external_controller": "passed",
+    "controlled_tcp_syn_seen_on_wan": true,
+    "source_nat_address_matched_assigned_wan_address": true,
+    "wan_ethernet_source_matched_explicit_provider_mac": true,
+    "native_http_redirect_to_https": true,
+    "native_https_status": 200,
+    "native_https_body_size_bytes": 641,
+    "public_addresses_and_mac_values": "omitted"
+  },
+  "ips_utm": {
+    "ips_verified": false,
+    "utm_tcp_2080_verified": false,
+    "tm_crypto_loaded_in_diagnostic_samples": false,
+    "tdts_loaded_in_diagnostic_samples": false,
+    "xt_dpi_loaded_in_diagnostic_samples": true,
+    "tcp_2080_listening_in_diagnostic_samples": false,
+    "reason": "No runtime proof of the native IPS engine or UTM listener. The CPU compatibility setting is verified, but successful tm_crypto/tdts loading remains unverified."
+  },
+  "static_tests": {
+    "linux_full_suite_before_final_lighttpd_mask": {
+      "run": 294,
+      "passed": 288,
+      "skipped": 6,
+      "failed": 0,
+      "duration_seconds": 93.734
+    },
+    "windows_platform_specific": {
+      "run": 6,
+      "passed": 6,
+      "failed": 0,
+      "duration_seconds": 11.69
+    },
+    "targeted_guest_suite_after_final_lighttpd_mask": {
+      "run": 9,
+      "passed": 9,
+      "failed": 0,
+      "duration_seconds": 0.082
+    },
+    "full_suite_rerun_after_final_lighttpd_mask": false,
+    "evidence": "static-tests.log"
+  },
+  "cleanup": {
+    "temporary_lan_namespace_and_veth_removed": true,
+    "temporary_readonly_lvm_snapshots_removed": true,
+    "persistent_lan_bridge_retained": true,
+    "normal_boot_has_no_transient_diagnostic": true
+  },
+  "limitations": [
+    "ARM64 uses software emulation on the x86 test host; no throughput target was validated.",
+    "Comprehensive firewall policy, unsolicited WAN filtering, VLANs, IPv6 and VPNs were not tested for UXG.",
+    "Native IPS engine and UTM block-page listener remain unverified.",
+    "Firmware upgrade, HA and migration were not validated."
+  ],
+  "privacy": "No host or controller addresses, provider MAC, private keys, credentials, device identifiers, full journals or private guest configuration."
+}

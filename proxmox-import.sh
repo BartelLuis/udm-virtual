@@ -11,7 +11,7 @@ usage() {
     cat <<'HELP'
 Usage: bash proxmox-import.sh --storage STORAGE --assets DIR [OPTIONS]
 
-Virtual gateway: --port 8=WAN_BRIDGE --port 0=LAN_BRIDGE [--port N=BRIDGE ...]
+Virtual gateway: --port N=BRIDGE [--port N=BRIDGE ...]
 Boot laboratory: --bridge BRIDGE --bridge BRIDGE [--bridge BRIDGE ...]
 
 Default: validate local assets and print an apply command; no Proxmox changes.
@@ -21,9 +21,12 @@ Default: validate local assets and print an apply command; no Proxmox changes.
   --dry-run               Explicitly select the default command-plan mode
   --boot-mode shell|system Default: system for virtual builds, shell for lab builds
   --connect               Connect assigned NIC links; otherwise every link is down
-  --port N=BRIDGE          Virtual profile: assign port netN (0..13) to a bridge
-                          All fourteen ports are created; unassigned ports stay down
-                          WAN: net8, WAN2: net12; other ports initially share LAN
+  --port N=BRIDGE          Assign a virtual-profile port to a bridge
+                          UDM: net0..13; UXG Enterprise: net0..5
+                          All model ports are created; unassigned ports stay down
+                          UDM WAN: net8, WAN2: net12; other ports initially share LAN
+                          UXG WAN: net0, WAN2: net4; LAN: net1, net2, net3, net5
+  --wan-mac MAC           UXG only: override net0 with a provider's unicast MAC
   --memory MIB            RAM, default 8192 (minimum 1024)
   --cores N               Emulated cores, default 4 (1..16)
   --snippets-dir DIR      Kernel asset directory, default /var/lib/vz/snippets
@@ -31,12 +34,12 @@ Default: validate local assets and print an apply command; no Proxmox changes.
 Needs Image, initramfs.gz, rootfs.qcow2, state.qcow2 and manifest.json.
 The manifest must have status experimental-boot-lab or
 experimental-virtual-gateway and an artifacts map containing SHA256 hashes.
-Virtual builds accept individual --port assignments, no assignments, or exactly
-fourteen --bridge options in port order. Lab builds require 2..14 --bridge options.
+Virtual builds accept individual --port assignments, no assignments, or one
+--bridge per model port in order. Lab builds require 2..14 --bridge options.
 Do not combine --port and --bridge. Existing host bridges are selected by name.
 The script never starts the VM or edits host bridge configuration.
-Keep all fourteen virtual-profile NICs and their generated MAC addresses;
-change bridge/link settings only. The guest orders ports by this MAC block.
+Keep all virtual-profile NICs and their generated MAC addresses, except an
+explicit UXG --wan-mac override. The guest orders the other ports by their MAC block.
 Kernel/initramfs files are local to this node and are not in VM disk backups.
 HELP
 }
@@ -45,7 +48,7 @@ die() { printf 'Error: %s\n' "$*" >&2; exit 2; }
 need_value() { (( $# >= 2 )) && [[ -n $2 ]] || die "Missing value for $1"; }
 original_args=("$@")
 vmid=auto storage= assets= snippets=/var/lib/vz/snippets
-memory=8192 cores=4 boot_mode= apply=0 connect=0
+memory=8192 cores=4 boot_mode= apply=0 connect=0 wan_mac=
 bridges=()
 port_assignments=()
 while (( $# )); do
@@ -55,6 +58,7 @@ while (( $# )); do
         --assets) need_value "$@"; assets=$2; shift 2 ;;
         --bridge) need_value "$@"; bridges+=("$2"); shift 2 ;;
         --port) need_value "$@"; port_assignments+=("$2"); shift 2 ;;
+        --wan-mac) need_value "$@"; wan_mac=$2; shift 2 ;;
         --memory) need_value "$@"; memory=$2; shift 2 ;;
         --cores) need_value "$@"; cores=$2; shift 2 ;;
         --boot-mode) need_value "$@"; boot_mode=$2; shift 2 ;;
@@ -81,7 +85,7 @@ assets=$(cd -- "$assets" && pwd -P)
 # This path becomes part of Proxmox's parsed QEMU args; keep its alphabet strict.
 [[ $snippets =~ ^/[A-Za-z0-9_./-]+$ && $snippets != *'/../'* && $snippets != */.. ]] || die 'Snippets directory must be an absolute path without spaces or parent traversal.'
 snippets=${snippets%/}
-profile=$(python3 - "$assets" <<'PY'
+profile_info=$(python3 - "$assets" <<'PY'
 import hashlib, json, pathlib, re, sys
 root = pathlib.Path(sys.argv[1])
 try:
@@ -92,8 +96,14 @@ try:
     status = manifest.get('status')
     if status not in ('experimental-boot-lab', 'experimental-virtual-gateway'):
         raise ValueError('unknown experimental manifest status')
-    if status == 'experimental-virtual-gateway' and manifest.get('nics') != 14:
-        raise ValueError('virtual profile requires fourteen ports')
+    model = manifest.get('model', 'UDMEA4C')
+    if model not in ('UDMEA4C', 'UXGENT'):
+        raise ValueError('unknown firmware model')
+    if model == 'UXGENT' and (status != 'experimental-virtual-gateway' or manifest.get('profile') != 'virtual'):
+        raise ValueError('UXGENT requires an explicit virtual profile')
+    nics, name_prefix = (6, 'uxg-enterprise') if model == 'UXGENT' else (14, 'udm-beast')
+    if status == 'experimental-virtual-gateway' and (type(manifest.get('nics')) is not int or manifest['nics'] != nics):
+        raise ValueError(f'{model} virtual profile requires {nics} ports')
     for name in ('Image', 'initramfs.gz', 'rootfs.qcow2', 'state.qcow2'):
         path = root / name
         if path.is_symlink() or not path.is_file():
@@ -115,21 +125,29 @@ try:
             raise ValueError('initramfs.gz is not gzip data')
         if name.endswith('.qcow2') and prefix[:4] != b'QFI\xfb':
             raise ValueError(name + ' is not QCOW2')
-    print('virtual' if status == 'experimental-virtual-gateway' else 'lab')
+    print('virtual' if status == 'experimental-virtual-gateway' else 'lab', model, nics, name_prefix)
 except (OSError, ValueError, TypeError, AttributeError) as exc:
     sys.exit('Asset validation failed: ' + str(exc))
 PY
 )
+read -r profile model nic_count name_prefix <<< "$profile_info"
+if [[ -n $wan_mac ]]; then
+    [[ $model == UXGENT ]] || die '--wan-mac is supported only for UXGENT.'
+    [[ $wan_mac =~ ^([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}$ ]] || die 'WAN MAC requires six hexadecimal octets.'
+    wan_mac=${wan_mac,,}
+    [[ $wan_mac != 00:00:00:00:00:00 ]] && (( (16#${wan_mac:0:2} & 1) == 0 )) || die 'WAN MAC must be nonzero and unicast.'
+fi
 
 if [[ $profile == virtual ]]; then
     [[ -n $boot_mode ]] || boot_mode=system
     if (( ${#bridges[@]} )); then
-        (( ${#bridges[@]} == 14 && ${#port_assignments[@]} == 0 )) || die 'Virtual profile: use --port N=BRIDGE or exactly fourteen --bridge options.'
+        (( ${#bridges[@]} == nic_count && ${#port_assignments[@]} == 0 )) || die "Virtual profile: use --port N=BRIDGE or exactly $nic_count --bridge options."
     else
-        for ((index=0; index<14; index++)); do bridges+=(""); done
+        for ((index=0; index<nic_count; index++)); do bridges+=(""); done
         for assignment in "${port_assignments[@]}"; do
             [[ $assignment =~ ^([0-9]|1[0-3])=([A-Za-z0-9][A-Za-z0-9_.-]{0,14})$ ]] || die "Invalid port assignment: $assignment"
             index=${BASH_REMATCH[1]}
+            (( index < nic_count )) || die "Port net$index is outside the $nic_count-port $model profile."
             [[ -z ${bridges[index]} ]] || die "Port net$index assigned more than once."
             bridges[index]=${BASH_REMATCH[2]}
         done
@@ -200,10 +218,17 @@ PY
 
 mode=$boot_mode
 [[ $mode != system ]] || mode=systemd
-# These board-only initcalls issue SMC calls to absent Marvell firmware on virt.
-# This is a boot compatibility workaround, not switch/offload emulation.
-blacklist=mrvl_swup_init,uart_redirect_init,mub_gen_init,portm_boot_cfg_init
-cmdline="console=ttyAMA0 earlycon root=/dev/vda state=/dev/vdb udm.mode=$mode udm.nics=${#bridges[@]} net.ifnames=0 panic=-1 initcall_blacklist=$blacklist module_blacklist=phy_diag"
+cmdline="console=ttyAMA0 earlycon root=/dev/vda state=/dev/vdb udm.mode=$mode udm.nics=${#bridges[@]} net.ifnames=0 panic=-1"
+if [[ $model == UDMEA4C ]]; then
+    # These CN10K initcalls issue SMC calls to absent Marvell firmware on virt.
+    blacklist=mrvl_swup_init,uart_redirect_init,mub_gen_init,portm_boot_cfg_init
+    cmdline+=" initcall_blacklist=$blacklist module_blacklist=phy_diag"
+else
+    # Confirmed on the original UXG CN9670 kernel: two firmware SMC users and
+    # the physical CPU-debug MMIO initializer cannot run on QEMU virt.
+    cmdline+=" initcall_blacklist=mrvl_swup_init,mub_gen_init,cpu_debug_init"
+fi
+[[ -z $wan_mac ]] || cmdline+=" udm.wan_mac=$wan_mac"
 # PVE's machine schema does not expose gic-version. This additional -machine
 # option sets that property on the virt machine selected by --machine above.
 run() {
@@ -249,6 +274,11 @@ if not any("qemu-system-aarch64" in arg for arg in args):
 cpu = values("-cpu")
 if len(cpu) != 1 or cpu[0].split(",")[0] != "max":
     sys.exit("This qemu-server does not honor ARM64 --cpu max; use a version with ARM CPU-model support (merged February 2026)")
+if sys.argv[3] == "UXGENT":
+    pauth = [value for value in values("-global") if value.startswith("max-arm-cpu.pauth=")]
+    if pauth != ["max-arm-cpu.pauth=off"] or any(
+            part.startswith("pauth=") and part != "pauth=off" for part in cpu[0].split(",")[1:]):
+        sys.exit("qm did not preserve the UXG CPU configuration: max-arm-cpu.pauth=off")
 machine = values("-machine")
 if not machine or not any(re.fullmatch(r"(?:type=)?virt(?:-[0-9]+\.[0-9]+)?(?:\+pve[0-9]+)?", part) for value in machine for part in value.split(",")):
     sys.exit("qm did not select an ARM virt machine")
@@ -260,7 +290,7 @@ if any("pflash" in value for value in values("-drive")) or values("-bios"):
     sys.exit("Unexpected firmware boot path: this VM needs direct kernel boot")
 if values("-kernel") != [sys.argv[2] + "/Image"] or values("-initrd") != [sys.argv[2] + "/initramfs.gz"]:
     sys.exit("qm did not preserve the requested kernel/initramfs")
-' "$launch" "$2"
+' "$launch" "$2" "$model"
 }
 
 preflight_host() {
@@ -306,10 +336,15 @@ preflight_host
 # Resolve before building any paths, arguments or MACs from the ID. The API
 # query does not reserve an ID; qm create still arbitrates concurrent imports.
 vmid=$(select_vmid "$vmid")
-target="$snippets/udm-beast-$vmid"
+target="$snippets/$name_prefix-$vmid"
 [[ ! -e $target && ! -L $target ]] || die "Kernel destination already exists: $target"
 qemu_args="-machine gic-version=3 -kernel $target/Image -initrd $target/initramfs.gz -append '$cmdline'"
-create=(qm create "$vmid" --name "udm-beast-$profile-$vmid" --arch aarch64
+if [[ $model == UXGENT ]]; then
+    # Native UXG TDTS faults with QEMU max pointer authentication after adoption.
+    # PVE does not expose this ARM CPU property through its --cpu flags schema.
+    qemu_args+=' -global max-arm-cpu.pauth=off'
+fi
+create=(qm create "$vmid" --name "$name_prefix-$profile-$vmid" --arch aarch64
         --machine virt --cpu max --kvm 0 --bios seabios --ostype l26
         --memory "$memory" --cores "$cores" --sockets 1 --balloon 0
         --serial0 socket --vga serial0 --tablet 0 --hotplug 0 --onboot 0
@@ -318,6 +353,13 @@ create=(qm create "$vmid" --name "udm-beast-$profile-$vmid" --arch aarch64
 link_down=$((1-connect))
 for index in "${!bridges[@]}"; do
     printf -v mac '02:%02x:%02x:%02x:%02x:%02x' "$((vmid >> 24 & 255))" "$((vmid >> 16 & 255))" "$((vmid >> 8 & 255))" "$((vmid & 255))" "$index"
+    if [[ -n $wan_mac ]]; then
+        if (( index == 0 )); then
+            mac=$wan_mac
+        else
+            [[ $mac != "$wan_mac" ]] || die "WAN MAC duplicates generated net$index MAC."
+        fi
+    fi
     if [[ -n ${bridges[index]} ]]; then
         create+=("--net$index" "virtio=$mac,bridge=${bridges[index]},link_down=$link_down")
     else
@@ -336,6 +378,6 @@ run import_disk "$vmid" "$assets/rootfs.qcow2" "$storage" virtio0 'ro=1,cache=no
 run import_disk "$vmid" "$assets/state.qcow2" "$storage" virtio1 'cache=none,discard=on'
 run qm set "$vmid" --boot order=virtio0
 printf '\nCreated stopped VM %s. Assigned NIC links: %s. Boot mode: %s.\n' "$vmid" "$([[ $connect == 1 ]] && printf connected || printf disconnected)" "$boot_mode"
-printf 'Unassigned NICs remain disconnected. Keep generated MAC addresses and all virtual-profile NICs.\n'
+printf 'Unassigned NICs remain disconnected. Keep the selected MAC addresses and all virtual-profile NICs.\n'
 printf 'To inspect/start explicitly: qm config %s; qm start %s; qm terminal %s\n' "$vmid" "$vmid" "$vmid"
 printf 'Retain %s separately from VM backups and copy it before migration.\n' "$target"

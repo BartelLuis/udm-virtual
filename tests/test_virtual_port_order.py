@@ -74,7 +74,7 @@ class InterfaceSnapshotTests(unittest.TestCase):
 
 
 class PortOrderTests(unittest.TestCase):
-    def invoke(self, entries, fail_at=(), options=None):
+    def invoke(self, entries, fail_at=(), options=None, nics=14, model="UDMEA4C"):
         self.live = {entry['name']: deepcopy(entry) for entry in entries}
         self.calls = []
 
@@ -95,10 +95,22 @@ class PortOrderTests(unittest.TestCase):
             self.live[destination] = item
 
         with patch.object(hal_guest, 'require_guest', return_value=options if options is not None else
-                          ['udm.mode=systemd', 'udm.nics=14']), \
+                          ['udm.mode=systemd', f'udm.nics={nics}']), \
                 patch.object(Path, 'read_text', return_value='init\n'), \
                 patch.object(Path, 'exists', return_value=False):
-            return hal_guest.normalize_virtual_interfaces(read=read, run=run)
+            return hal_guest.normalize_virtual_interfaces(read=read, run=run, nics=nics, model=model)
+
+    def test_uxg_six_ports_use_same_collision_safe_rename_and_rollback(self):
+        ports = interfaces(rotated=False)[:6]
+        for index, item in enumerate(ports):
+            item['name'] = f'eth{(index + 2) % 6}'
+        self.assertEqual(self.invoke(ports, nics=6, model="UXGENT"), '02:55:44:4d:00:00')
+        self.assertEqual(len(self.calls), 12)
+        for index in range(6):
+            self.assertEqual(self.live[f'eth{index}']['mac'], f'02:55:44:4d:00:{index:02x}')
+        with self.assertRaisesRegex(ValueError, 'rolled back; aborting boot'):
+            self.invoke(ports, fail_at=(9,), nics=6, model="UXGENT")
+        self.assertEqual(self.live, {item['name']: item for item in ports})
 
     def test_permuted_ports_are_named_by_mac_in_two_phases(self):
         self.assertEqual(self.invoke(interfaces()), '02:55:44:4d:00:00')

@@ -8,6 +8,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import shlex
 import shutil
 import subprocess
 import tempfile
@@ -63,7 +64,10 @@ elif name == 'qm':
     elif args[0] == 'showcmd':
         create = state['create']
         raw = create[create.index('--args') + 1]
+        if 'FAKE_PAUTH_GLOBAL' in os.environ:
+            raw = raw.replace('-global max-arm-cpu.pauth=off', os.environ['FAKE_PAUTH_GLOBAL'])
         cpu = 'cortex-a57' if os.environ.get('FAKE_OLD_CPU') else 'max'
+        cpu += os.environ.get('FAKE_CPU_EXTRA', '')
         machine = os.environ.get('FAKE_MACHINE', 'virt')
         print('/usr/bin/qemu-system-aarch64 -machine ' + machine + ' -cpu ' + cpu + ' ' + raw)
     elif args[0] == 'config':
@@ -142,12 +146,12 @@ class ProxmoxTests(unittest.TestCase):
                              for c in self.commands()))
         self.assertFalse((self.root / 'snippets').exists())
 
-    def assert_selected_vmid(self, vmid):
+    def assert_selected_vmid(self, vmid, prefix='udm-beast', wan_mac=None):
         vmid = str(vmid)
         state = json.loads((self.root / 'state.json').read_text())
         create = state['create']
         self.assertEqual(create[:2], ['create', vmid])
-        target = self.root / 'snippets' / ('udm-beast-' + vmid)
+        target = self.root / 'snippets' / (prefix + '-' + vmid)
         self.assertTrue((target / 'Image').is_file())
         self.assertIn(str(target / 'Image'), create[create.index('--args') + 1])
         self.assertEqual(state['--virtio0'], 'local-lvm:vm-' + vmid + '-disk-9')
@@ -156,8 +160,14 @@ class ProxmoxTests(unittest.TestCase):
         self.assertEqual(len(imports), 2)
         self.assertTrue(all(c[3] == vmid for c in imports))
         self.assertFalse(any(c[:2] == ['qm', 'start'] for c in self.commands()))
-        first_mac = (0x020000000000 + (int(vmid) << 8)).to_bytes(6, 'big').hex(':')
+        first_mac = wan_mac or (0x020000000000 + (int(vmid) << 8)).to_bytes(6, 'big').hex(':')
         self.assertTrue(create[create.index('--net0') + 1].startswith('virtio=' + first_mac + ','))
+        self.assertEqual(create.count('--cpu'), 1)
+        self.assertEqual(create[create.index('--cpu') + 1], 'max')
+        raw = shlex.split(create[create.index('--args') + 1])
+        self.assertNotIn('-cpu', raw)
+        self.assertEqual([raw[i + 1] for i, item in enumerate(raw[:-1]) if item == '-global'],
+                         ['max-arm-cpu.pauth=off'] if prefix == 'uxg-enterprise' else [])
         return create
 
     def virtual_profile(self):
@@ -166,6 +176,185 @@ class ProxmoxTests(unittest.TestCase):
         manifest.update(status='experimental-virtual-gateway', profile='virtual', nics=14)
         manifest_path.write_text(json.dumps(manifest))
         self.args = self.args[:-4]
+
+    def uxg_profile(self):
+        self.virtual_profile()
+        manifest_path = self.assets / 'manifest.json'
+        manifest = json.loads(manifest_path.read_text())
+        manifest.update(model='UXGENT', nics=6,
+                        firmware_sha256='bedeac0a67329ec135025da352e490844be5aafd91a9c303ceba8fd8e424b4f0')
+        manifest_path.write_text(json.dumps(manifest))
+
+    @unittest.skipUnless(hasattr(os, 'geteuid') and os.geteuid() == 0, 'Mock apply requires root test context')
+    def test_uxg_auto_id_creates_six_ports_and_uses_only_confirmed_cn9670_blacklist(self):
+        self.uxg_profile()
+        self.set_requested_vmid('auto')
+        result = self.invoke('--apply', env=dict(self.env, FAKE_NEXTID_JSON='"102"'))
+        self.assertEqual(result.returncode, 0, result.stderr)
+        create = self.assert_selected_vmid(102, prefix='uxg-enterprise')
+        self.assertEqual(create[create.index('--name') + 1], 'uxg-enterprise-virtual-102')
+        self.assertEqual([arg for arg in create if arg.startswith('--net')],
+                         ['--net' + str(i) for i in range(6)])
+        for index in range(6):
+            mac = (0x020000000000 + (102 << 8) + index).to_bytes(6, 'big').hex(':')
+            self.assertEqual(create[create.index('--net' + str(index)) + 1],
+                             'virtio=' + mac + ',link_down=1')
+        arguments = create[create.index('--args') + 1]
+        self.assertIn('udm.nics=6', arguments)
+        self.assertIn('udm.mode=systemd', arguments)
+        parsed = shlex.split(arguments)
+        options = parsed[parsed.index('-append') + 1].split()
+        self.assertEqual([item for item in options if item.startswith('initcall_blacklist=')],
+                         ['initcall_blacklist=mrvl_swup_init,mub_gen_init,cpu_debug_init'])
+        self.assertFalse(any(item.startswith('module_blacklist=') for item in options))
+        self.assertFalse((self.root / 'snippets' / 'udm-beast-102').exists())
+
+    @unittest.skipUnless(hasattr(os, 'geteuid') and os.geteuid() == 0, 'Printed plan applies as root')
+    def test_uxg_plan_connects_only_selected_six_port_bridges(self):
+        self.uxg_profile()
+        plan = self.invoke('--port', '0=vmbr1', '--port', '5=vmbr0', '--connect')
+        self.assertEqual(self.commands(), [])
+        executed = self.execute_plan(plan)
+        self.assertEqual(executed.returncode, 0, executed.stderr)
+        create = self.assert_selected_vmid(991, prefix='uxg-enterprise')
+        self.assertIn(',bridge=vmbr1,link_down=0', create[create.index('--net0') + 1])
+        self.assertIn(',bridge=vmbr0,link_down=0', create[create.index('--net5') + 1])
+        for index in range(1, 5):
+            value = create[create.index('--net' + str(index)) + 1]
+            self.assertNotIn('bridge=', value)
+            self.assertTrue(value.endswith(',link_down=1'))
+
+    @unittest.skipUnless(hasattr(os, 'geteuid') and os.geteuid() == 0, 'Mock apply requires root test context')
+    def test_uxg_missing_or_changed_pauth_setting_fails_before_disk_import(self):
+        self.uxg_profile()
+        for index, value in enumerate(('', '-global max-arm-cpu.pauth=on',
+                                        '-global max-arm-cpu.pauth=off -global max-arm-cpu.pauth=on')):
+            with self.subTest(value=value):
+                result = self.invoke('--vmid', str(991 + index), '--apply',
+                                     env=dict(self.env, FAKE_PAUTH_GLOBAL=value))
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('did not preserve the UXG CPU configuration', result.stderr)
+                self.assertFalse(any(c[:3] == ['qm', 'disk', 'import'] for c in self.commands()))
+                self.assertIn('nothing was automatically deleted or started', result.stderr)
+
+    @unittest.skipUnless(hasattr(os, 'geteuid') and os.geteuid() == 0, 'Mock apply requires root test context')
+    def test_uxg_duplicate_cpu_or_pauth_override_fails_before_disk_import(self):
+        self.uxg_profile()
+        for index, extra in enumerate((' -cpu max', ',pauth=on')):
+            with self.subTest(extra=extra):
+                result = self.invoke('--vmid', str(991 + index), '--apply',
+                                     env=dict(self.env, FAKE_CPU_EXTRA=extra))
+                self.assertNotEqual(result.returncode, 0)
+                self.assertFalse(any(c[:3] == ['qm', 'disk', 'import'] for c in self.commands()))
+                self.assertIn('nothing was automatically deleted or started', result.stderr)
+
+    @unittest.skipUnless(hasattr(os, 'geteuid') and os.geteuid() == 0, 'Printed plan applies as root')
+    def test_uxg_provider_wan_mac_is_preserved_by_plan_and_only_overrides_net0(self):
+        self.uxg_profile()
+        self.set_requested_vmid('auto')
+        plan = self.invoke('--port', '0=vmbr0', '--port', '1=vmbr2', '--connect',
+                           '--wan-mac', '00:50:56:01:1E:69')
+        self.assertEqual(self.commands(), [])
+        executed = self.execute_plan(plan, env=dict(self.env, FAKE_NEXTID_JSON='"102"'))
+        self.assertEqual(executed.returncode, 0, executed.stderr)
+        create = self.assert_selected_vmid(102, prefix='uxg-enterprise', wan_mac='00:50:56:01:1e:69')
+        self.assertEqual(create[create.index('--net0') + 1],
+                         'virtio=00:50:56:01:1e:69,bridge=vmbr0,link_down=0')
+        for index in range(1, 6):
+            expected = (0x020000000000 + (102 << 8) + index).to_bytes(6, 'big').hex(':')
+            self.assertTrue(create[create.index('--net' + str(index)) + 1].startswith('virtio=' + expected + ','))
+        raw = shlex.split(create[create.index('--args') + 1])
+        options = raw[raw.index('-append') + 1].split()
+        self.assertEqual([item for item in options if item.startswith('udm.wan_mac=')],
+                         ['udm.wan_mac=00:50:56:01:1e:69'])
+
+    def test_uxg_invalid_wan_mac_refuses_before_host_commands(self):
+        self.uxg_profile()
+        for mac in ('00:00:00:00:00:00', 'ff:ff:ff:ff:ff:ff', '01:50:56:01:1e:69',
+                    '00:50:56:01:1e', '00-50-56-01-1e-69', '0:50:56:01:1e:69',
+                    '00:50:56:01:1e:69,bridge=vmbr0', '00:50:56:01:1e:69 udm.mode=shell', ''):
+            with self.subTest(mac=mac):
+                result = self.invoke('--apply', '--wan-mac', mac)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertEqual(self.commands(), [])
+                self.assert_no_vm_mutations()
+
+    def test_udm_wan_override_refuses_without_host_commands(self):
+        for virtual in (False, True):
+            if virtual:
+                self.virtual_profile()
+            with self.subTest(virtual=virtual):
+                result = self.invoke('--apply', '--wan-mac', '00:50:56:01:1e:69')
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('only for UXGENT', result.stderr)
+                self.assertEqual(self.commands(), [])
+
+    @unittest.skipUnless(hasattr(os, 'geteuid') and os.geteuid() == 0, 'Mock apply requires root test context')
+    def test_uxg_wan_mac_collision_with_final_vmid_block_prevents_mutation(self):
+        self.uxg_profile()
+        self.set_requested_vmid('auto')
+        result = self.invoke('--apply', '--wan-mac', '02:00:00:00:66:03',
+                             env=dict(self.env, FAKE_NEXTID_JSON='"102"'))
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('duplicates generated net3', result.stderr)
+        self.assert_no_vm_mutations()
+
+    @unittest.skipUnless(hasattr(os, 'geteuid') and os.geteuid() == 0, 'Mock apply requires root test context')
+    def test_uxg_accepts_exactly_six_ordered_bridges(self):
+        self.uxg_profile()
+        result = self.invoke('--apply', *sum((['--bridge', 'vmbr' + str(i)] for i in range(6)), []))
+        self.assertEqual(result.returncode, 0, result.stderr)
+        create = self.assert_selected_vmid(991, prefix='uxg-enterprise')
+        for index in range(6):
+            self.assertIn(',bridge=vmbr' + str(index) + ',link_down=1',
+                          create[create.index('--net' + str(index)) + 1])
+
+    def test_uxg_rejects_other_port_maps_before_any_host_command(self):
+        self.uxg_profile()
+        bad_maps = [('--port', '6=vmbr0'), ('--port', '13=vmbr0'),
+                    ('--port', '0=vmbr0', '--port', '0=vmbr1'),
+                    tuple(sum((['--bridge', 'vmbr0'] for _ in range(14)), [])),
+                    tuple(sum((['--bridge', 'vmbr0'] for _ in range(6)), []) + ['--port', '0=vmbr0'])]
+        for arguments in bad_maps:
+            with self.subTest(arguments=arguments):
+                result = self.invoke('--apply', *arguments)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertEqual(self.commands(), [])
+                self.assert_no_vm_mutations()
+
+    def test_unknown_or_mismatched_uxg_manifest_refused_before_host_commands(self):
+        self.uxg_profile()
+        path = self.assets / 'manifest.json'
+        original = json.loads(path.read_text())
+        for changes in ({'model': 'UXGOTHER'}, {'model': 'UDMEA4C'}, {'model': None},
+                        {'nics': 14}, {'nics': 6.0}, {'nics': True},
+                        {'profile': 'lab'}, {'status': 'experimental-boot-lab'}):
+            with self.subTest(changes=changes):
+                path.write_text(json.dumps(dict(original, **changes)))
+                result = self.invoke('--apply')
+                self.assertNotEqual(result.returncode, 0)
+                self.assertEqual(self.commands(), [])
+                self.assert_no_vm_mutations()
+
+    @unittest.skipUnless(hasattr(os, 'geteuid') and os.geteuid() == 0, 'Mock apply requires root test context')
+    def test_uxg_occupied_id_leaves_existing_udm_and_uxg_assets_intact(self):
+        self.uxg_profile()
+        self.set_requested_vmid(100)
+        markers = []
+        for prefix in ('udm-beast', 'uxg-enterprise'):
+            path = self.root / 'snippets' / (prefix + '-100') / 'Image'
+            path.parent.mkdir(parents=True)
+            path.write_bytes(('existing ' + prefix).encode())
+            markers.append((path, path.read_bytes()))
+        resources = [{'type': 'qemu', 'vmid': 100}, {'type': 'qemu', 'vmid': 101}]
+        result = self.invoke('--apply', env=dict(self.env, FAKE_RESOURCES_JSON=json.dumps(resources),
+                                                FAKE_NEXTID_JSON='"102"'))
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assert_selected_vmid(102, prefix='uxg-enterprise')
+        for path, content in markers:
+            self.assertEqual(path.read_bytes(), content)
+        self.assertFalse(any(c[0] == 'qm' and len(c) > 2 and c[2] in ('100', '101')
+                             for c in self.commands()))
 
     @unittest.skipUnless(hasattr(os, 'geteuid') and os.geteuid() == 0, 'Printed plan applies as root')
     def test_virtual_profile_creates_fourteen_disconnected_assignable_ports(self):

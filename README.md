@@ -1,21 +1,23 @@
-# UDM Beast unter Proxmox: experimentelles virtuelles Gateway
+# UDM Beast und UXG Enterprise unter Proxmox
 
-Das Tool baut aus der originalen UDM-Beast-Firmware ein ARM64-Bootpaket für
-QEMU und Proxmox. Das Profil `virtual` ergänzt die Anpassungen für virtuelle
-Hardware und stellt **14 frei zuweisbare Proxmox-Netzwerkports** bereit.
+Das Tool baut aus originaler UniFi-Firmware ein experimentelles ARM64-Bootpaket
+für QEMU und Proxmox. Das Profil `virtual` ergänzt die Anpassungen für virtuelle
+Hardware: **14 frei zuweisbare Ports für UDM Beast**, **sechs für UXG Enterprise**.
 Originalkernel und SquashFS bleiben unverändert; Anpassungen und Einstellungen
 liegen in einem separaten beschreibbaren Overlay.
 
-**Bekannte Einschränkung: Ubiquiti Remote Access funktioniert mit der aktuellen
+**UDM Beast (UDMEA4C): Ubiquiti Remote Access funktioniert mit der aktuellen
 virtuellen Geräteidentität nicht.** Die Cloud lehnt die Registrierung mit
 HTTP 400 und `Invalid eeprom` ab. DNS, synchronisierte Uhrzeit und TLS wurden
 im Gast geprüft; der EEPROM-Export des originalen Werkzeugs stimmt bytegenau
 mit den virtuellen Gerätedaten überein. Welche Prüfung die Cloud verlangt, ist nicht bekannt.
 Ein bestätigter Fix liegt derzeit nicht vor.
 [Diagnose vom 10. Oktober 2026](verification/remote-access/report.json).
+Diese Diagnose betrifft UDMEA4C. Der Cloudbetrieb der UXG Enterprise ist noch
+nicht nachgewiesen.
 
 **Die originale Ersteinrichtung und die IPv4-Grundfunktionen der Firewall sind
-mit R5 unter QEMU nachgewiesen.** Network erreicht `READY`, die originale
+für UDM Beast mit R5 unter QEMU nachgewiesen.** Network erreicht `READY`, die originale
 Setup-API richtet ein lokales Besitzerkonto ein, und die daraus erzeugten
 UniFi-Regeln bestehen NAT-, TCP-, UDP-, DNS- und WAN-Sperrtests. Die originale
 Webseite ist vom LAN per HTTPS erreichbar; interaktive Konfigurationsabläufe
@@ -33,6 +35,125 @@ Kernel, Initramfs und beiden Platten bei, direkt mit
 nur zum erneuten Erzeugen des Pakets nötig; auf dem Proxmox-Knoten wird die
 Firmwaredatei dafür nicht gebraucht. Das ursprüngliche Firmware-Updatefile
 (`*.bin`) ist im Release-Paket nicht enthalten.
+
+## UXG Enterprise 5.1.26: eigenes virtuelles Profil
+
+Das zusätzliche Profil unterstützt exakt **UXGENT.cn9670 5.1.26**. Es benötigt
+einen **externen UniFi-Network-Controller**; die UXG enthält keine integrierte
+Network-Anwendung. Die originale Firmware wurde mit sechs Ports auf einem
+Proxmox-Knoten gestartet. Der Benutzer hat die Adoption im externen Controller
+bestätigt; das originale `mca-cli-op info` meldete `connected`. Im Diagnoseboot
+liefen Setup, UDAPI-Server und -Bridge, mcagent, SSH und FreeRADIUS ohne
+Dienstneustarts. HTTP auf Port 80 leitet auf HTTPS weiter; Port 443 liefert die
+originale Seite mit HTTP 200. Nach einem zusätzlichen geordneten Neustart mit
+dem normalen Initramfs ohne Diagnoseerweiterung bestanden LAN-DHCP, DNS,
+TCP-NAT mit beobachteter WAN-Quelladresse und Rückverbindung sowie HTTPS erneut.
+Im untersuchten Startprotokoll trat kein Kernelabsturz auf.
+[UXG-Laufzeitbericht](verification/uxg-enterprise/report.json).
+
+Nicht nachgewiesen sind vollständige Firewall-Regelwerke, interaktive
+Web-Konfiguration, VLANs, IPv6, IPS-Filterwirkung, der UTM-Dienst auf Port 2080
+und Durchsatz. Die R5-/R5.1-/R5.2-Nachweise in den übrigen
+Abschnitten gelten für UDM Beast und werden nicht auf die UXG übertragen.
+
+Der vollständige SHA256 der unterstützten UXG-Firmware lautet:
+
+```text
+bedeac0a67329ec135025da352e490844be5aafd91a9c303ceba8fd8e424b4f0
+```
+
+Unter Linux mit den unten genannten Build-Abhängigkeiten und einem neuen
+Ausgabeordner bauen; `supplied.bin` durch den eigenen Firmwarepfad ersetzen:
+
+```bash
+python3 build.py --firmware supplied.bin --profile virtual --output build-uxg
+```
+
+Der Originalkernel und das schreibgeschützte SquashFS bleiben erhalten.
+Anpassungen und spätere Einstellungen liegen in der separaten Zustandsplatte.
+Die originale Linux-Switch-Struktur mit `switch0`, `switch0.1` und `br0` bleibt
+bestehen. Die sechs VirtIO-Karten haben zunächst folgende Rollen:
+
+| Proxmox-Karte | Gast-Interface | Anfängliche Rolle |
+| --- | --- | --- |
+| `net0` | `eth0` | WAN |
+| `net1`, `net2`, `net3` | `eth1`, `eth2`, `eth3` | Gemeinsames LAN |
+| `net4` | `eth4` | WAN2 |
+| `net5` | `eth5` | Gemeinsames LAN |
+
+`proxmox-import.sh` und das Verzeichnis `build-uxg` auf den Proxmox-Knoten
+kopieren. Storage und bereits vorhandene Bridges im Beispiel anpassen:
+
+```bash
+bash proxmox-import.sh --assets ./build-uxg --storage local-lvm \
+  --port 0=vmbr1 --port 1=vmbr2 --dry-run
+
+bash proxmox-import.sh --assets ./build-uxg --storage local-lvm \
+  --port 0=vmbr1 --port 1=vmbr2 --apply
+```
+
+Der Importer wählt automatisch eine freie VMID und erstellt eine ausgeschaltete
+VM mit allen sechs Karten. Ohne `--port` bleiben alle Ports frei zuweisbar.
+Host-Bridges werden nicht verändert. Alle Links sind zunächst getrennt;
+gewünschte Links später in Proxmox verbinden oder beim Import `--connect`
+ergänzen. Die ausgegebenen `qm start`- und `qm terminal`-Befehle verwenden die
+tatsächlich gewählte VMID.
+
+Bei einem Anschluss mit fest vorgegebener WAN-MAC kann beim Import zusätzlich
+`--wan-mac 02:00:00:00:00:80` angegeben werden; diese Beispieladresse durch die
+eigene Provider-Vorgabe ersetzen. Die Option gilt ausschließlich für UXG und
+setzt `net0` sowie den zugehörigen Gastparameter. Die virtuelle HAL behält
+diese explizite WAN-MAC bei. Alle sechs Karten und die übrigen generierten
+MAC-Adressen beibehalten; eine Bridge-Zuweisung ändert die WAN-/LAN-Rolle nicht.
+
+Nach dem Dienststart und bei erreichbarem externem Controller in der
+UXG-Konsole ausführen; `CONTROLLER` durch dessen Hostnamen oder IP ersetzen:
+
+```sh
+mca-cli-op set-inform http://CONTROLLER:8080/inform
+```
+
+Die Aufnahme des Gateways anschließend im externen UniFi Network durchführen.
+Die beobachtete Adoption und TCP-Weiterleitung belegen noch nicht sämtliche
+Provisionierungs- und Firewall-Funktionen.
+
+Die UXG-Anpassung ersetzt im exakt hashgeprüften UDAPI-Programm acht Bytes des
+physischen A12-Prüfpfads für Fertigungsdaten und Flash-Identität. Die VM besteht
+damit keine Herstellerattestierung. Es werden keine Herstellerzugangsdaten
+erzeugt; Benutzeranmeldung, Controller-Adoption und Firewall-Code bleiben
+durch diesen Patch unverändert.
+
+Für den virtuellen Datenträger maskiert das Profil `usd.service` und
+`create-sflash.service`, nachdem es das beschreibbare Overlay, das
+schreibgeschützte SquashFS, die ext4-Zustandsplatte und die persistenten
+Verzeichnisse geprüft hat. Diese Dienste erwarten physische Speicherhardware.
+Zusätzlich werden die hashgeprüften allgemeinen `nginx.service`,
+`nginx-debug.service` und `lighttpd.service` maskiert, damit sie den Port der
+originalen UXG-Setup-Anwendung nicht belegen. Der von UDAPI separat gestartete
+UTM-lighttpd mit `/run/utm/lighttpd.conf` auf Port 2080 bleibt erhalten.
+Vor der Korrektur stammte die HTTP-Antwort vom allgemeinen lighttpd und zeigte
+„UniFi - Web Page Blocked“. Nach der Korrektur wurden die originale
+HTTP-Weiterleitung und die HTTPS-Seite erfolgreich geprüft. Der separate
+UTM-Listener auf Port 2080 ist dadurch noch nicht als funktionsfähig bestätigt.
+Die originalen HAL-, Gateway- und Controller-Dienste bleiben erhalten.
+
+Beim Initialisieren des nativen IPS-Moduls `tm_crypto` wurde mit aktivierter
+ARM-Pointer-Authentication des QEMU-Modells `max` ein Kernelabsturz beobachtet.
+Importer und lokaler Runner setzen deshalb **ausschließlich für UXG** zusätzlich:
+
+```text
+-global max-arm-cpu.pauth=off
+```
+
+`pauth` steuert die emulierte ARM-Funktion `FEAT_Pauth`; die Option deaktiviert
+diese CPU-Funktion. [QEMU-Dokumentation zu TCG-CPU-Funktionen](https://www.qemu.org/docs/master/system/arm/cpu-features.html#tcg-vcpu-features).
+Der deaktivierte Zustand wurde am laufenden QEMU per QMP für alle vier CPUs
+bestätigt. Im beobachteten Start trat danach kein Kernelabsturz auf. Die
+originalen TDTS-/IPS-Module bleiben unverändert. In den Diagnose-Stichproben
+waren `tm_crypto` und `tdts` nicht geladen; ihre Filterwirkung ist noch nicht
+nachgewiesen. Bereits importierte UXG-VMs
+benötigen diese zusätzliche QEMU-Option ebenfalls; ein Neuimport ändert keine
+vorhandene VM.
 
 ## DNS-Korrektur R5.2
 
@@ -614,7 +735,14 @@ Tests des Toolcodes:
 python3 -m unittest discover -s tests -v
 ```
 
-Aktueller Testlauf: unter [Linux](verification/tool-tests-linux.log) 209 Fälle,
+Der [aktuelle Tool-Prüfbericht mit UXG-Unterstützung](verification/uxg-enterprise/static-tests.log)
+enthält unter Linux 294 Fälle: 288 bestanden, sechs plattformbedingt
+übersprungen. Diese sechs Windows-spezifischen Fälle bestanden anschließend
+unter Windows. Nach der letzten lighttpd-Anpassung bestanden zusätzlich alle
+neun gezielten UXG-Gasttests; die vollständige Suite wurde danach nicht erneut
+ausgeführt. Keine fehlgeschlagenen Fälle.
+
+Historischer UDM-R5-Testlauf: unter [Linux](verification/tool-tests-linux.log) 209 Fälle,
 davon 203 bestanden und sechs übersprungen; unter
 [Windows](verification/tool-tests-windows.log) 209 Fälle, davon 141 bestanden
 und 68 wegen Plattformvoraussetzungen übersprungen. Keine fehlgeschlagenen Fälle.

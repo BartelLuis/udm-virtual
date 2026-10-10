@@ -1,0 +1,379 @@
+{
+  "schema_version": 1,
+  "scope": "One remote boot with a temporary read-only diagnostic initrd; not the final normal-initrd reboot.",
+  "diagnostic_initrd_sha256": "1abd4229d7bfdcb7b1e2e9b003cedf3c6da7008015d2c59cab04cecfd78b77ff",
+  "based_on_normal_initrd_sha256": "19b8473a1926386bb0db23af5c44ef7258d492561f95c62a5c3b6a39970f2955",
+  "changed_archive_entries": [
+    "udm-virtual/boot.sh"
+  ],
+  "scheduled_sample_seconds": [
+    30,
+    90,
+    180
+  ],
+  "kernel_start_count_in_capture": 1,
+  "panic_count_in_capture": 0,
+  "diagnostic_completed": true,
+  "temporary_runtime_paths_self_cleanup_requested": true,
+  "samples": [
+    {
+      "scheduled_seconds": 30,
+      "kernel_uptime_seconds": 40,
+      "kernel": "5.15.72-ui-cn9670",
+      "controller_status": "other",
+      "reported_firmware_version": "5.1.26.33914",
+      "cpu_pointer_authentication": {
+        "paca": false,
+        "pacg": false
+      },
+      "services": {
+        "uxgpro-setup.service": {
+          "LoadState": "loaded",
+          "ActiveState": "activating",
+          "SubState": "start",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "udapi-server.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "udapi-bridge.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "mcagent.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "freeradius.service": {
+          "LoadState": "loaded",
+          "ActiveState": "activating",
+          "SubState": "start-pre",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "ssh.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "network-init.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "uhwd.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "usdbd.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        }
+      },
+      "live_modules": [
+        "drm",
+        "drm_panel_orientation_quirks",
+        "ifb",
+        "ip6_tables",
+        "ip6table_filter",
+        "ip6table_mangle",
+        "ip6table_nat",
+        "iptable_mangle",
+        "nf_conntrack_ftp",
+        "nf_conntrack_h323",
+        "nf_conntrack_pptp",
+        "nf_conntrack_tftp",
+        "nf_nat_ftp",
+        "nf_nat_h323",
+        "nf_nat_pptp",
+        "nf_nat_tftp",
+        "ppp_generic",
+        "slhc",
+        "ubnt_common",
+        "ubnthal",
+        "uio_pdrv_genirq",
+        "xt_connmark",
+        "xt_conntrack",
+        "xt_dpi",
+        "xt_dyn_random"
+      ],
+      "tm_crypto_loaded": false,
+      "tdts_loaded": false,
+      "xt_dpi_loaded": true,
+      "tcp_listening_ports": [
+        22,
+        53,
+        1080,
+        2601,
+        2623,
+        5201,
+        8686,
+        20201
+      ],
+      "utm_tcp_2080_listening": false
+    },
+    {
+      "scheduled_seconds": 90,
+      "kernel_uptime_seconds": 100,
+      "kernel": "5.15.72-ui-cn9670",
+      "controller_status": "connected",
+      "reported_firmware_version": "5.1.26.33914",
+      "cpu_pointer_authentication": {
+        "paca": false,
+        "pacg": false
+      },
+      "services": {
+        "uxgpro-setup.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "udapi-server.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "udapi-bridge.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "mcagent.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "freeradius.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "ssh.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "network-init.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "uhwd.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "usdbd.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        }
+      },
+      "live_modules": [
+        "drm",
+        "drm_panel_orientation_quirks",
+        "ifb",
+        "ip6_tables",
+        "ip6table_filter",
+        "ip6table_mangle",
+        "ip6table_nat",
+        "iptable_mangle",
+        "nf_conntrack_ftp",
+        "nf_conntrack_h323",
+        "nf_conntrack_pptp",
+        "nf_conntrack_tftp",
+        "nf_nat_ftp",
+        "nf_nat_h323",
+        "nf_nat_pptp",
+        "nf_nat_tftp",
+        "ppp_generic",
+        "slhc",
+        "ubnt_common",
+        "ubnthal",
+        "uio_pdrv_genirq",
+        "xt_connmark",
+        "xt_conntrack",
+        "xt_dpi",
+        "xt_dyn_random"
+      ],
+      "tm_crypto_loaded": false,
+      "tdts_loaded": false,
+      "xt_dpi_loaded": true,
+      "tcp_listening_ports": [
+        22,
+        53,
+        80,
+        443,
+        1080,
+        2601,
+        2623,
+        5201,
+        8686,
+        20201
+      ],
+      "utm_tcp_2080_listening": false
+    },
+    {
+      "scheduled_seconds": 180,
+      "kernel_uptime_seconds": 190,
+      "kernel": "5.15.72-ui-cn9670",
+      "controller_status": "connected",
+      "reported_firmware_version": "5.1.26.33914",
+      "cpu_pointer_authentication": {
+        "paca": false,
+        "pacg": false
+      },
+      "services": {
+        "uxgpro-setup.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "udapi-server.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "udapi-bridge.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "mcagent.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "freeradius.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "ssh.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "network-init.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "uhwd.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        },
+        "usdbd.service": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "running",
+          "Result": "success",
+          "NRestarts": "0"
+        }
+      },
+      "live_modules": [
+        "drm",
+        "drm_panel_orientation_quirks",
+        "ifb",
+        "ip6_tables",
+        "ip6table_filter",
+        "ip6table_mangle",
+        "ip6table_nat",
+        "iptable_mangle",
+        "nf_conntrack_ftp",
+        "nf_conntrack_h323",
+        "nf_conntrack_pptp",
+        "nf_conntrack_tftp",
+        "nf_nat_ftp",
+        "nf_nat_h323",
+        "nf_nat_pptp",
+        "nf_nat_tftp",
+        "ppp_generic",
+        "slhc",
+        "ubnt_common",
+        "ubnthal",
+        "uio_pdrv_genirq",
+        "xt_connmark",
+        "xt_conntrack",
+        "xt_dpi",
+        "xt_dyn_random"
+      ],
+      "tm_crypto_loaded": false,
+      "tdts_loaded": false,
+      "xt_dpi_loaded": true,
+      "tcp_listening_ports": [
+        22,
+        53,
+        80,
+        443,
+        1080,
+        2601,
+        2623,
+        5201,
+        8686,
+        20201
+      ],
+      "utm_tcp_2080_listening": false
+    }
+  ],
+  "ips_verified": false,
+  "utm_tcp_2080_verified": false,
+  "limitation": "tm_crypto and tdts were not loaded in any sample, and TCP 2080 was absent. xt_dpi being loaded does not prove native IPS or UTM operation. No panic in this capture does not prove tm_crypto initialization succeeds with pauth disabled.",
+  "privacy": "Only allowlisted states, module names and local TCP port numbers are published. No IP/MAC addresses, controller endpoint, device identifiers, credentials, configurations or raw journals."
+}

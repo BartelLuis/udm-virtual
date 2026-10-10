@@ -1,0 +1,24 @@
+UXGENT 5.1.26 CPU compatibility evidence
+
+Original kernel: 5.15.72-ui-cn9670.
+CONFIG_ARM64_PTR_AUTH=y; CONFIG_ARM64_PTR_AUTH_KERNEL is not set.
+
+Original tm_crypto.ko SHA256:
+5153093ed33a4c89d7bd05eb736231731c6199cfb451651c0328d47749f4e7fa
+Original tdts.ko SHA256:
+efa639f0bbd5beeb5291bdbb1be323b79c042e3615493111de53ca4955c87bb7
+
+A previous controller-provisioned boot failed at tdts_crypto_init+0xec [tm_crypto],
+reaching the kernel do_ptrauth_fault handler. Static disassembly identifies that
+exact location as AUTIASP at module .text+0x1a0, file offset0x1e0, bytesbf2303d5.
+The function starts at .text+0xb4 with PACIASP, bytes3f2303d5. The module has no
+.altinstructions or .altinstr_replacement sections. Original module bytes are
+retained; the virtual CPU profile uses max with pauth=false.
+
+QEMU confirms pauth=false on all four CPUs; the transient diagnostic reports
+neither paca nor pacg guest features. This diagnostic capture has no panic, but
+neither tm_crypto nor tdts is loaded. Successful native IPS initialization is
+therefore still unverified; this is not a completed IPS-runtime test.
+
+Primary QEMU documentation for disabling the CPU feature:
+https://www.qemu.org/docs/master/system/arm/cpu-features.html#tcg-vcpu-features
