@@ -6,6 +6,14 @@ Hardware und stellt **14 frei zuweisbare Proxmox-Netzwerkports** bereit.
 Originalkernel und SquashFS bleiben unverändert; Anpassungen und Einstellungen
 liegen in einem separaten beschreibbaren Overlay.
 
+**Bekannte Einschränkung: Ubiquiti Remote Access funktioniert mit der aktuellen
+virtuellen Geräteidentität nicht.** Die Cloud lehnt die Registrierung mit
+HTTP 400 und `Invalid eeprom` ab. DNS, synchronisierte Uhrzeit und TLS wurden
+im Gast geprüft; der EEPROM-Export des originalen Werkzeugs stimmt bytegenau
+mit den virtuellen Gerätedaten überein. Welche Prüfung die Cloud verlangt, ist nicht bekannt.
+Ein bestätigter Fix liegt derzeit nicht vor.
+[Diagnose vom 10. Oktober 2026](verification/remote-access/report.json).
+
 **Die originale Ersteinrichtung und die IPv4-Grundfunktionen der Firewall sind
 mit R5 unter QEMU nachgewiesen.** Network erreicht `READY`, die originale
 Setup-API richtet ein lokales Besitzerkonto ein, und die daraus erzeugten
@@ -108,6 +116,7 @@ mit der von UniFi selbst erzeugten Firewall-Konfiguration getestet.
 | Später PHY-Diagnosehook | Historischer Stand R3/R4: Modulladung verweigert, Ersatzhook erfolgreich und später Systemstart bis zu aktiven `multi-user.target` und `sysready.target` bestätigt |
 | IPv4-NAT und Firewall-Paketfilter | Sechs Prüfungen mit originaler UniFi-Regelmenge bestanden; zusätzlich echte TCP-/UDP-Rundläufe und WAN-TCP-Sperre bestanden |
 | DNS und Weboberfläche | DNS über das originale Gateway und anonymer HTTPS-Abruf der UniFi-HTML-Seite bestanden |
+| Ubiquiti Remote Access / Site Manager | Aktuell nicht funktionsfähig: Cloudregistrierung verweigert das virtuelle EEPROM mit HTTP 400; kein bestätigter Fix |
 | Sauberes Herunterfahren und erneuter Start | Besitzeranmeldung, konfigurierte Network-Anwendung und sämtliche nativen IPv4-Tests erneut bestanden |
 | Interaktive Browser-Konfiguration, VLANs und IPv6 | Noch offen |
 | Kaltstart bis zum abgeschlossenen nativen IPv4-Pakettest | R5 bestanden, rund 716,3 Sekunden; 8 GiB Gast-RAM, sechs emulierte Kerne |

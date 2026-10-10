@@ -193,5 +193,13 @@
     "initramfs_tests_passed": 7,
     "equivalent_live_repair_confirmed": true,
     "new_coldboot_verified": false
+  },
+  "remote_access": {
+    "report": "remote-access/report.json",
+    "status": "not_functional_with_current_virtual_identity",
+    "cloud_registration_http_status": 400,
+    "reason": "Invalid eeprom",
+    "verified_fix_available": false,
+    "observed_date": "2026-10-10"
   }
 }

@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "date": "2026-10-10",
+  "status": "cloud_registration_rejected_virtual_eeprom",
+  "scope": "Diagnostic inspection in an existing user-operated Proxmox VM after the persistent DNS repair, including a temporary EEPROM export that was removed. No registration requests, account changes or cloud configuration changes were performed by the diagnostic.",
+  "user_report": {
+    "signed_in_as_owner": true,
+    "ui_error": "an Unexpected Error occured"
+  },
+  "guest_observations": {
+    "guest_access": "Already authenticated root serial console via authorized Proxmox host",
+    "unifi_core_active": true,
+    "ntp_synchronized": true,
+    "verified_tls_443": [
+      "account.ui.com",
+      "sso.ui.com",
+      "unifi.ui.com"
+    ],
+    "failure_log": "/data/unifi-core/logs/cloud.log",
+    "registration_attempts_observed": [
+      "2026-10-09T22:17:55+02:00",
+      "2026-10-10T10:22:18+02:00"
+    ],
+    "failed_operation": "Cloud API Gateway POST /register",
+    "http_status": 400,
+    "error_code": "PROCESSING_EXCEPTION",
+    "reason": "Unable to generate deviceId based on eeprom. Invalid eeprom.",
+    "virtual_eeprom_public_descriptor_and_crc_valid": true,
+    "virtual_eeprom_matches_persistent_generated_identity": true,
+    "original_export_command": "ubnt-tools id <temporary-file>",
+    "export_exit_code": 0,
+    "export_stderr_bytes": 0,
+    "export_bytes": 65536,
+    "export_exactly_matches_runtime_virtual_eeprom": true,
+    "temporary_export_removed": true,
+    "raw_eeprom_and_account_data_included_in_report": false
+  },
+  "original_firmware_analysis": {
+    "core_service_js_sha256": "9def42c03b368a9434b1b3d5ee48f7a295bae616ae1060639f4c53c4e292fbb0",
+    "ubnt_tools_sha256": "b158615d9ba1d21a31c29e923d3be23796c95c43cadea2b73e1ce1460e18058e",
+    "core_registration_sequence": [
+      "Bind an existing local owner to the supplied UI account through the normal authenticated registration API",
+      "Wait for synchronized time",
+      "Run ubnt-tools id with an output file and read its bytes",
+      "POST hardwareId from board.uuid, ownerId and base64 of the exported EEPROM to cloud /register",
+      "Receive connection settings and MQTT client credentials only after successful registration"
+    ],
+    "udmea4c_export_format": "Exact copy of the complete 65536-byte EEPROM, without a new envelope, encryption or recomputed checksum",
+    "automatic_retry_omits_rejected_eeprom": false,
+    "virtual_identity_origin": "Locally generated public board metadata; manufacturer credential regions remain absent",
+    "supported_virtual_udmea4c_cloud_registration_route_found": false
+  },
+  "conclusion": "The cloud rejects the current synthetic EEPROM. No demonstrated transport, serialization or local CRC defect explains this rejection, and no verified repair is currently available.",
+  "limits": [
+    "The cloud error does not disclose whether a field, format, signature or other validation fails.",
+    "A mandatory cryptographic attestation or secure-element requirement is not established by this diagnosis.",
+    "Missing pre-registration MQTT credentials are not by themselves the proven cause; the original flow receives them after successful registration.",
+    "No identity cloning, model changes, forced EEPROM omission or local cloud-state changes were attempted.",
+    "VPN access and cloud-dependent features such as Teleport were not tested."
+  ]
+}
